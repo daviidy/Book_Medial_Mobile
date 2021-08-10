@@ -23,10 +23,16 @@ class _MainApplicationState extends State<MainApplication> {
   @override
   void initState() {
     super.initState();
+    // Rotation d'écran
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    // Gestion Status Barre état full-Screen
+    SystemChrome.setEnabledSystemUIOverlays([]);
+    // Gestion Status Barre état no full-Screen
+    // SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+
   }
 
   @override
@@ -45,6 +51,7 @@ class _MainApplicationState extends State<MainApplication> {
 
   @override
   dispose() {
+    // Rotation d'écran
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,

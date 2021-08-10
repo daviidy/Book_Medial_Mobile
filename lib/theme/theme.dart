@@ -55,8 +55,8 @@ class AppTheme {
 
   static globalFont(TextStyle? style) {
     if (style == null) {
-      return GoogleFonts.roboto();
+      return GoogleFonts.montserrat();
     }
-    return GoogleFonts.roboto(textStyle: style);
+    return GoogleFonts.montserrat(textStyle: style);
   }
 }
