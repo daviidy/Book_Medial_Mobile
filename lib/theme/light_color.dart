@@ -22,7 +22,7 @@ class LightColor {
   static const Color black = Color(0xff20262C);
   static const Color lightblack = Color(0xff5F5F60);
 
-  static  Color second = Color(0xffC11B0E);
+  static  Color second = Color(0xff4D7701);
   static  Color primary = Color(0xffF46500);
 
   static  Color maron1 = Color(0xff930B0B);

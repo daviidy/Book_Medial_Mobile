@@ -40,4 +40,45 @@ class ShareWidget {
       ),
     );
   }
+
+  static Widget headerStyle1({
+    required BuildContext context,
+    String? route,
+    String? text1,
+    String? text2,
+  }) {
+    return Container(
+      padding: EdgeInsets.only(right: 15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Container(
+                padding: EdgeInsets.only(top: 5),
+                child: Image.asset("assets/icons/right-arrow.png")),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pushNamed(context, "$route"),
+            child: AutoSizeText.rich(TextSpan(
+                style: AppTheme.globalFont(TextStyle(
+                  fontSize: 14,
+                  color: const Color(0xff313450),
+                )),
+                children: [
+                  TextSpan(
+                    text: "$text1",
+                  ),
+                  TextSpan(
+                      text: "$text2",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                      ))
+                ])),
+          )
+        ],
+      ),
+    );
+  }
 }
