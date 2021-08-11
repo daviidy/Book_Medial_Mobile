@@ -45,17 +45,17 @@ class _IntroMobile extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(20.0)),
                     child: Stack(
                       children: <Widget>[
-                        SvgPicture.asset(item),
+                        //SvgPicture.asset(item),
                         Container(
                           //margin: EdgeInsets.only(bottom: 10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20.0),
-                            // image: DecorationImage(
-                            //   image: NetworkImage(item),
-                            //   fit: BoxFit.cover,
-                            // ),
+                            image: DecorationImage(
+                              image: AssetImage(item),
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                          child: SvgPicture.asset(item),
+                          //child: SvgPicture.asset(item),
                         ),
                         Positioned(
                           bottom: 0.0,
@@ -65,16 +65,16 @@ class _IntroMobile extends StatelessWidget {
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 colors: [
-                                  Color.fromARGB(240, 240, 240, 240),
-                                  Color.fromARGB(200, 200, 200, 200),
-                                  Color.fromARGB(100, 100, 100, 100),
-                                  Color.fromARGB(0, 0, 0, 0)
+                                  Color.fromARGB(200, 255, 255, 255),
+                                  Color.fromARGB(190, 255, 255, 255),
+                                  Color.fromARGB(100, 255, 255, 255),
+                                  Color.fromARGB(0, 255, 255, 255)
                                 ],
                                 begin: Alignment.bottomCenter,
                                 end: Alignment.topCenter,
                               ),
                             ),
-                            padding: EdgeInsets.only(top: 100, bottom: 10),
+                            padding: EdgeInsets.only(top: (AppTheme.fullHeight(context) / 1.9)/3, bottom: 10),
                             child: TextButton(
                               //padding: EdgeInsets.all(0),
                               onPressed: () => Navigator.pushNamed(context, '/login'),

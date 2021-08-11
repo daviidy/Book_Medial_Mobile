@@ -5,9 +5,9 @@ class IntroViewModel extends BaseViewModel {
   IntroViewModel();
 
   final List<String> imgList = [
-  'assets/images/intro1.svg',
-  'assets/images/intro2.svg',
-  'assets/images/intro3.svg',
+  'assets/images/intro1.png',
+  'assets/images/intro2.png',
+  'assets/images/intro3.png',
 ];
 
 
