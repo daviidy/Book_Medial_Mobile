@@ -27,7 +27,7 @@ class _LoginMobile extends StatelessWidget {
                 name: "passwd",
                 labelText: "Mot de passe",
                 rightLabel: GestureDetector(
-                  onTap: () => null,
+                  onTap: () => Navigator.pushNamed(context, "/forget-password/step1"),
                   child: AutoSizeText(
                     "Mot de passe oublié ?",
                     style: AppTheme.globalFont(
@@ -190,7 +190,7 @@ class _LoginMobile extends StatelessWidget {
                 height: 50,
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(horizontal: 14),
                 child: TextButton(
                   onPressed: () => viewModel.login(context),
                   child: ShareWidget.button(

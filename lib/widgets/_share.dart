@@ -118,6 +118,35 @@ class ShareWidget {
     );
   }
 
+  static Widget headerStyle2({
+    required BuildContext context,
+    String? text1 = "",
+  }) {
+    return Container(
+      padding: EdgeInsets.only(right: 15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Container(
+                padding: EdgeInsets.only(top: 5),
+                child: Image.asset("assets/icons/right-arrow.png")),
+          ),
+          AutoSizeText(
+            "$text1",
+            style: AppTheme.globalFont(TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: const Color(0xff313450),
+            )),
+          ),
+        ],
+      ),
+    );
+  }
+
   static Widget input(
       {required String name,
       String? labelText,
@@ -172,7 +201,7 @@ class ShareWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
               color: const Color(0xffF6F6F6),
-              border: Border.all(width: 1.0, color: const Color(0xffE9E9E9)),
+              border: Border.all(width: 1.0, color: const Color(0xffDFDBDB)),
               // boxShadow: [
               //   BoxShadow(
               //       color: const Color(0x0d000000),

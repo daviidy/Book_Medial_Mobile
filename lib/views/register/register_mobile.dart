@@ -378,7 +378,7 @@ class _RegisterMobile extends StatelessWidget {
                 height: 10,
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(horizontal: 14),
                 child: TextButton(
                   onPressed: () => viewModel.register(context),
                   child: ShareWidget.button(
