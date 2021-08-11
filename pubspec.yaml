@@ -74,6 +74,9 @@ flutter:
     - assets/icons/facebook.png
     - assets/icons/google.png
     - assets/icons/right-arrow.png
+    - assets/icons/select-actif.png
+    - assets/icons/select-inactif.png
+    - assets/icons/eye.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

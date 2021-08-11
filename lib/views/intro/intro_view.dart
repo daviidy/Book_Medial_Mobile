@@ -28,6 +28,7 @@ class _IntroViewState extends State<IntroView> {
         viewModel: viewModel,
         onModelReady: (viewModel) {
           // Do something once your viewModel is initialized
+          viewModel.init(context);
         },
         builder: (context, viewModel, child) {
           return ScreenTypeLayout(
