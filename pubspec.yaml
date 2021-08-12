@@ -55,6 +55,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: any
+  json_serializable: ^4.1.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -72,6 +74,11 @@ flutter:
     - assets/images/intro1.png
     - assets/images/intro2.png
     - assets/images/intro3.png
+    - assets/images/home1.png
+    - assets/images/home2.png
+    - assets/images/home3.png
+    - assets/images/home4.png
+    - assets/images/home5.png
     - assets/icons/facebook.png
     - assets/icons/google.png
     - assets/icons/right-arrow.png
@@ -80,6 +87,9 @@ flutter:
     - assets/icons/eye.png
     - assets/icons/user.png
     - assets/icons/user-baground.png
+    - assets/icons/arrow-right.png
+    - assets/icons/location.png
+    - assets/icons/map.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

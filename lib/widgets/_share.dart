@@ -219,7 +219,7 @@ class ShareWidget {
     Widget? body,
     EdgeInsets? margin = const EdgeInsets.only(top: 10),
     EdgeInsets? padding = const EdgeInsets.all(15),
-   }) {
+  }) {
     return Container(
       // width: width,
       // height: height,
@@ -286,6 +286,146 @@ class ShareWidget {
           ),
         ],
       ),
+    );
+  }
+
+  static Widget boxHotel1({
+    required BuildContext context,
+    Map? data,
+    String? route,
+    String? name,
+    String? location,
+    String image = "assets/images/intro1.png",
+    double? width = 50.0,
+    double height = 50.0,
+    EdgeInsets? margin = const EdgeInsets.all(0),
+    EdgeInsets? padding = const EdgeInsets.all(0),
+  }) {
+    return Container(
+      width: width,
+      height: height,
+      margin: margin,
+      padding: padding,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.0),
+        color: Colors.black,
+        image: DecorationImage(
+          image: AssetImage(image),
+          fit: BoxFit.cover,
+        ),
+        boxShadow: [
+          BoxShadow(
+              color: Colors.black26,
+              offset: Offset(0, 4),
+              blurRadius: 10)
+        ],
+      ),
+      child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20.0),
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(200, 0, 0, 0),
+                Color.fromARGB(190, 0, 0, 0),
+                Color.fromARGB(100, 0, 0, 0),
+                Color.fromARGB(0, 0, 0, 0),
+                Color.fromARGB(0, 0, 0, 0),
+                Color.fromARGB(0, 0, 0, 0),
+                Color.fromARGB(0, 0, 0, 0),
+                Color.fromARGB(0, 0, 0, 0),
+              ],
+              begin: Alignment.bottomCenter,
+              end: Alignment.topCenter,
+            ),
+          ),
+          padding: EdgeInsets.only(left: 20, bottom: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              AutoSizeText(
+                "Nom",
+                style: AppTheme.globalFont(TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600)),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Row(
+                children: [
+                  Image.asset("assets/icons/location.png"),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  AutoSizeText(
+                    "Lieu",
+                    style: AppTheme.globalFont(TextStyle(
+                        fontSize: 14,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400)),
+                  ),
+                ],
+              ),
+            ],
+          )),
+    );
+  }
+
+
+  static Widget boxHotel2({
+    required BuildContext context,
+    Map? data,
+    String? route,
+    String? name,
+    String? location,
+    String image = "assets/images/intro1.png",
+    double? width = 50.0,
+    double height = 50.0,
+    Widget? body,
+    EdgeInsets? margin = const EdgeInsets.all(0),
+    EdgeInsets? padding = const EdgeInsets.all(0),
+  }) {
+    return Container(
+      width: width,
+      height: height,
+      margin: margin,
+      padding: EdgeInsets.all(0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.0),
+        color: Colors.black,
+        image: DecorationImage(
+          image: AssetImage(image),
+          fit: BoxFit.cover,
+        ),
+        boxShadow: [
+          BoxShadow(
+              color: Colors.black26,
+              offset: Offset(0, 4),
+              blurRadius: 10)
+        ],
+      ),
+      child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20.0),
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(200, 0, 0, 0),
+                Color.fromARGB(190, 0, 0, 0),
+                Color.fromARGB(100, 0, 0, 0),
+                Color.fromARGB(0, 0, 0, 0),
+                // Color.fromARGB(0, 0, 0, 0),
+                // Color.fromARGB(0, 0, 0, 0),
+                // Color.fromARGB(0, 0, 0, 0),
+                // Color.fromARGB(0, 0, 0, 0),
+              ],
+              begin: Alignment.bottomCenter,
+              end: Alignment.topCenter,
+            ),
+          ),
+          padding: padding,
+          child: body),
     );
   }
 }
