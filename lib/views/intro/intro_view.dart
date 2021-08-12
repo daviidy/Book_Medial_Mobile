@@ -6,7 +6,6 @@ import 'package:book_medial/theme/light_color.dart';
 import 'package:book_medial/theme/theme.dart';
 import 'package:book_medial/widgets/_share.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:flutter/material.dart';
 import 'intro_view_model.dart';

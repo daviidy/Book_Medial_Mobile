@@ -78,6 +78,8 @@ flutter:
     - assets/icons/select-actif.png
     - assets/icons/select-inactif.png
     - assets/icons/eye.png
+    - assets/icons/user.png
+    - assets/icons/user-baground.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

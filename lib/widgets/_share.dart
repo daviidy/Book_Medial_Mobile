@@ -214,4 +214,78 @@ class ShareWidget {
       ),
     );
   }
+
+  static Widget boxMain({
+    Widget? body,
+    EdgeInsets? margin = const EdgeInsets.only(top: 10),
+    EdgeInsets? padding = const EdgeInsets.all(15),
+   }) {
+    return Container(
+      // width: width,
+      // height: height,
+      margin: margin,
+      padding: padding,
+      //height: 456.0,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.0),
+        color: const Color(0xffffffff),
+        boxShadow: [
+          BoxShadow(
+              color: const Color(0x17000000),
+              offset: Offset(0, 5),
+              blurRadius: 20)
+        ],
+      ),
+      child: body,
+    );
+  }
+
+  static Widget box1(
+      {String? value = "",
+      String? labelText,
+      double? width,
+      EdgeInsets? padding = const EdgeInsets.all(10)}) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: EdgeInsets.only(left: 0),
+            child: AutoSizeText(
+              "$labelText",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: AppTheme.globalFont(
+                  TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Container(
+            width: width,
+            padding: padding,
+            child: AutoSizeText("$value",
+                maxLines: 1,
+                minFontSize: 13,
+                maxFontSize: 14,
+                overflow: TextOverflow.ellipsis,
+                style: AppTheme.globalFont(
+                    TextStyle(fontWeight: FontWeight.w600, fontSize: 14))),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.0),
+              color: const Color(0xffF6F6F6),
+              border: Border.all(width: 1.0, color: const Color(0xffDFDBDB)),
+              // boxShadow: [
+              //   BoxShadow(
+              //       color: const Color(0x0d000000),
+              //       offset: Offset(0, 2),
+              //       blurRadius: 5)
+              // ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
