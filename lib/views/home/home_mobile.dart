@@ -73,7 +73,7 @@ class _HomeMobile extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: TextButton(
-                  onPressed: () => null,
+                  onPressed: () => Navigator.pushNamed(context, "/voir-plus", arguments: roomGroup),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -123,22 +123,22 @@ class _HomeMobile extends StatelessWidget {
     return Scaffold(
         body: CustomScrollView(
       slivers: [
-        const SliverAppBar(
-          // Provide a standard title.
-          //title: Text("hello"),
-          // Allows the user to reveal the app bar if they begin scrolling
-          // back up the list of items.
-          leading: null,
-          floating: false,
-          pinned: true,
-          //backgroundColor: Colors.transparent,
-          // Display a placeholder widget to visualize the shrinking size.
-          flexibleSpace: FlexibleSpaceBar(
-            title: Text("data"),
-          ),
-          // Make the initial height of the SliverAppBar larger than normal.
-          expandedHeight: 200,
-        ),
+        // const SliverAppBar(
+        //   // Provide a standard title.
+        //   //title: Text("hello"),
+        //   // Allows the user to reveal the app bar if they begin scrolling
+        //   // back up the list of items.
+        //   leading: null,
+        //   floating: false,
+        //   pinned: true,
+        //   //backgroundColor: Colors.transparent,
+        //   // Display a placeholder widget to visualize the shrinking size.
+        //   flexibleSpace: FlexibleSpaceBar(
+        //     title: Text("data"),
+        //   ),
+        //   // Make the initial height of the SliverAppBar larger than normal.
+        //   expandedHeight: 200,
+        // ),
         SliverList(
             delegate: SliverChildListDelegate([
           Container(

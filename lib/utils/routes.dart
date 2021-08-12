@@ -5,6 +5,7 @@ import 'package:book_medial/views/home/home_view.dart';
 import 'package:book_medial/views/intro/intro_view.dart';
 import 'package:book_medial/views/login/login_view.dart';
 import 'package:book_medial/views/register/register_view.dart';
+import 'package:book_medial/views/voir_plus/voir_plus_view.dart';
 import 'package:flutter/material.dart';
 
 final routes = {
@@ -12,6 +13,7 @@ final routes = {
   '/login': (BuildContext context) => new LoginView(),
   '/register': (BuildContext context) => new RegisterView(),
   '/home': (BuildContext context) => new HomeView(),
+  '/voir-plus': (BuildContext context) => new VoirPlusView(),
   '/forget-password/step1': (BuildContext context) => new StepOneView(),
   '/forget-password/step2': (BuildContext context) => new StepTwoView(),
   '/forget-password/step3': (BuildContext context) => new StepThreeView(),
