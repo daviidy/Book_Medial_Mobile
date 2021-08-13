@@ -246,6 +246,31 @@ class ShareWidget {
     );
   }
 
+  static Widget boxRoom({
+    Widget? body,
+    EdgeInsets? margin = const EdgeInsets.only(top: 10),
+    EdgeInsets? padding = const EdgeInsets.all(15),
+  }) {
+    return Container(
+      // width: width,
+      // height: height,
+      margin: margin,
+      padding: padding,
+      //height: 456.0,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.0),
+        color: const Color(0xffffffff),
+        boxShadow: [
+          BoxShadow(
+              color: const Color(0x17000000),
+              offset: Offset(0, 5),
+              blurRadius: 20)
+        ],
+      ),
+      child: body,
+    );
+  }
+
   static Widget box1(
       {String? value = "",
       String? labelText,

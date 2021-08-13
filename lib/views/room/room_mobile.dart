@@ -405,7 +405,7 @@ class _RoomMobile extends StatelessWidget {
                       height: 30,
                     ),
                     TextButton(
-                      onPressed: () => null,
+                      onPressed: () => Navigator.pushNamed(context, '/room-disponible'),
                       child: ShareWidget.button(
                           context: context,
                           title: "Voir les disponibilités",

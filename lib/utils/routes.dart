@@ -6,6 +6,8 @@ import 'package:book_medial/views/intro/intro_view.dart';
 import 'package:book_medial/views/login/login_view.dart';
 import 'package:book_medial/views/register/register_view.dart';
 import 'package:book_medial/views/room/room_view.dart';
+import 'package:book_medial/views/room_disponible/room_disponible_view.dart';
+import 'package:book_medial/views/room_reservation/room_reservation_view.dart';
 import 'package:book_medial/views/voir_plus/voir_plus_view.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +18,8 @@ final routes = {
   '/home': (BuildContext context) => new HomeView(),
   '/voir-plus': (BuildContext context) => new VoirPlusView(),
   '/room': (BuildContext context) => new RoomView(),
+  '/room-disponible': (BuildContext context) => new RoomDisponibleView(),
+  '/room-reservation': (BuildContext context) => new RoomReservationView(),
   '/forget-password/step1': (BuildContext context) => new StepOneView(),
   '/forget-password/step2': (BuildContext context) => new StepTwoView(),
   '/forget-password/step3': (BuildContext context) => new StepThreeView(),

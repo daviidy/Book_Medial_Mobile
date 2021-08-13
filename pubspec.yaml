@@ -51,6 +51,7 @@ dependencies:
   photo_view: ^0.12.0
   carousel_slider: ^4.0.0
   pin_code_fields: ^7.3.0
+  flutter_rating_bar: ^4.0.0
 
 dev_dependencies:
   flutter_test:
@@ -100,6 +101,10 @@ flutter:
     - assets/icons/line2.png
     - assets/icons/arrow-right1.png
     - assets/icons/arrow-left1.png
+    - assets/icons/filtre.png
+    - assets/icons/bed.png
+    - assets/icons/personnes.png
+    - assets/icons/valide.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
