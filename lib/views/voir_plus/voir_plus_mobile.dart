@@ -90,6 +90,7 @@ class _VoirPlusMobile extends StatelessWidget {
                 child: Column(
                   children: viewModel.roomGroup!.rooms
                       .map((room) => ShareWidget.boxHotel1(
+                            room: room,
                             context: context,
                             height: 160,
                             width: AppTheme.fullWidth(context),

@@ -16,7 +16,7 @@ class LoginViewModel extends BaseViewModel {
     if (this.loginFormKey.currentState!.saveAndValidate()) {
       Map loginData = new Map.from(loginFormKey.currentState!.value);
       print(loginData);
-      Navigator.pushNamed(context, "/home");
+      Navigator.pushNamed(context, "/home", arguments: true);
       // Map rp = await WsAuth.login(data: loginData);
       // print(rp);
       // if (rp["status"]) {
@@ -29,7 +29,8 @@ class LoginViewModel extends BaseViewModel {
       //   SharedFunc.toast(msg: "$ms", toastLength: Toast.LENGTH_LONG);
       // }
     } else {
-      SharedFunc.toast(msg: "Veuillez remplir les champs requis.");
+      Navigator.pushNamed(context, "/home", arguments: false);
+      // SharedFunc.toast(msg: "Veuillez remplir les champs requis.");
     }
 
     // this.loader = false;

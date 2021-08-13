@@ -22,11 +22,12 @@ class LightColor {
   static const Color black = Color(0xff20262C);
   static const Color lightblack = Color(0xff5F5F60);
 
-  static  Color second = Color(0xff4D7701);
-  static  Color primary = Color(0xffF46500);
+  static Color second = Color(0xff4D7701);
+  static Color primary = Color(0xffF46500);
+  static Color textGrey = Color(0XffBDBDBD);
 
-  static  Color maron1 = Color(0xff930B0B);
-  static  Color maron2 = Color(0xffBB4127);
-  static  Color maron3 = Color(0xff490103);
-  static  Color jaune1 = Color(0xffFDBC3C);
+  static Color maron1 = Color(0xff930B0B);
+  static Color maron2 = Color(0xffBB4127);
+  static Color maron3 = Color(0xff490103);
+  static Color jaune1 = Color(0xffFDBC3C);
 }

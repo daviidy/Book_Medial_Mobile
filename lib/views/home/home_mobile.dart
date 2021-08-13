@@ -67,7 +67,7 @@ class _HomeMobile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   AutoSizeText(
-                    "Autour de moi",
+                    "Abidjan",
                     maxLines: 1,
                     maxFontSize: 14,
                     minFontSize: 14,
@@ -154,6 +154,7 @@ class _HomeMobile extends StatelessWidget {
               child: Row(
                   children: roomGroup.rooms
                       .map((room) => ShareWidget.boxHotel1(
+                            room: room,
                             context: context,
                             height: roomGroup.style!.height,
                             width: roomGroup.style!.width,
@@ -258,7 +259,8 @@ class _HomeMobile extends StatelessWidget {
                   ShareWidget.boxHotel2(
                       context: context,
                       width: AppTheme.fullWidth(context),
-                      padding: EdgeInsets.all(20),
+                      padding: EdgeInsets.only(
+                            right: 20, left: 20, top: 0, bottom: 10),
                       height: 132,
                       margin: EdgeInsets.only(top: 30),
                       body: Column(
@@ -300,16 +302,19 @@ class _HomeMobile extends StatelessWidget {
                             ],
                           ),
                           SizedBox(
-                            height: 20,
+                            height: 5,
                           ),
-                          ShareWidget.button(
-                              context: context,
-                              backgoundColor: Colors.white,
-                              borderWidth: 0.0,
-                              title: "Recherche à proximité",
-                              textColor: LightColor.primary,
-                              height: 32,
-                              margin: 0),
+                          TextButton(
+                            onPressed: () => null,
+                            child: ShareWidget.button(
+                                context: context,
+                                backgoundColor: Colors.white,
+                                borderWidth: 0.0,
+                                title: "Recherche à proximité",
+                                textColor: LightColor.primary,
+                                height: 32,
+                                margin: 0),
+                          ),
                         ],
                       )),
                   if (!viewModel.isLogin)
@@ -318,7 +323,7 @@ class _HomeMobile extends StatelessWidget {
                         margin: EdgeInsets.only(top: 30),
                         width: AppTheme.fullWidth(context),
                         padding: EdgeInsets.only(
-                            right: 20, left: 20, top: 0, bottom: 20),
+                            right: 20, left: 20, top: 0, bottom: 10),
                         height: 132,
                         image: "assets/images/intro3.png",
                         body: Column(
@@ -348,16 +353,19 @@ class _HomeMobile extends StatelessWidget {
                                   color: Colors.white)),
                             ),
                             SizedBox(
-                              height: 10,
+                              height: 5,
                             ),
-                            ShareWidget.button(
-                                context: context,
-                                backgoundColor: Colors.white,
-                                borderWidth: 0.0,
-                                title: "Creer un compte / Se connecter",
-                                textColor: LightColor.primary,
-                                height: 32,
-                                margin: 0),
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: ShareWidget.button(
+                                  context: context,
+                                  backgoundColor: Colors.white,
+                                  borderWidth: 0.0,
+                                  title: "Creer un compte / Se connecter",
+                                  textColor: LightColor.primary,
+                                  height: 32,
+                                  margin: 0),
+                            ),
                           ],
                         )),
                   ShareWidget.boxHotel2(
@@ -365,7 +373,7 @@ class _HomeMobile extends StatelessWidget {
                       width: AppTheme.fullWidth(context),
                       margin: EdgeInsets.only(top: 30),
                       padding: EdgeInsets.only(
-                          right: 20, left: 20, top: 0, bottom: 20),
+                          right: 20, left: 20, top: 0, bottom: 10),
                       height: 132,
                       image: "assets/images/intro2.png",
                       body: Column(
@@ -395,16 +403,19 @@ class _HomeMobile extends StatelessWidget {
                                 color: Colors.white)),
                           ),
                           SizedBox(
-                            height: 10,
+                            height: 5,
                           ),
-                          ShareWidget.button(
-                              context: context,
-                              backgoundColor: Colors.white,
-                              borderWidth: 0.0,
-                              title: "Enregistrez un hébergement",
-                              textColor: LightColor.primary,
-                              height: 32,
-                              margin: 0),
+                          TextButton(
+                            onPressed: () => null,
+                            child: ShareWidget.button(
+                                context: context,
+                                backgoundColor: Colors.white,
+                                borderWidth: 0.0,
+                                title: "Enregistrez un hébergement",
+                                textColor: LightColor.primary,
+                                height: 32,
+                                margin: 0),
+                          ),
                         ],
                       )),
                   SizedBox(

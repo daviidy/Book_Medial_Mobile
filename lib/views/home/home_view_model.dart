@@ -44,7 +44,7 @@ class HomeViewModel extends BaseViewModel {
   // }
 
   init(context) {
-    this.isLogin = true;
+    this.isLogin = ModalRoute.of(context)?.settings.arguments as bool;
     RoomGroupStyle style1 =
         RoomGroupStyle(height: 223, width: AppTheme.fullWidth(context) / 2.8);
 

@@ -79,6 +79,7 @@ flutter:
     - assets/images/home3.png
     - assets/images/home4.png
     - assets/images/home5.png
+    - assets/images/room.png
     - assets/icons/facebook.png
     - assets/icons/google.png
     - assets/icons/right-arrow.png
@@ -92,6 +93,13 @@ flutter:
     - assets/icons/map.png
     - assets/icons/loupe.png
     - assets/icons/dropdown.png
+    - assets/icons/star.png
+    - assets/icons/call.png
+    - assets/icons/heart.png
+    - assets/icons/line1.png
+    - assets/icons/line2.png
+    - assets/icons/arrow-right1.png
+    - assets/icons/arrow-left1.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
