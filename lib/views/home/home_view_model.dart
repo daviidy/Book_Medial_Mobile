@@ -10,7 +10,14 @@ class HomeViewModel extends BaseViewModel {
 
   bool _isLogin = false;
 
+  bool _chowSearchResume = false;
+
   List<RoomGroup> _roomGroupList = [];
+
+  ScrollController scrollController = new ScrollController(
+    initialScrollOffset: 0.0,
+    keepScrollOffset: true,
+  );
 
   List<RoomGroup> get roomGroupList => this._roomGroupList;
   set roomGroupList(List<RoomGroup> value) {
@@ -23,6 +30,18 @@ class HomeViewModel extends BaseViewModel {
     this._isLogin = value;
     notifyListeners();
   }
+
+  bool get chowSearchResume => this._chowSearchResume;
+  set chowSearchResume(bool value) {
+    this._chowSearchResume = value;
+    notifyListeners();
+  }
+
+  // ScrollController get scrollController => this._scrollController;
+  // set scrollController(ScrollController value) {
+  //   this._scrollController = value;
+  //   notifyListeners();
+  // }
 
   init(context) {
     this.isLogin = true;
@@ -52,5 +71,22 @@ class HomeViewModel extends BaseViewModel {
 
     this.roomGroupList.add(goup1);
     this.roomGroupList.add(goup2);
+
+    this.scrollController.addListener(() {
+      print(this.scrollController.offset);
+      if (this.scrollController.offset > 336) {
+        this.chowSearchResume = true;
+      } else {
+        this.chowSearchResume = false;
+      }
+    });
+  }
+
+  moveToTop() {
+    this.scrollController.position.animateTo(
+          this.scrollController.position.minScrollExtent,
+          curve: Curves.easeOut,
+          duration: const Duration(milliseconds: 500),
+        );
   }
 }
