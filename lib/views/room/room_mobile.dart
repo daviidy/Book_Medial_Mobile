@@ -274,8 +274,20 @@ class _RoomMobile extends StatelessWidget {
         ),
         Container(
           margin: EdgeInsets.only(top: 40),
+          decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
           child: Stack(children: [
             Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                        color: Color(0xFFDDDDDD),
+                        blurRadius: 10.0,
+                        offset: Offset(0.0, 5))
+                  ],
+                ),
               margin: EdgeInsets.symmetric(horizontal: 15),
               child: CarouselSlider(
                 options: CarouselOptions(
@@ -357,16 +369,7 @@ class _RoomMobile extends StatelessWidget {
     return viewModel.imgList
         .map((item) => Container(
               child: Container(
-                margin: EdgeInsets.only(bottom: 10.0, left: 0, right: 0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                        color: Color(0xFFDDDDDD),
-                        blurRadius: 15.0,
-                        offset: Offset(0.0, 5))
-                  ],
-                ),
+                //margin: EdgeInsets.only(left: 5, right: 5, bottom: 5),
                 child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(20.0)),
                     child: Stack(
@@ -415,7 +418,7 @@ class _RoomMobile extends StatelessWidget {
                           backgoundColor: LightColor.primary),
                     ),
                     SizedBox(
-                      height: 100,
+                      height: (viewModel.menuIndex == 0) ? 400 : 100,
                     ),
                   ],
                 ),

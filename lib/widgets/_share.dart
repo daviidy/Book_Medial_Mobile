@@ -4,6 +4,7 @@ import 'package:book_medial/theme/light_color.dart';
 import 'package:book_medial/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ShareWidget {
   static Widget button(
@@ -45,22 +46,21 @@ class ShareWidget {
     );
   }
 
-  static Widget buttonIcone({
-    required BuildContext context,
-    double? width,
-    double borderWidth = 1.0,
-    Color backgoundColor = const Color(0xffffffff),
-    Color borderColor = const Color(0xffffffff),
-    Color textColor = const Color(0xffffffff),
-    Widget? body,
-    double height = 40.0,
-    double borderRadius = 10.0,
-    EdgeInsets padding = const EdgeInsets.all(0),
-    EdgeInsets margin = const EdgeInsets.all(0),
-    Color shadowColors = const Color(0x0d000000),
-    Offset offset = const Offset(0, 2),
-    double blurRadius = 5
-  }) {
+  static Widget buttonIcone(
+      {required BuildContext context,
+      double? width,
+      double borderWidth = 1.0,
+      Color backgoundColor = const Color(0xffffffff),
+      Color borderColor = const Color(0xffffffff),
+      Color textColor = const Color(0xffffffff),
+      Widget? body,
+      double height = 40.0,
+      double borderRadius = 10.0,
+      EdgeInsets padding = const EdgeInsets.all(0),
+      EdgeInsets margin = const EdgeInsets.all(0),
+      Color shadowColors = const Color(0x0d000000),
+      Offset offset = const Offset(0, 2),
+      double blurRadius = 5}) {
     return Container(
       margin: margin,
       padding: padding,
@@ -72,10 +72,7 @@ class ShareWidget {
         color: backgoundColor,
         border: Border.all(width: borderWidth, color: borderColor),
         boxShadow: [
-          BoxShadow(
-              color: shadowColors,
-              offset: offset,
-              blurRadius: blurRadius)
+          BoxShadow(color: shadowColors, offset: offset, blurRadius: blurRadius)
         ],
       ),
     );
@@ -247,7 +244,10 @@ class ShareWidget {
   }
 
   static Widget boxRoom({
-    Widget? body,
+    required BuildContext context,
+    data,
+    String? route,
+    //Widget? body,
     EdgeInsets? margin = const EdgeInsets.only(top: 10),
     EdgeInsets? padding = const EdgeInsets.all(15),
   }) {
@@ -258,16 +258,236 @@ class ShareWidget {
       padding: padding,
       //height: 456.0,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.0),
-        color: const Color(0xffffffff),
+        borderRadius: BorderRadius.circular(18.0),
+        color: const Color(0xffFFFCE2),
         boxShadow: [
           BoxShadow(
-              color: const Color(0x17000000),
-              offset: Offset(0, 5),
-              blurRadius: 20)
+              color: const Color(0x38000000),
+              offset: Offset(0, 8),
+              blurRadius: 10)
         ],
       ),
-      child: body,
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                flex: 3,
+                child: AutoSizeText(
+                  "Sexy Room",
+                  maxLines: 1,
+                  maxFontSize: 20,
+                  minFontSize: 20,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTheme.globalFont(
+                      TextStyle(fontWeight: FontWeight.w700, fontSize: 20)),
+                ),
+              ),
+              Expanded(
+                  flex: 1,
+                  child: RatingBarIndicator(
+                    rating: 5,
+                    itemSize: 19,
+                    direction: Axis.horizontal,
+                    itemCount: 5,
+                    itemPadding: EdgeInsets.symmetric(horizontal: 0.0),
+                    itemBuilder: (context, _) => Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                    ),
+                  ))
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            children: [
+              Container(
+                width: 30,
+                height: 20,
+                child: Image.asset("assets/icons/valide.png"),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 5),
+                child: AutoSizeText(
+                  "Climatisation - Ventilation - Wifi - Bar - Piscine",
+                  maxLines: 1,
+                  maxFontSize: 10,
+                  minFontSize: 10,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTheme.globalFont(TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 10,
+                      color: Color(0xffFBBB00))),
+                ),
+              )
+            ],
+          ),
+          Row(
+            children: [
+              Container(
+                width: 30,
+                height: 20,
+                child: Image.asset("assets/icons/bed.png"),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 5),
+                child: AutoSizeText(
+                  "Lit simple / Largeur 90 - 130 ",
+                  maxLines: 1,
+                  maxFontSize: 10,
+                  minFontSize: 10,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTheme.globalFont(TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 10,
+                      color: Color(0xffFBBB00))),
+                ),
+              )
+            ],
+          ),
+          Row(
+            children: [
+              Container(
+                width: 30,
+                height: 20,
+                child: Image.asset("assets/icons/personnes.png"),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 5),
+                child: AutoSizeText(
+                  "02 personnes",
+                  maxLines: 1,
+                  maxFontSize: 10,
+                  minFontSize: 10,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTheme.globalFont(TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 10,
+                      color: Color(0xffFBBB00))),
+                ),
+              )
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            children: [
+              Expanded(
+                  child: Container(
+                margin: EdgeInsets.only(left: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AutoSizeText(
+                      "Tarifs nuit",
+                      maxLines: 1,
+                      maxFontSize: 14,
+                      minFontSize: 14,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTheme.globalFont(TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14,
+                          color: Colors.black)),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    AutoSizeText(
+                      "18000 Fcfa",
+                      maxLines: 1,
+                      maxFontSize: 14,
+                      minFontSize: 14,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTheme.globalFont(TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
+                          color: Color(0xffFBBB00))),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    AutoSizeText(
+                      "12000 Fcfa",
+                      maxLines: 1,
+                      maxFontSize: 18,
+                      minFontSize: 18,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTheme.globalFont(TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 18,
+                          color: Color(0xffFBBB00))),
+                    ),
+                  ],
+                ),
+              )),
+              Expanded(
+                  child: Container(
+                margin: EdgeInsets.only(right: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AutoSizeText(
+                      "Tarifs heure",
+                      maxLines: 1,
+                      maxFontSize: 14,
+                      minFontSize: 14,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTheme.globalFont(TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14,
+                          color: Colors.black)),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    AutoSizeText(
+                      "",
+                      maxLines: 1,
+                      maxFontSize: 14,
+                      minFontSize: 14,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTheme.globalFont(TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
+                          color: Color(0xffFBBB00))),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    AutoSizeText(
+                      "5000 Fcfa",
+                      maxLines: 1,
+                      maxFontSize: 18,
+                      minFontSize: 18,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTheme.globalFont(TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 18,
+                          color: Color(0xffFBBB00))),
+                    ),
+                  ],
+                ),
+              ))
+            ],
+          ),
+         
+          if(route != null ) Container(
+            margin: EdgeInsets.only(top:20),
+            child: TextButton(
+              onPressed: () => Navigator.pushNamed(context, route),
+              child: ShareWidget.button(
+                context: context,
+                backgoundColor: LightColor.primary,
+                title: "Je Reserve",
+                margin: 0,
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 
@@ -333,7 +553,9 @@ class ShareWidget {
     EdgeInsets? padding = const EdgeInsets.all(0),
   }) {
     return GestureDetector(
-      onTap: () => (room != null ) ? Navigator.pushNamed(context, "/room", arguments: room) : null,
+      onTap: () => (room != null)
+          ? Navigator.pushNamed(context, "/room", arguments: room)
+          : null,
       child: Container(
         width: width,
         height: height,
@@ -348,9 +570,7 @@ class ShareWidget {
           ),
           boxShadow: [
             BoxShadow(
-                color: Colors.black26,
-                offset: Offset(0, 4),
-                blurRadius: 10)
+                color: Colors.black26, offset: Offset(0, 4), blurRadius: 10)
           ],
         ),
         child: Container(
@@ -407,7 +627,6 @@ class ShareWidget {
     );
   }
 
-
   static Widget boxHotel2({
     required BuildContext context,
     Map? data,
@@ -434,10 +653,7 @@ class ShareWidget {
           fit: BoxFit.cover,
         ),
         boxShadow: [
-          BoxShadow(
-              color: Colors.black26,
-              offset: Offset(0, 4),
-              blurRadius: 10)
+          BoxShadow(color: Colors.black26, offset: Offset(0, 4), blurRadius: 10)
         ],
       ),
       child: Container(
@@ -463,16 +679,15 @@ class ShareWidget {
     );
   }
 
-
   static Widget menuTabBoxLabelStyle(
       {required BuildContext context,
       required bool isActive,
       required String title}) {
     return (isActive)
         ? Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AutoSizeText(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AutoSizeText(
                 "$title",
                 maxLines: 1,
                 maxFontSize: 20,
@@ -483,15 +698,19 @@ class ShareWidget {
                     fontSize: 20,
                     color: Colors.black)),
               ),
-            SizedBox(height: 5,),
-            Image.asset("assets/icons/line1.png"),
-            SizedBox(height: 5,),
-            Image.asset("assets/icons/line2.png"),
-          ],
-        )
+              SizedBox(
+                height: 5,
+              ),
+              Image.asset("assets/icons/line1.png"),
+              SizedBox(
+                height: 5,
+              ),
+              Image.asset("assets/icons/line2.png"),
+            ],
+          )
         : Column(
-          children: [
-            AutoSizeText(
+            children: [
+              AutoSizeText(
                 "$title",
                 maxLines: 1,
                 maxFontSize: 16,
@@ -502,8 +721,10 @@ class ShareWidget {
                     fontSize: 16,
                     color: LightColor.textGrey)),
               ),
-              SizedBox(height: 10,),
-          ],
-        );
+              SizedBox(
+                height: 10,
+              ),
+            ],
+          );
   }
 }

@@ -104,6 +104,7 @@ flutter:
     - assets/icons/filtre.png
     - assets/icons/bed.png
     - assets/icons/personnes.png
+    - assets/icons/close.png
     - assets/icons/valide.png
 
   # An image asset can refer to one or more resolution-specific "variants", see

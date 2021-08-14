@@ -67,11 +67,11 @@ class _RoomDisponibleMobile extends StatelessWidget {
             ),
             _searchResume(context),
             SizedBox(
-              height: 30,
+              height: 20,
             ),
             ShareWidget.headerStyle2(context: context, text1: "Retour"),
             SizedBox(
-              height: 20,
+              height: 15,
             ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 20),
@@ -133,225 +133,22 @@ class _RoomDisponibleMobile extends StatelessWidget {
                 ],
               ),
             ),
-            SingleChildScrollView(
-              child: Container(
-                child: Column(
-                  children: [
-                    ShareWidget.boxRoom(
-                        //padding: EdgeInsets.all(10),
-                        body: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              flex: 3,
-                              child: AutoSizeText(
-                                "Sexy Room",
-                                maxLines: 1,
-                                maxFontSize: 20,
-                                minFontSize: 20,
-                                overflow: TextOverflow.ellipsis,
-                                style: AppTheme.globalFont(TextStyle(
-                                    fontWeight: FontWeight.w700, fontSize: 20)),
-                              ),
-                            ),
-                            Expanded(
-                                flex: 1,
-                                child: RatingBarIndicator(
-                                  rating: 5,
-                                  itemSize: 19,
-                                  direction: Axis.horizontal,
-                                  itemCount: 5,
-                                  itemPadding:
-                                      EdgeInsets.symmetric(horizontal: 0.0),
-                                  itemBuilder: (context, _) => Icon(
-                                    Icons.star,
-                                    color: Colors.amber,
-                                  ),
-                                ))
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                              width: 30,
-                              height: 20,
-                              child: Image.asset("assets/icons/valide.png"),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: 5),
-                              child: AutoSizeText(
-                                "Climatisation - Ventilation - Wifi - Bar - Piscine",
-                                maxLines: 1,
-                                maxFontSize: 10,
-                                minFontSize: 10,
-                                overflow: TextOverflow.ellipsis,
-                                style: AppTheme.globalFont(TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 10,
-                                    color: Color(0xffFBBB00))),
-                              ),
-                            )
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                              width: 30,
-                              height: 20,
-                              child: Image.asset("assets/icons/bed.png"),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: 5),
-                              child: AutoSizeText(
-                                "Lit simple / Largeur 90 - 130 ",
-                                maxLines: 1,
-                                maxFontSize: 10,
-                                minFontSize: 10,
-                                overflow: TextOverflow.ellipsis,
-                                style: AppTheme.globalFont(TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 10,
-                                    color: Color(0xffFBBB00))),
-                              ),
-                            )
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                              width: 30,
-                              height: 20,
-                              child: Image.asset("assets/icons/personnes.png"),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: 5),
-                              child: AutoSizeText(
-                                "02 personnes",
-                                maxLines: 1,
-                                maxFontSize: 10,
-                                minFontSize: 10,
-                                overflow: TextOverflow.ellipsis,
-                                style: AppTheme.globalFont(TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 10,
-                                    color: Color(0xffFBBB00))),
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                                child: Container(
-                              margin: EdgeInsets.only(left: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  AutoSizeText(
-                                    "Tarifs nuit",
-                                    maxLines: 1,
-                                    maxFontSize: 14,
-                                    minFontSize: 14,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: AppTheme.globalFont(TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 14,
-                                        color: Colors.black)),
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  AutoSizeText(
-                                    "18000 Fcfa",
-                                    maxLines: 1,
-                                    maxFontSize: 14,
-                                    minFontSize: 14,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: AppTheme.globalFont(TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 14,
-                                        color: Color(0xffFBBB00))),
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  AutoSizeText(
-                                    "12000 Fcfa",
-                                    maxLines: 1,
-                                    maxFontSize: 18,
-                                    minFontSize: 18,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: AppTheme.globalFont(TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 18,
-                                        color: Color(0xffFBBB00))),
-                                  ),
-                                ],
-                              ),
-                            )),
-                            Expanded(
-                                child: Container(
-                              margin: EdgeInsets.only(right: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  AutoSizeText(
-                                    "Tarifs heure",
-                                    maxLines: 1,
-                                    maxFontSize: 14,
-                                    minFontSize: 14,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: AppTheme.globalFont(TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 14,
-                                        color: Colors.black)),
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  AutoSizeText(
-                                    "",
-                                    maxLines: 1,
-                                    maxFontSize: 14,
-                                    minFontSize: 14,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: AppTheme.globalFont(TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 14,
-                                        color: Color(0xffFBBB00))),
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  AutoSizeText(
-                                    "5000 Fcfa",
-                                    maxLines: 1,
-                                    maxFontSize: 18,
-                                    minFontSize: 18,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: AppTheme.globalFont(TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 18,
-                                        color: Color(0xffFBBB00))),
-                                  ),
-                                ],
-                              ),
-                            ))
-                          ],
-                        )
-                      ],
-                    ))
-                  ],
+            Expanded(
+              child: SingleChildScrollView(
+                child: Container(
+                  child: Column(
+                      children: [1, 2, 3]
+                          .map((e) => ShareWidget.boxRoom(
+                              //padding: EdgeInsets.all(10),
+                              margin: EdgeInsets.all(10),
+                              data: null,
+                              context: context,
+                              route: "/room-reservation"))
+                          .toList()),
                 ),
               ),
-            )
+            ),
+            
           ],
         ),
       ),
