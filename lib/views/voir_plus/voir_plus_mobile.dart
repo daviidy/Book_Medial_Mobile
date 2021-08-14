@@ -106,6 +106,8 @@ class _VoirPlusMobile extends StatelessWidget {
           ),
         ),
       ),
+
+      bottomNavigationBar: BottomMenuWidget.home(context:context,)
     );
   }
 }

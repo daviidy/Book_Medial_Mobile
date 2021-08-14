@@ -427,6 +427,7 @@ class _RoomMobile extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: BottomMenuWidget.home(context:context,)
     );
   }
 }

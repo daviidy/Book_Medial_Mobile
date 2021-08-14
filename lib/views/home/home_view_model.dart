@@ -1,5 +1,6 @@
 import 'package:book_medial/core/base/base_view_model.dart';
 import 'package:book_medial/core/models/room_models.dart';
+import 'package:book_medial/core/services/database_service.dart';
 import 'package:book_medial/theme/theme.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -18,6 +19,11 @@ class HomeViewModel extends BaseViewModel {
     initialScrollOffset: 0.0,
     keepScrollOffset: true,
   );
+
+    final DatabaseService storage = new DatabaseService();
+
+
+
 
   List<RoomGroup> get roomGroupList => this._roomGroupList;
   set roomGroupList(List<RoomGroup> value) {
@@ -43,8 +49,11 @@ class HomeViewModel extends BaseViewModel {
   //   notifyListeners();
   // }
 
-  init(context) {
-    this.isLogin = ModalRoute.of(context)?.settings.arguments as bool;
+  init(context) async {
+    
+    var session = await this.storage.getItem("isLogin");
+    this.isLogin = (session != null) ? session : false ;
+
     RoomGroupStyle style1 =
         RoomGroupStyle(height: 223, width: AppTheme.fullWidth(context) / 2.8);
 

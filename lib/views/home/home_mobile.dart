@@ -174,164 +174,219 @@ class _HomeMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(children: [
-        Container(
-          width: AppTheme.fullWidth(context),
-          height: AppTheme.fullHeight(context),
-          child: SingleChildScrollView(
-            controller: viewModel.scrollController,
-            child: Container(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(top: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        AutoSizeText.rich(TextSpan(
-                            style: AppTheme.globalFont(TextStyle(
-                                fontSize: 36, fontWeight: FontWeight.w700)),
-                            children: [
-                              TextSpan(
-                                  text: "Book ",
-                                  style: TextStyle(
-                                    color: LightColor.primary,
-                                  )),
-                              TextSpan(
-                                  text: "Médial",
-                                  style: TextStyle(
-                                    color: LightColor.second,
-                                  ))
-                            ])),
-                        if (viewModel.isLogin)
-                          TextButton(
-                            onPressed: () => null, //Navigator.pop(context),
-                            child: Container(
-                                child: Stack(children: [
-                              Positioned(
-                                  top: 9,
-                                  left: 9,
-                                  child: Image.asset("assets/icons/user.png")),
-                              Image.asset("assets/icons/user-baground.png")
-                            ])),
-                          ),
-                      ],
-                    ),
-                  ),
-                  ShareWidget.boxMain(body: _searchForm(context)),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  if (viewModel.isLogin)
+        body: Stack(children: [
+          Container(
+            width: AppTheme.fullWidth(context),
+            height: AppTheme.fullHeight(context),
+            child: SingleChildScrollView(
+              controller: viewModel.scrollController,
+              child: Container(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     Container(
-                      child: Column(
-                        children: viewModel.roomGroupList
-                            .map((e) =>
-                                _roomByCatBox(context: context, roomGroup: e))
-                            .toList(),
+                      padding: EdgeInsets.only(top: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          AutoSizeText.rich(TextSpan(
+                              style: AppTheme.globalFont(TextStyle(
+                                  fontSize: 36, fontWeight: FontWeight.w700)),
+                              children: [
+                                TextSpan(
+                                    text: "Book ",
+                                    style: TextStyle(
+                                      color: LightColor.primary,
+                                    )),
+                                TextSpan(
+                                    text: "Médial",
+                                    style: TextStyle(
+                                      color: LightColor.second,
+                                    ))
+                              ])),
+                          if (viewModel.isLogin)
+                            TextButton(
+                              onPressed: () =>
+                                  Navigator.pushNamed(context, "/compte").then(
+                                      (value) => (value != null)
+                                          ? viewModel.isLogin = value as bool
+                                          : null),
+                              child: Container(
+                                  child: Stack(children: [
+                                Positioned(
+                                    top: 9,
+                                    left: 9,
+                                    child:
+                                        Image.asset("assets/icons/user.png")),
+                                Image.asset("assets/icons/user-baground.png")
+                              ])),
+                            ),
+                        ],
                       ),
                     ),
-                  Container(
-                    child: AutoSizeText(
-                      "Besoin d'un hébergement",
-                      maxLines: 1,
-                      maxFontSize: 18,
-                      minFontSize: 18,
-                      overflow: TextOverflow.ellipsis,
-                      style: AppTheme.globalFont(
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
+                    ShareWidget.boxMain(body: _searchForm(context)),
+                    SizedBox(
+                      height: 30,
                     ),
-                  ),
-                  Container(
-                    child: AutoSizeText(
-                      "proximité ?",
-                      maxLines: 1,
-                      maxFontSize: 18,
-                      minFontSize: 18,
-                      overflow: TextOverflow.ellipsis,
-                      style: AppTheme.globalFont(
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
+                    if (viewModel.isLogin)
+                      Container(
+                        child: Column(
+                          children: viewModel.roomGroupList
+                              .map((e) =>
+                                  _roomByCatBox(context: context, roomGroup: e))
+                              .toList(),
+                        ),
+                      ),
+                    Container(
+                      child: AutoSizeText(
+                        "Besoin d'un hébergement",
+                        maxLines: 1,
+                        maxFontSize: 18,
+                        minFontSize: 18,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTheme.globalFont(TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 18)),
+                      ),
                     ),
-                  ),
-                  ShareWidget.boxHotel2(
-                      context: context,
-                      width: AppTheme.fullWidth(context),
-                      padding: EdgeInsets.only(
-                            right: 20, left: 20, top: 0, bottom: 10),
-                      height: 132,
-                      margin: EdgeInsets.only(top: 30),
-                      body: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Row(
-                            children: [
-                              Image.asset("assets/icons/map.png"),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  AutoSizeText(
-                                    "Autour de moi",
-                                    maxLines: 1,
-                                    maxFontSize: 18,
-                                    minFontSize: 18,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: AppTheme.globalFont(TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 18,
-                                        color: Colors.white)),
-                                  ),
-                                  AutoSizeText(
-                                    "24 Juin - 25 Juin       2 personnes, 1 cham",
-                                    maxLines: 1,
-                                    maxFontSize: 12,
-                                    minFontSize: 12,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: AppTheme.globalFont(TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12,
-                                        color: Colors.white)),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          TextButton(
-                            onPressed: () => null,
-                            child: ShareWidget.button(
-                                context: context,
-                                backgoundColor: Colors.white,
-                                borderWidth: 0.0,
-                                title: "Recherche à proximité",
-                                textColor: LightColor.primary,
-                                height: 32,
-                                margin: 0),
-                          ),
-                        ],
-                      )),
-                  if (!viewModel.isLogin)
+                    Container(
+                      child: AutoSizeText(
+                        "proximité ?",
+                        maxLines: 1,
+                        maxFontSize: 18,
+                        minFontSize: 18,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTheme.globalFont(TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 18)),
+                      ),
+                    ),
                     ShareWidget.boxHotel2(
                         context: context,
-                        margin: EdgeInsets.only(top: 30),
                         width: AppTheme.fullWidth(context),
                         padding: EdgeInsets.only(
                             right: 20, left: 20, top: 0, bottom: 10),
                         height: 132,
-                        image: "assets/images/intro3.png",
+                        margin: EdgeInsets.only(top: 30),
+                        body: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Row(
+                              children: [
+                                Image.asset("assets/icons/map.png"),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    AutoSizeText(
+                                      "Autour de moi",
+                                      maxLines: 1,
+                                      maxFontSize: 18,
+                                      minFontSize: 18,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: AppTheme.globalFont(TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 18,
+                                          color: Colors.white)),
+                                    ),
+                                    AutoSizeText(
+                                      "24 Juin - 25 Juin       2 personnes, 1 cham",
+                                      maxLines: 1,
+                                      maxFontSize: 12,
+                                      minFontSize: 12,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: AppTheme.globalFont(TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 12,
+                                          color: Colors.white)),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            TextButton(
+                              onPressed: () => null,
+                              child: ShareWidget.button(
+                                  context: context,
+                                  backgoundColor: Colors.white,
+                                  borderWidth: 0.0,
+                                  title: "Recherche à proximité",
+                                  textColor: LightColor.primary,
+                                  height: 32,
+                                  margin: 0),
+                            ),
+                          ],
+                        )),
+                    if (!viewModel.isLogin)
+                      ShareWidget.boxHotel2(
+                          context: context,
+                          margin: EdgeInsets.only(top: 30),
+                          width: AppTheme.fullWidth(context),
+                          padding: EdgeInsets.only(
+                              right: 20, left: 20, top: 0, bottom: 10),
+                          height: 132,
+                          image: "assets/images/intro3.png",
+                          body: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AutoSizeText(
+                                "Dormez bien on",
+                                maxLines: 1,
+                                maxFontSize: 24,
+                                minFontSize: 24,
+                                overflow: TextOverflow.ellipsis,
+                                style: AppTheme.globalFont(TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 24,
+                                    color: Colors.white)),
+                              ),
+                              AutoSizeText(
+                                "s’occupe de vous",
+                                maxLines: 1,
+                                maxFontSize: 24,
+                                minFontSize: 24,
+                                overflow: TextOverflow.ellipsis,
+                                style: AppTheme.globalFont(TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 18,
+                                    color: Colors.white)),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              TextButton(
+                                onPressed: () => Navigator.pushNamed(context, "/login"),
+                                child: ShareWidget.button(
+                                    context: context,
+                                    backgoundColor: Colors.white,
+                                    borderWidth: 0.0,
+                                    title: "Creer un compte / Se connecter",
+                                    textColor: LightColor.primary,
+                                    height: 32,
+                                    margin: 0),
+                              ),
+                            ],
+                          )),
+                    ShareWidget.boxHotel2(
+                        context: context,
+                        width: AppTheme.fullWidth(context),
+                        margin: EdgeInsets.only(top: 30),
+                        padding: EdgeInsets.only(
+                            right: 20, left: 20, top: 0, bottom: 10),
+                        height: 132,
+                        image: "assets/images/intro2.png",
                         body: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             AutoSizeText(
-                              "Dormez bien on",
+                              "Enregistrez un",
                               maxLines: 1,
                               maxFontSize: 24,
                               minFontSize: 24,
@@ -342,7 +397,7 @@ class _HomeMobile extends StatelessWidget {
                                   color: Colors.white)),
                             ),
                             AutoSizeText(
-                              "s’occupe de vous",
+                              "hébergement",
                               maxLines: 1,
                               maxFontSize: 24,
                               minFontSize: 24,
@@ -356,82 +411,32 @@ class _HomeMobile extends StatelessWidget {
                               height: 5,
                             ),
                             TextButton(
-                              onPressed: () => Navigator.pop(context),
+                              onPressed: () => null,
                               child: ShareWidget.button(
                                   context: context,
                                   backgoundColor: Colors.white,
                                   borderWidth: 0.0,
-                                  title: "Creer un compte / Se connecter",
+                                  title: "Enregistrez un hébergement",
                                   textColor: LightColor.primary,
                                   height: 32,
                                   margin: 0),
                             ),
                           ],
                         )),
-                  ShareWidget.boxHotel2(
-                      context: context,
-                      width: AppTheme.fullWidth(context),
-                      margin: EdgeInsets.only(top: 30),
-                      padding: EdgeInsets.only(
-                          right: 20, left: 20, top: 0, bottom: 10),
-                      height: 132,
-                      image: "assets/images/intro2.png",
-                      body: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AutoSizeText(
-                            "Enregistrez un",
-                            maxLines: 1,
-                            maxFontSize: 24,
-                            minFontSize: 24,
-                            overflow: TextOverflow.ellipsis,
-                            style: AppTheme.globalFont(TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 24,
-                                color: Colors.white)),
-                          ),
-                          AutoSizeText(
-                            "hébergement",
-                            maxLines: 1,
-                            maxFontSize: 24,
-                            minFontSize: 24,
-                            overflow: TextOverflow.ellipsis,
-                            style: AppTheme.globalFont(TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 18,
-                                color: Colors.white)),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          TextButton(
-                            onPressed: () => null,
-                            child: ShareWidget.button(
-                                context: context,
-                                backgoundColor: Colors.white,
-                                borderWidth: 0.0,
-                                title: "Enregistrez un hébergement",
-                                textColor: LightColor.primary,
-                                height: 32,
-                                margin: 0),
-                          ),
-                        ],
-                      )),
-                  SizedBox(
-                    height: 200,
-                  ),
-                ],
+                    SizedBox(
+                      height: 200,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        
-        if(viewModel.chowSearchResume) Container(
-          height: 90,
-          margin: EdgeInsets.only(left: 10, right: 10, top: 20),
-          child: _searchResume(context))
-      ]),
-    );
+          if (viewModel.chowSearchResume)
+            Container(
+                height: 90,
+                margin: EdgeInsets.only(left: 10, right: 10, top: 20),
+                child: _searchResume(context))
+        ]),
+        bottomNavigationBar: BottomMenuWidget.home(context:context, disable: true));
   }
 }

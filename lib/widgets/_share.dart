@@ -126,7 +126,7 @@ class ShareWidget {
     String? text1 = "",
   }) {
     return Container(
-      padding: EdgeInsets.only(right: 15),
+      padding: EdgeInsets.only(right: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -136,6 +136,41 @@ class ShareWidget {
             child: Container(
                 padding: EdgeInsets.only(top: 5),
                 child: Image.asset("assets/icons/right-arrow.png")),
+          ),
+          Expanded(
+            child: AutoSizeText(
+              "$text1",
+              maxLines: 1,
+              maxFontSize: 18,
+              minFontSize: 18,
+              overflow: TextOverflow.ellipsis,
+              style: AppTheme.globalFont(TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: const Color(0xff313450),
+              )),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  static Widget headerStyle3({
+    required BuildContext context,
+    String? text1 = "",
+  }) {
+    return Container(
+      padding: EdgeInsets.only(right: 15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Container(
+                padding: EdgeInsets.only(top: 5),
+                child: Image.asset("assets/icons/close.png")),
           ),
           AutoSizeText(
             "$text1",
@@ -153,10 +188,16 @@ class ShareWidget {
   static Widget input(
       {required String name,
       String? labelText,
+      TextStyle? labelStyle = const TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
+      String? hintText = "",
       Widget rightLabel = const Text(""),
       Widget? suffixIcon,
       bool obscureText = false,
       bool showPassword = false,
+      bool enabled = true,
+      Color backgroundColors = const Color(0xffF6F6F6),
+      Color borderColor = const Color(0xffDFDBDB),
+      double borderWidth = 1.0,
       List<String? Function(dynamic)> validators = const []}) {
     return Container(
       child: Column(
@@ -167,8 +208,7 @@ class ShareWidget {
             children: [
               AutoSizeText(
                 "$labelText",
-                style: AppTheme.globalFont(
-                    TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
+                style: AppTheme.globalFont(labelStyle),
               ),
               rightLabel
             ],
@@ -182,6 +222,7 @@ class ShareWidget {
               children: [
                 FormBuilderTextField(
                   name: name,
+                  enabled: enabled,
                   obscureText: obscureText,
                   maxLines: 1,
                   style: AppTheme.globalFont(TextStyle(
@@ -190,8 +231,12 @@ class ShareWidget {
                   decoration: InputDecoration(
                       suffixIcon: suffixIcon,
                       contentPadding:
-                          EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                      // hintText: hintText,
+                          EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                      hintText: hintText,
+                      hintStyle: AppTheme.globalFont(TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600
+                      )),
                       errorStyle: AppTheme.globalFont(TextStyle(
                           fontSize: 10.0, fontStyle: FontStyle.italic)),
                       focusedErrorBorder: UnderlineInputBorder(
@@ -203,8 +248,8 @@ class ShareWidget {
             ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
-              color: const Color(0xffF6F6F6),
-              border: Border.all(width: 1.0, color: const Color(0xffDFDBDB)),
+              color: backgroundColors,
+              border: Border.all(width: borderWidth, color: borderColor),
               // boxShadow: [
               //   BoxShadow(
               //       color: const Color(0x0d000000),
@@ -218,11 +263,15 @@ class ShareWidget {
     );
   }
 
-  static Widget boxMain({
-    Widget? body,
-    EdgeInsets? margin = const EdgeInsets.only(top: 10),
-    EdgeInsets? padding = const EdgeInsets.all(15),
-  }) {
+  static Widget boxMain(
+      {Widget? body,
+      EdgeInsets? margin = const EdgeInsets.only(top: 10),
+      EdgeInsets? padding = const EdgeInsets.all(15),
+      double borderRadius = 20.0,
+      Color backgroundColor = const Color(0xffffffff),
+      Color shadowColor = const Color(0x17000000),
+      Offset shadowOfset = const Offset(0, 5),
+      double blurRadius = 20}) {
     return Container(
       // width: width,
       // height: height,
@@ -230,13 +279,11 @@ class ShareWidget {
       padding: padding,
       //height: 456.0,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.0),
-        color: const Color(0xffffffff),
+        borderRadius: BorderRadius.circular(borderRadius),
+        color: backgroundColor,
         boxShadow: [
           BoxShadow(
-              color: const Color(0x17000000),
-              offset: Offset(0, 5),
-              blurRadius: 20)
+              color: shadowColor, offset: shadowOfset, blurRadius: blurRadius)
         ],
       ),
       child: body,
@@ -263,8 +310,8 @@ class ShareWidget {
         boxShadow: [
           BoxShadow(
               color: const Color(0x38000000),
-              offset: Offset(0, 8),
-              blurRadius: 10)
+              offset: Offset(0, 6),
+              blurRadius: 5)
         ],
       ),
       child: Column(
@@ -473,19 +520,19 @@ class ShareWidget {
               ))
             ],
           ),
-         
-          if(route != null ) Container(
-            margin: EdgeInsets.only(top:20),
-            child: TextButton(
-              onPressed: () => Navigator.pushNamed(context, route),
-              child: ShareWidget.button(
-                context: context,
-                backgoundColor: LightColor.primary,
-                title: "Je Reserve",
-                margin: 0,
+          if (route != null)
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              child: TextButton(
+                onPressed: () => Navigator.pushNamed(context, route),
+                child: ShareWidget.button(
+                  context: context,
+                  backgoundColor: LightColor.primary,
+                  title: "Je Reserve",
+                  margin: 0,
+                ),
               ),
-            ),
-          )
+            )
         ],
       ),
     );
@@ -538,6 +585,89 @@ class ShareWidget {
         ],
       ),
     );
+  }
+
+  static Widget box2(
+      {Widget? body,
+      String? labelText,
+      TextStyle labelStyle =
+          const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+      double? width,
+      Color backgroundColors = const Color(0xffF6F6F6),
+      Color borderColors = const Color(0xffDFDBDB),
+      double borderWidth = 1.0,
+      double borderRadius = 20,
+      EdgeInsets? padding = const EdgeInsets.all(10)}) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: EdgeInsets.only(left: 0),
+            child: AutoSizeText(
+              "$labelText",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: AppTheme.globalFont(labelStyle),
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Container(
+            width: width,
+            padding: padding,
+            child: body,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(borderRadius),
+              color: backgroundColors,
+              border: Border.all(width: borderWidth, color: borderColors),
+              // boxShadow: [
+              //   BoxShadow(
+              //       color: const Color(0x0d000000),
+              //       offset: Offset(0, 2),
+              //       blurRadius: 5)
+              // ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+
+static Widget boxReservationn1(
+      {required BuildContext context,
+      required Widget body,
+      required String labelText}) {
+    return ShareWidget.boxMain(
+        borderRadius: 11,
+        backgroundColor: Color(0xFFF6F6F6),
+        padding: EdgeInsets.all(20),
+        shadowOfset: Offset(0, 0),
+        blurRadius: 0,
+        body: Container(
+          width: AppTheme.fullWidth(context),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AutoSizeText(
+                "$labelText",
+                maxLines: 1,
+                maxFontSize: 18,
+                minFontSize: 18,
+                overflow: TextOverflow.ellipsis,
+                style: AppTheme.globalFont(
+                    TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              body,
+              
+            ],
+          ),
+        ));
   }
 
   static Widget boxHotel1({

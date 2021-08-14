@@ -1,5 +1,7 @@
 import 'package:book_medial/core/base/base_view_model.dart';
-import 'package:book_medial/utils/shared.dart';
+import 'package:book_medial/core/services/database_service.dart';
+import 'package:book_medial/views/home/home_view.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
@@ -9,6 +11,8 @@ class LoginViewModel extends BaseViewModel {
   final GlobalKey<FormBuilderState> loginFormKey =
       GlobalKey<FormBuilderState>();
 
+  final DatabaseService storage = new DatabaseService();
+
   login(context) async {
     print("LOGIN");
 
@@ -16,7 +20,14 @@ class LoginViewModel extends BaseViewModel {
     if (this.loginFormKey.currentState!.saveAndValidate()) {
       Map loginData = new Map.from(loginFormKey.currentState!.value);
       print(loginData);
-      Navigator.pushNamed(context, "/home", arguments: true);
+      await this.storage.setItem("isLogin", true);
+      // Navigator.pushAndRemoveUntil(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (BuildContext context) => HomeView(),
+      //   ),
+      //   (route) => false,
+      // );
       // Map rp = await WsAuth.login(data: loginData);
       // print(rp);
       // if (rp["status"]) {
@@ -29,9 +40,17 @@ class LoginViewModel extends BaseViewModel {
       //   SharedFunc.toast(msg: "$ms", toastLength: Toast.LENGTH_LONG);
       // }
     } else {
-      Navigator.pushNamed(context, "/home", arguments: false);
+      await this.storage.setItem("isLogin", false);
       // SharedFunc.toast(msg: "Veuillez remplir les champs requis.");
     }
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => HomeView(),
+      ),
+      (route) => false,
+    );
 
     // this.loader = false;
   }

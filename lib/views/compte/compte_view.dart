@@ -1,4 +1,6 @@
-library room_reservation_view;
+library compte_view;
+
+import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:book_medial/core/base/base_provider.dart';
@@ -6,29 +8,28 @@ import 'package:book_medial/theme/light_color.dart';
 import 'package:book_medial/theme/theme.dart';
 import 'package:book_medial/widgets/_share.dart';
 import 'package:book_medial/widgets/bottom_menu.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:flutter/material.dart';
-import 'room_reservation_view_model.dart';
+import 'compte_view_model.dart';
 
-part 'room_reservation_mobile.dart';
-part 'room_reservation_tablet.dart';
-part 'room_reservation_desktop.dart';
+part 'compte_mobile.dart';
+part 'compte_tablet.dart';
+part 'compte_desktop.dart';
 
-class RoomReservationView extends StatelessWidget {
+class CompteView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    RoomReservationViewModel viewModel = RoomReservationViewModel();
-    return ViewModelProvider<RoomReservationViewModel>.withConsumer(
+    CompteViewModel viewModel = CompteViewModel();
+    return ViewModelProvider<CompteViewModel>.withConsumer(
       viewModel: viewModel,
       onModelReady: (viewModel) {
         // Do something once your viewModel is initialized
       },
       builder: (context, viewModel, child) {
         return ScreenTypeLayout(
-          mobile: _RoomReservationMobile(viewModel),
-          desktop: _RoomReservationDesktop(viewModel),
-          tablet: _RoomReservationTablet(viewModel),  
+          mobile: _CompteMobile(viewModel),
+          desktop: _CompteDesktop(viewModel),
+          tablet: _CompteTablet(viewModel),  
         );
       }
     );

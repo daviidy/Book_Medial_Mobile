@@ -152,6 +152,7 @@ class _RoomDisponibleMobile extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: BottomMenuWidget.home(context:context,)
     );
   }
 }

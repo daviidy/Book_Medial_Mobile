@@ -52,6 +52,7 @@ dependencies:
   carousel_slider: ^4.0.0
   pin_code_fields: ^7.3.0
   flutter_rating_bar: ^4.0.0
+  image_picker: ^0.8.3+2
 
 dev_dependencies:
   flutter_test:
@@ -88,24 +89,34 @@ flutter:
     - assets/icons/select-inactif.png
     - assets/icons/eye.png
     - assets/icons/user.png
+    - assets/icons/user2.png
     - assets/icons/user-baground.png
     - assets/icons/arrow-right.png
     - assets/icons/location.png
     - assets/icons/map.png
     - assets/icons/loupe.png
     - assets/icons/dropdown.png
+    - assets/icons/dropdown2.png
     - assets/icons/star.png
     - assets/icons/call.png
     - assets/icons/heart.png
     - assets/icons/line1.png
     - assets/icons/line2.png
     - assets/icons/arrow-right1.png
+    - assets/icons/arrow-right2.png
     - assets/icons/arrow-left1.png
     - assets/icons/filtre.png
     - assets/icons/bed.png
     - assets/icons/personnes.png
+    - assets/icons/calendar.png
     - assets/icons/close.png
     - assets/icons/valide.png
+    - assets/icons/home.png
+    - assets/icons/home-active.png
+    - assets/icons/notification.png
+    - assets/icons/notification-active.png
+    - assets/icons/profile.png
+    - assets/icons/profile-active.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
