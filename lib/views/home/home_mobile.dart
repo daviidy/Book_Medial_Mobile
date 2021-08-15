@@ -310,7 +310,7 @@ class _HomeMobile extends StatelessWidget {
                               height: 5,
                             ),
                             TextButton(
-                              onPressed: () => null,
+                              onPressed: () => viewModel.proxiSearch(context),
                               child: ShareWidget.button(
                                   context: context,
                                   backgoundColor: Colors.white,

@@ -98,4 +98,8 @@ class HomeViewModel extends BaseViewModel {
           duration: const Duration(milliseconds: 500),
         );
   }
+
+  proxiSearch(context){
+
+  }
 }

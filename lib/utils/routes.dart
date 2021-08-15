@@ -6,6 +6,7 @@ import 'package:book_medial/views/forget_password/step_two/step_two_view.dart';
 import 'package:book_medial/views/home/home_view.dart';
 import 'package:book_medial/views/intro/intro_view.dart';
 import 'package:book_medial/views/login/login_view.dart';
+import 'package:book_medial/views/notify/notify_view.dart';
 import 'package:book_medial/views/register/register_view.dart';
 import 'package:book_medial/views/room/room_view.dart';
 import 'package:book_medial/views/room_disponible/room_disponible_view.dart';
@@ -24,6 +25,7 @@ final routes = {
   '/room-reservation': (BuildContext context) => new RoomReservationView(),
   '/compte': (BuildContext context) => new CompteView(),
   '/compte-info': (BuildContext context) => new CompteInfoView(),
+  '/notification': (BuildContext context) => new NotifyView(),
   '/forget-password/step1': (BuildContext context) => new StepOneView(),
   '/forget-password/step2': (BuildContext context) => new StepTwoView(),
   '/forget-password/step3': (BuildContext context) => new StepThreeView(),

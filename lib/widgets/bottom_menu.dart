@@ -31,7 +31,7 @@ class BottomMenuWidget {
           Expanded(
               child: Container(
                   child: TextButton(
-                      onPressed: () => null,
+                      onPressed: () => Navigator.pushNamed(context, "/notification"),
                       child: Image.asset("assets/icons/notification.png")))),
           Expanded(
               child: Container(
@@ -76,7 +76,7 @@ class BottomMenuWidget {
           Expanded(
               child: Container(
                   child: TextButton(
-                      onPressed: () => (disable) ? null : null,
+                      onPressed: () => (disable) ? null : Navigator.pushNamed(context, "/notification"),
                       child: Image.asset(
                           "assets/icons/notification-active.png")))),
           Expanded(
@@ -121,7 +121,7 @@ class BottomMenuWidget {
           Expanded(
               child: Container(
                   child: TextButton(
-                      onPressed: () => null,
+                      onPressed: () => Navigator.pushNamed(context, "/notification"),
                       child: Image.asset("assets/icons/notification.png")))),
           Expanded(
               child: Container(
