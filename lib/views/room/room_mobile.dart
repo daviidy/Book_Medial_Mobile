@@ -97,7 +97,7 @@ class _RoomMobile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
-                    flex: 6,
+                    flex: 5,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -264,16 +264,16 @@ class _RoomMobile extends StatelessWidget {
   Widget _imageBox(context) {
     return Column(
       children: [
+        // Container(
+        //   margin: EdgeInsets.symmetric(horizontal: 15),
+        //   child: AutoSizeText(
+        //     "Capi Luxury is the most luxurious luxury hotel segment of Capi, located in big... ",
+        //     style: AppTheme.globalFont(
+        //         TextStyle(fontSize: 16, color: Color(0xff828282))),
+        //   ),
+        // ),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 15),
-          child: AutoSizeText(
-            "Capi Luxury is the most luxurious luxury hotel segment of Capi, located in big... ",
-            style: AppTheme.globalFont(
-                TextStyle(fontSize: 16, color: Color(0xff828282))),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 40),
+          margin: EdgeInsets.only(top: 10),
           decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
                 ),
@@ -393,7 +393,7 @@ class _RoomMobile extends StatelessWidget {
               _infoBox(context),
               Container(
                 margin: EdgeInsets.only(
-                    top: AppTheme.fullHeight(context) / 1.5,
+                    top: AppTheme.fullHeight(context) / 1.45,
                     left: 10,
                     right: 10),
                 child: Column(

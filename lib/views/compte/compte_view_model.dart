@@ -5,6 +5,7 @@ import 'package:book_medial/views/home/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:page_transition/page_transition.dart';
 
 class CompteViewModel extends BaseViewModel {
   CompteViewModel();
@@ -20,9 +21,11 @@ class CompteViewModel extends BaseViewModel {
   logout(context) async {
     await this.storage.setItem("isLogin", false);
     Navigator.pushAndRemoveUntil(
-      context, MaterialPageRoute(
-        builder: (BuildContext context) => HomeView(),
-      ),
+      context, 
+      PageTransition(type: PageTransitionType.fade, child: HomeView()),
+      // MaterialPageRoute(
+      //   builder: (BuildContext context) => HomeView(),
+      // ),
       (route) => false,);
   }
 

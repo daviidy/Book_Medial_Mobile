@@ -35,7 +35,7 @@ class _StepTwoMobile extends StatelessWidget {
                 shape: PinCodeFieldShape.box,
                 borderRadius: BorderRadius.circular(10),
                 fieldHeight: 50,
-                fieldWidth: 80,
+                fieldWidth: AppTheme.fullWidth(context)/6,
                 activeFillColor: Colors.white,
                 inactiveColor: Color(0xFFDFDBDB),
                 inactiveFillColor: Color(0xffF6F6F6),

@@ -4,6 +4,7 @@ import 'package:book_medial/views/home/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:page_transition/page_transition.dart';
 
 class LoginViewModel extends BaseViewModel {
   LoginViewModel();
@@ -46,9 +47,10 @@ class LoginViewModel extends BaseViewModel {
 
     Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(
-        builder: (BuildContext context) => HomeView(),
-      ),
+      PageTransition(type: PageTransitionType.fade, child: HomeView()),
+      // MaterialPageRoute(
+      //   builder: (BuildContext context) => HomeView(),
+      // ),
       (route) => false,
     );
 

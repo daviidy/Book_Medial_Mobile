@@ -177,7 +177,7 @@ class _RoomReservationMobile extends StatelessWidget {
                   child: _formBox(context)),
 
               Container(
-              margin: EdgeInsets.only(top: 20, right: 15, left: 15,bottom: 200),
+              margin: EdgeInsets.only(top: 20, right: 15, left: 15,bottom: 20),
               child: TextButton(
                 onPressed: () => viewModel.createReservation(context),
                 child: ShareWidget.button(

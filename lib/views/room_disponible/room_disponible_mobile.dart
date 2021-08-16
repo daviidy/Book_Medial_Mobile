@@ -8,51 +8,62 @@ class _RoomDisponibleMobile extends StatelessWidget {
   Widget _searchResume(context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 10),
-      child: ShareWidget.boxMain(
-        padding: EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
-        body: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Image.asset("assets/icons/loupe.png"),
-            SizedBox(
-              width: 10,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AutoSizeText(
-                  "Abidjan",
-                  maxLines: 1,
-                  maxFontSize: 14,
-                  minFontSize: 14,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppTheme.globalFont(TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
-                      color: Colors.black)),
+      child: GestureDetector(
+        onTap: () => null,
+        child: ShareWidget.boxMain(
+          padding: EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 20),
+          body: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                flex: 1,
+                child: Image.asset("assets/icons/loupe.png")),
+             SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                flex: 6,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AutoSizeText(
+                      "Abidjan",
+                      maxLines: 1,
+                      maxFontSize: 14,
+                      minFontSize: 14,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTheme.globalFont(TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          color: Colors.black)),
+                    ),
+                    AutoSizeText(
+                      "24 Juin - 25 Juin       2 personnes, 1 cham",
+                      maxLines: 1,
+                      maxFontSize: 12,
+                      minFontSize: 12,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTheme.globalFont(TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                          color: Colors.black)),
+                    ),
+                  ],
                 ),
-                AutoSizeText(
-                  "24 Juin - 25 Juin       2 personnes, 1 cham",
-                  maxLines: 1,
-                  maxFontSize: 12,
-                  minFontSize: 12,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppTheme.globalFont(TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12,
-                      color: Colors.black)),
-                ),
-              ],
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Image.asset("assets/icons/dropdown.png"),
-          ],
+              ),
+              // SizedBox(
+              //   width: 10,
+              // ),
+              Expanded(
+                flex: 1,
+                child: Image.asset("assets/icons/dropdown.png")),
+            ],
+          ),
         ),
       ),
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -98,10 +109,10 @@ class _RoomDisponibleMobile extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
+              margin: EdgeInsets.symmetric(horizontal: 0),
               child: Row(
                 children: [
-                  Expanded(flex: 3, child: Container()),
+                  Expanded(flex: 2, child: Container()),
                   Expanded(
                     flex: 1,
                     child: TextButton(
@@ -109,22 +120,34 @@ class _RoomDisponibleMobile extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          AutoSizeText(
-                            "Trier par",
-                            maxLines: 1,
-                            maxFontSize: 12,
-                            minFontSize: 12,
-                            overflow: TextOverflow.ellipsis,
-                            style: AppTheme.globalFont(TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 12,
-                                color: Colors.black)),
+                          Expanded(
+                            flex: 4,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                AutoSizeText(
+                                  "Trier par",
+                                  maxLines: 1,
+                                  maxFontSize: 12,
+                                  minFontSize: 12,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: AppTheme.globalFont(TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 12,
+                                      color: Colors.black)),
+                                ),
+                              ],
+                            ),
                           ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Container(
-                            child: Image.asset("assets/icons/filtre.png"),
+                          
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Image.asset("assets/icons/filtre.png"),
+                              ],
+                            ),
                           )
                         ],
                       ),

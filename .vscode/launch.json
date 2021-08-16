@@ -10,6 +10,16 @@
             "type": "dart"
         },
         {
+            "name": "book_medial 2",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "book_medial 3",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
             "name": "book_medial (profile mode)",
             "request": "launch",
             "type": "dart",

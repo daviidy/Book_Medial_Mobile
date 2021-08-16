@@ -1,6 +1,7 @@
 import 'package:book_medial/core/services/database_service.dart';
 import 'package:book_medial/views/home/home_view.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class BottomMenuWidget {
   static final DatabaseService storage = new DatabaseService();
@@ -67,9 +68,10 @@ class BottomMenuWidget {
                   child: TextButton(
                       onPressed: () => Navigator.pushAndRemoveUntil(
                             context,
-                            MaterialPageRoute(
-                              builder: (BuildContext context) => HomeView(),
-                            ),
+                            PageTransition(type: PageTransitionType.fade, child: HomeView()),
+                            // MaterialPageRoute(
+                            //   builder: (BuildContext context) => HomeView(),
+                            // ),
                             (route) => false,
                           ),
                       child: Image.asset("assets/icons/home.png")))),
@@ -112,9 +114,10 @@ class BottomMenuWidget {
                   child: TextButton(
                       onPressed: () => Navigator.pushAndRemoveUntil(
                             context,
-                            MaterialPageRoute(
-                              builder: (BuildContext context) => HomeView(),
-                            ),
+                            PageTransition(type: PageTransitionType.fade, child: HomeView()),
+                            // MaterialPageRoute(
+                            //   builder: (BuildContext context) => HomeView(),
+                            // ),
                             (route) => false,
                           ),
                       child: Image.asset("assets/icons/home.png")))),

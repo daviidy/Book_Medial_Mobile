@@ -41,10 +41,11 @@ class _MainApplicationState extends State<MainApplication> {
       providers: ProviderInjector.providers,
       child: MaterialApp(
         theme: AppTheme.lightTheme,
-        routes: routes,
+        //routes: routes,
         initialRoute: "/",
         debugShowCheckedModeBanner: false,
         navigatorKey: locator<NavigatorService>().navigatorKey,
+        onGenerateRoute: onGenerateRouteFunc,
       ),
     );
   }
