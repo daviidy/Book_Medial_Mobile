@@ -188,7 +188,8 @@ class ShareWidget {
   static Widget input(
       {required String name,
       String? labelText,
-      TextStyle? labelStyle = const TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
+      TextStyle? labelStyle =
+          const TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
       String? hintText = "",
       Widget rightLabel = const Text(""),
       Widget? suffixIcon,
@@ -233,10 +234,8 @@ class ShareWidget {
                       contentPadding:
                           EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
                       hintText: hintText,
-                      hintStyle: AppTheme.globalFont(TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600
-                      )),
+                      hintStyle: AppTheme.globalFont(
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
                       errorStyle: AppTheme.globalFont(TextStyle(
                           fontSize: 10.0, fontStyle: FontStyle.italic)),
                       focusedErrorBorder: UnderlineInputBorder(
@@ -457,7 +456,7 @@ class ShareWidget {
                       height: 5,
                     ),
                     AutoSizeText(
-                      "12000 Fcfa",
+                      "18000 Fcfa",
                       maxLines: 1,
                       maxFontSize: 18,
                       minFontSize: 18,
@@ -533,6 +532,144 @@ class ShareWidget {
                 ),
               ),
             )
+        ],
+      ),
+    );
+  }
+
+  static Widget boxRoom2({
+    required BuildContext context,
+    data,
+    // String? route,
+    //Widget? body,
+    EdgeInsets? margin = const EdgeInsets.only(top: 10),
+    EdgeInsets? padding = const EdgeInsets.all(15),
+  }) {
+    return Container(
+      // width: width,
+      // height: height,
+      margin: margin,
+      padding: padding,
+      //height: 456.0,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(18.0),
+        color: const Color(0xffFFFCE2),
+        boxShadow: [
+          BoxShadow(
+              color: const Color(0x38000000),
+              offset: Offset(0, 6),
+              blurRadius: 5)
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AutoSizeText(
+            "Sexy Room",
+            maxLines: 1,
+            maxFontSize: 20,
+            minFontSize: 20,
+            overflow: TextOverflow.ellipsis,
+            style: AppTheme.globalFont(
+                TextStyle(fontWeight: FontWeight.w700, fontSize: 20)),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            children: [
+              Container(
+                width: 30,
+                height: 20,
+                child: Image.asset("assets/icons/valide.png"),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 5),
+                child: AutoSizeText(
+                  "Climatisation - Ventilation - Wifi - Bar - Piscine",
+                  maxLines: 1,
+                  maxFontSize: 10,
+                  minFontSize: 10,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTheme.globalFont(TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 10,
+                      color: Color(0xffFBBB00))),
+                ),
+              )
+            ],
+          ),
+          Row(
+            children: [
+              Container(
+                width: 30,
+                height: 20,
+                child: Image.asset("assets/icons/bed.png"),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 5),
+                child: AutoSizeText(
+                  "Lit simple / Largeur 90 - 130 ",
+                  maxLines: 1,
+                  maxFontSize: 10,
+                  minFontSize: 10,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTheme.globalFont(TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 10,
+                      color: Color(0xffFBBB00))),
+                ),
+              )
+            ],
+          ),
+          Row(
+            children: [
+              Container(
+                width: 30,
+                height: 20,
+                child: Image.asset("assets/icons/personnes.png"),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 5),
+                child: AutoSizeText(
+                  "02 personnes",
+                  maxLines: 1,
+                  maxFontSize: 10,
+                  minFontSize: 10,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTheme.globalFont(TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 10,
+                      color: Color(0xffFBBB00))),
+                ),
+              )
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          AutoSizeText.rich(
+            TextSpan(
+                style: AppTheme.globalFont(
+                    TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+                children: [
+                  TextSpan(
+                    text: "Tarif du séjour :   ",
+                    style: TextStyle(fontSize: 14)
+                  ),
+                  TextSpan(
+                      text: "42000 Fcfa",
+                      style: TextStyle(
+                        color: Color(0xffFBBB00),
+                      ))
+                ]),
+            maxFontSize: 18,
+            maxLines: 1,
+            minFontSize: 18,
+            overflow: TextOverflow.ellipsis,
+          ),
+
+          
         ],
       ),
     );
@@ -635,8 +772,7 @@ class ShareWidget {
     );
   }
 
-
-static Widget boxReservationn1(
+  static Widget boxReservationn1(
       {required BuildContext context,
       required Widget body,
       required String labelText}) {
@@ -664,7 +800,6 @@ static Widget boxReservationn1(
                 height: 20,
               ),
               body,
-              
             ],
           ),
         ));

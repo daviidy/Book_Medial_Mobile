@@ -105,11 +105,13 @@ flutter:
     - assets/icons/line2.png
     - assets/icons/arrow-right1.png
     - assets/icons/arrow-right2.png
+    - assets/icons/arrow-right3.png
     - assets/icons/arrow-left1.png
     - assets/icons/filtre.png
     - assets/icons/bed.png
     - assets/icons/personnes.png
     - assets/icons/calendar.png
+    - assets/icons/heure.png
     - assets/icons/close.png
     - assets/icons/valide.png
     - assets/icons/home.png

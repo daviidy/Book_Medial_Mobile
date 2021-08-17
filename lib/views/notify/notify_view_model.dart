@@ -4,8 +4,8 @@ import 'package:book_medial/core/models/room_models.dart';
 class NotifyViewModel extends BaseViewModel {
   NotifyViewModel();
 
-  //List<Room>? _reservList = [];
-  //List<Room>? _favoryList = [];
+  List reservList = [1,2,3,4,5,6,7,8,9,10];
+  List favoryList = [];
 
   // Add ViewModel specific code here
 }
