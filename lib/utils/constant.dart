@@ -5,6 +5,5 @@ class Constant {
 
   static final String baseUrlProd = "olea.prod-veos.iga.fr";
   static final String baseUrlPreProd = "olea.preprod-veos.iga.fr";
-  static final String baseUrlRec = "oleasante.rec-veos.iga.fr";
 
 }
