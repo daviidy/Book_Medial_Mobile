@@ -29,6 +29,8 @@ class _MainApplicationState extends State<MainApplication> {
       DeviceOrientation.portraitDown,
     ]);
     // Gestion Status Barre état full-Screen
+    WidgetsFlutterBinding.ensureInitialized();
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom, SystemUiOverlay.top]);
     SystemChrome.setEnabledSystemUIOverlays([]);
     // Gestion Status Barre état no full-Screen
     // SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);

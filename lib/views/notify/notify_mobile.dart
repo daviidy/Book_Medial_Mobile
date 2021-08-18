@@ -206,12 +206,18 @@ class _NotifyMobile extends StatelessWidget {
                               SizedBox(
                                 width: 10,
                               ),
-                              AutoSizeText(
-                                "Liste des réservations",
-                                style: AppTheme.globalFont(TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.black)),
+                              Expanded(
+                                child: AutoSizeText(
+                                  "Liste des réservations",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxFontSize: 12,
+                                  minFontSize: 12,
+                                  style: AppTheme.globalFont(TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black)),
+                                ),
                               ),
                             ],
                           ),
@@ -226,12 +232,18 @@ class _NotifyMobile extends StatelessWidget {
                               SizedBox(
                                 width: 10,
                               ),
-                              AutoSizeText(
-                                "Mes favoris",
-                                style: AppTheme.globalFont(TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.black)),
+                              Expanded(
+                                child: AutoSizeText(
+                                  "Mes favoris",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxFontSize: 12,
+                                  minFontSize: 12,
+                                  style: AppTheme.globalFont(TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black)),
+                                ),
                               ),
                             ],
                           ),
