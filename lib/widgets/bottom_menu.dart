@@ -37,7 +37,7 @@ class BottomMenuWidget {
           Expanded(
               child: Container(
                   child: TextButton(
-                      onPressed: () async => (await storage.getItem("isLogin"))
+                      onPressed: () async => ((await storage.getItem("userData") != null))
                           ? Navigator.pushNamed(context, "/compte")
                           : Navigator.pushNamed(context, "/login"),
                       child: Image.asset("assets/icons/profile.png")))),
@@ -84,7 +84,7 @@ class BottomMenuWidget {
           Expanded(
               child: Container(
                   child: TextButton(
-                      onPressed: () async => (await storage.getItem("isLogin"))
+                      onPressed: () async => ((await storage.getItem("userData") != null))
                           ? Navigator.pushNamed(context, "/compte")
                           : Navigator.pushNamed(context, "/login"),
                       child: Image.asset("assets/icons/profile.png")))),

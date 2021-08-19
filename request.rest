@@ -1,0 +1,48 @@
+POST https://api-bookmedial.rikudo.ci/api/login
+Content-Type: application/json
+
+{
+  "email": "a.tissi@armeltissi.com",
+  "password": "Password"
+}
+
+###
+
+POST https://api-bookmedial.rikudo.ci/api/register
+Content-Type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJUb2tlbiBBdXRoIiwiaWRQZXIiOiIxMTA4NTE0MCIsImNhdGVnIjoiVVNFUkVYVCIsImlzcyI6InZlb3MyIC0gUFJFUFJPRCAtIE9MRUEiLCJsYW5ndWFnZSI6IkYiLCJleHAiOjE2MjkzNzQwNDMsImlhdCI6MTYyOTM2MzI0M30.jNg22_Q63sr2_8vqQRtx8IqBgfo_YluvTawumO6ijKU
+
+{
+    "title": "Monsieur",
+    "name": "Armel Tissi",
+    "email": "a.tissi@armeltissi.com",
+    "password": "Password",
+    "phone": "",
+    "birth_date": "",
+    "nationality": "",
+    "gender": ""
+}
+
+###
+
+POST https://api-bookmedial.rikudo.ci/api/user/reset-password
+Content-Type: application/json
+
+{
+    "email": "tkjarmel@gmail.com",
+}
+
+###
+
+GET https://api-bookmedial.rikudo.ci/api/password/1234
+Content-Type: application/json
+
+###
+
+POST https://api-bookmedial.rikudo.ci/api/password/update
+Content-Type: application/json
+
+{
+    "email": "tkjarmel@gmail.com",
+    "password": "Password",
+}

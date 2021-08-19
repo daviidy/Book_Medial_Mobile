@@ -54,7 +54,7 @@ final spinkit9 = SpinKitPulse(
 );
 
 final spinkit10 = SpinKitSquareCircle(
-  color: LightColor.primary,
+  color: Colors.white,
   size: 50.0,
 );
 

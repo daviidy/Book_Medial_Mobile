@@ -72,81 +72,86 @@ class _StepTwoMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 20,
-              ),
-              ShareWidget.headerStyle2(context: context),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                padding: EdgeInsets.only(left: 20),
-                child: AutoSizeText(
-                  "Vérification du code",
-                  maxLines: 1,
-                  maxFontSize: 24,
-                  minFontSize: 10,
-                  style: AppTheme.globalFont(
-                      TextStyle(fontSize: 24, fontWeight: FontWeight.w700)),
+      body: LoadingOverlay(
+        color: Colors.black38,
+        progressIndicator: spinkit10,
+        isLoading: viewModel.loader,
+        child: SingleChildScrollView(
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 20,
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                padding: EdgeInsets.only(left: 20),
-                child: AutoSizeText(
-                  "Entrez le code de 4 chiffres reçu par mail",
-                  maxLines: 1,
-                  maxFontSize: 24,
-                  minFontSize: 10,
-                  style: AppTheme.globalFont(
-                      TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+                ShareWidget.headerStyle2(context: context),
+                SizedBox(
+                  height: 20,
                 ),
-              ),
-              SizedBox(
-                height: AppTheme.fullHeight(context) / 5,
-              ),
-              Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: _form(context)),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 14),
-                child: TextButton(
-                  onPressed: () => viewModel.send(context),
-                  child: ShareWidget.button(
-                      context: context,
-                      backgoundColor: LightColor.primary,
-                      borderWidth: 0.0,
-                      title: "Vérifier",
-                      textColor: Colors.white,
-                      height: 50,
-                      margin: 0),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.only(left: 18),
-                child: TextButton(
-                  onPressed: () => null,
+                Container(
+                  padding: EdgeInsets.only(left: 20),
                   child: AutoSizeText(
-                    "Renvoyer le code ?",
+                    "Vérification du code",
                     maxLines: 1,
                     maxFontSize: 24,
                     minFontSize: 10,
-                    style: AppTheme.globalFont(TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: LightColor.primary)),
+                    style: AppTheme.globalFont(
+                        TextStyle(fontSize: 24, fontWeight: FontWeight.w700)),
                   ),
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  padding: EdgeInsets.only(left: 20),
+                  child: AutoSizeText(
+                    "Entrez le code de 4 chiffres reçu par mail",
+                    maxLines: 1,
+                    maxFontSize: 24,
+                    minFontSize: 10,
+                    style: AppTheme.globalFont(
+                        TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+                  ),
+                ),
+                SizedBox(
+                  height: AppTheme.fullHeight(context) / 5,
+                ),
+                Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: _form(context)),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 14),
+                  child: TextButton(
+                    onPressed: () => viewModel.send(context),
+                    child: ShareWidget.button(
+                        context: context,
+                        backgoundColor: LightColor.primary,
+                        borderWidth: 0.0,
+                        title: "Vérifier",
+                        textColor: Colors.white,
+                        height: 50,
+                        margin: 0),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(left: 18),
+                  child: TextButton(
+                    onPressed: () => viewModel.resendCode(),
+                    child: AutoSizeText(
+                      "Renvoyer le code ?",
+                      maxLines: 1,
+                      maxFontSize: 24,
+                      minFontSize: 10,
+                      style: AppTheme.globalFont(TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: LightColor.primary)),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

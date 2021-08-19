@@ -1,4 +1,5 @@
 import 'package:book_medial/core/base/base_view_model.dart';
+import 'package:book_medial/core/models/user_medels.dart';
 import 'package:book_medial/core/services/database_service.dart';
 import 'package:book_medial/utils/shared.dart';
 import 'package:book_medial/views/home/home_view.dart';
@@ -13,19 +14,27 @@ class CompteViewModel extends BaseViewModel {
   final ImagePicker _picker = ImagePicker();
 
   XFile? profilPhoto;
+  UserModel? _userData;
 
   final DatabaseService storage = new DatabaseService();
 
+  UserModel? get userData => this._userData;
+  set userData(UserModel? value) {
+    this._userData = value;
+    notifyListeners();
+  }
+
   // Add ViewModel specific code here
 
+  init() async {
+    this.userData = UserModel.fromJson(await this.storage.getItem("userData"));
+  }
+
   logout(context) async {
-    await this.storage.setItem("isLogin", false);
+    await this.storage.clear();
     Navigator.pushAndRemoveUntil(
       context, 
       PageTransition(type: PageTransitionType.fade, child: HomeView()),
-      // MaterialPageRoute(
-      //   builder: (BuildContext context) => HomeView(),
-      // ),
       (route) => false,);
   }
 

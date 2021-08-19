@@ -1,6 +1,12 @@
 import 'package:book_medial/core/base/base_view_model.dart';
+import 'package:book_medial/core/models/session_models.dart';
+import 'package:book_medial/core/services/ws/ws_auth.dart';
+import 'package:book_medial/utils/shared.dart';
+import 'package:book_medial/views/home/home_view.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:page_transition/page_transition.dart';
 
 class RegisterViewModel extends BaseViewModel {
   RegisterViewModel();
@@ -13,6 +19,14 @@ class RegisterViewModel extends BaseViewModel {
 
   bool _obscureMp = true;
   bool _obscureCmp = true;
+
+  bool _loader = false;
+
+  bool get loader => this._loader;
+  set loader(bool value) {
+    this._loader = value;
+    notifyListeners();
+  }
 
   String get radioChose => this._radioChose;
   set radioChose(String value) {
@@ -51,24 +65,41 @@ class RegisterViewModel extends BaseViewModel {
   register(context) async {
     print("REGISTER");
 
-    // this.loader = true;
-    // if (this.loginFormKey.currentState!.saveAndValidate()) {
-    //   Map loginData = new Map.from(loginFormKey.currentState!.value);
-    //   Map rp = await WsAuth.login(data: loginData);
-    //   print(rp);
-    //   if (rp["status"]) {
-    //     SharedFunc.toast(msg: "Connecté avec succès");
-    //     Navigator.pushReplacementNamed(context, "/main");
-    //   } else {
-    //     String ms =
-    //         "Mot de passe ou Numéro de carte invalide. Veuillez contacter votre assureur";
-    //     if (rp["message"] != null) ms = rp["message"];
-    //     SharedFunc.toast(msg: "$ms", toastLength: Toast.LENGTH_LONG);
-    //   }
-    // } else {
-    //   SharedFunc.toast(msg: "Veuillez remplir les champs requis.");
-    // }
+    if (this.registerFormKey.currentState!.saveAndValidate()) {
+      Map registerData = new Map.from(registerFormKey.currentState!.value);
+      print(registerData);
 
-    // this.loader = false;
+      if (registerData["password"] != registerData["conf_passwd"]) {
+        SharedFunc.toast(msg: "Les mots de passe ne sont pas identiques.");
+        return;
+      }
+
+      if (registerData["accept_terms"] == false) {
+        SharedFunc.toast(
+            msg: "Veuillez accepter les terme et conditions générales.");
+        return;
+      }
+      this.loader = true;
+      WsResponse rp = await WsAuth.register(data: registerData);
+      print(rp.status);
+      print(rp.reponse);
+      if (rp.status) {
+        SharedFunc.toast(msg: "Connecté avec succès");
+        Navigator.pushAndRemoveUntil(
+          context,
+          PageTransition(type: PageTransitionType.fade, child: HomeView()),
+          (route) => false,
+        );
+      } else {
+        String? ms =
+            "Une erreur est survenus lors de la création du compte, Veuillez Réessayez.";
+        if (rp.message != null) ms = rp.message;
+        SharedFunc.toast(msg: "$ms", toastLength: Toast.LENGTH_LONG);
+      }
+    } else {
+      SharedFunc.toast(msg: "Veuillez remplir les champs requis.");
+    }
+
+    this.loader = false;
   }
 }

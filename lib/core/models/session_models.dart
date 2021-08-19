@@ -30,3 +30,11 @@ class SessionModels {
     return 'SessionModel{key: $key, value: $value}';
   }
 }
+
+class WsResponse {
+  bool status;
+  String? message;
+  Map? reponse;
+
+  WsResponse({this.message, this.reponse, this.status = false});
+}

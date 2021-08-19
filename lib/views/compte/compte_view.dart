@@ -21,17 +21,17 @@ class CompteView extends StatelessWidget {
   Widget build(BuildContext context) {
     CompteViewModel viewModel = CompteViewModel();
     return ViewModelProvider<CompteViewModel>.withConsumer(
-      viewModel: viewModel,
-      onModelReady: (viewModel) {
-        // Do something once your viewModel is initialized
-      },
-      builder: (context, viewModel, child) {
-        return ScreenTypeLayout(
-          mobile: _CompteMobile(viewModel),
-          desktop: _CompteDesktop(viewModel),
-          tablet: _CompteTablet(viewModel),  
-        );
-      }
-    );
+        viewModel: viewModel,
+        onModelReady: (viewModel) {
+          // Do something once your viewModel is initialized
+          viewModel.init();
+        },
+        builder: (context, viewModel, child) {
+          return ScreenTypeLayout(
+            mobile: _CompteMobile(viewModel),
+            desktop: _CompteDesktop(viewModel),
+            tablet: _CompteTablet(viewModel),
+          );
+        });
   }
 }

@@ -1,5 +1,6 @@
 import 'package:book_medial/core/base/base_view_model.dart';
 import 'package:book_medial/core/models/room_models.dart';
+import 'package:book_medial/core/models/user_medels.dart';
 import 'package:book_medial/core/services/database_service.dart';
 import 'package:book_medial/theme/theme.dart';
 import 'package:flutter/widgets.dart';
@@ -10,7 +11,6 @@ class HomeViewModel extends BaseViewModel {
       GlobalKey<FormBuilderState>();
 
   bool _isLogin = false;
-
   bool _chowSearchResume = false;
 
   List<RoomGroup> _roomGroupList = [];
@@ -20,10 +20,7 @@ class HomeViewModel extends BaseViewModel {
     keepScrollOffset: true,
   );
 
-    final DatabaseService storage = new DatabaseService();
-
-
-
+  final DatabaseService storage = new DatabaseService();
 
   List<RoomGroup> get roomGroupList => this._roomGroupList;
   set roomGroupList(List<RoomGroup> value) {
@@ -50,9 +47,12 @@ class HomeViewModel extends BaseViewModel {
   // }
 
   init(context) async {
-    
-    var session = await this.storage.getItem("isLogin");
-    this.isLogin = (session != null) ? session : false ;
+    var session = await this.storage.getItem("userData");
+    if (session != null) {
+      this.isLogin = true;
+      UserModel userData = UserModel.fromJson(session);
+      print(userData.name);
+    }
 
     RoomGroupStyle style1 =
         RoomGroupStyle(height: 223, width: AppTheme.fullWidth(context) / 2.8);
@@ -99,7 +99,5 @@ class HomeViewModel extends BaseViewModel {
         );
   }
 
-  proxiSearch(context){
-
-  }
+  proxiSearch(context) {}
 }
