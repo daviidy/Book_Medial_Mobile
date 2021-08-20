@@ -15,6 +15,7 @@ class ShareWidget {
       Color borderColor = const Color(0xffffffff),
       Color textColor = const Color(0xffffffff),
       String? title,
+      double fontSize = 14,
       double height = 40.0,
       double margin = 60}) {
     return Container(
@@ -25,7 +26,7 @@ class ShareWidget {
         child: AutoSizeText(
           "$title",
           style: AppTheme.globalFont(TextStyle(
-            fontSize: 14,
+            fontSize: fontSize,
             color: textColor,
             fontWeight: FontWeight.w700,
           )),
@@ -654,9 +655,8 @@ class ShareWidget {
                     TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
                 children: [
                   TextSpan(
-                    text: "Tarif du séjour :   ",
-                    style: TextStyle(fontSize: 14)
-                  ),
+                      text: "Tarif du séjour :   ",
+                      style: TextStyle(fontSize: 14)),
                   TextSpan(
                       text: "42000 Fcfa",
                       style: TextStyle(
@@ -668,8 +668,6 @@ class ShareWidget {
             minFontSize: 18,
             overflow: TextOverflow.ellipsis,
           ),
-
-          
         ],
       ),
     );
@@ -768,6 +766,37 @@ class ShareWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  static Widget box3(
+      {Widget? body,
+      TextStyle labelStyle =
+          const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+      double? width,
+      Color backgroundColors = const Color(0xffF6F6F6),
+      Color borderColors = const Color(0xffDFDBDB),
+      double borderWidth = 1.0,
+      double borderRadius = 20,
+      EdgeInsets? padding = const EdgeInsets.all(10)}) {
+    return Container(
+      width: width,
+      padding: padding,
+      child: body,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(borderRadius), topRight: Radius.circular(borderRadius)),
+        color: backgroundColors,
+        border: Border(
+            top: BorderSide(width: borderWidth, color: borderColors),
+            left: BorderSide(width: borderWidth, color: borderColors),
+            right: BorderSide(width: borderWidth, color: borderColors)),
+        // boxShadow: [
+        //   BoxShadow(
+        //       color: const Color(0x0d000000),
+        //       offset: Offset(0, 2),
+        //       blurRadius: 5)
+        // ],
       ),
     );
   }

@@ -9,6 +9,6 @@ class RoomReservationViewModel extends BaseViewModel {
   // Add ViewModel specific code here
 
   createReservation(context) {
-    Navigator.pop(context);
+    Navigator.pushNamed(context, "/room-paiement");
   }
 }

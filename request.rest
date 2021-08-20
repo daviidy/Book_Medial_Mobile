@@ -29,7 +29,7 @@ POST https://api-bookmedial.rikudo.ci/api/user/reset-password
 Content-Type: application/json
 
 {
-    "email": "tkjarmel@gmail.com",
+    "email": "tkjarmel@gmail.com"
 }
 
 ###
@@ -44,5 +44,5 @@ Content-Type: application/json
 
 {
     "email": "tkjarmel@gmail.com",
-    "password": "Password",
+    "password": "Password"
 }

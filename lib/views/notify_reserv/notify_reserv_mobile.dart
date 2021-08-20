@@ -201,7 +201,7 @@ class _NotifyReservMobile extends StatelessWidget {
                     child: QrImage(
                       data: "1234567890",
                       version: QrVersions.auto,
-                      size: AppTheme.fullWidth(context) / 2.1,
+                      size: AppTheme.fullWidth(context) / 2.5,
                     ),
                     decoration: BoxDecoration(
                         border:
@@ -212,11 +212,12 @@ class _NotifyReservMobile extends StatelessWidget {
                   height: 20,
                 ),
                 ShareWidget.boxMain(
-                  backgroundColor: Color(0xff8DF1A2),
-                  shadowColor: Color(0x38000000),
+                  backgroundColor: Color(0xFFC7F5D1),
+                  shadowColor: Colors.transparent,
                   shadowOfset: Offset(0.0, 0),
                   blurRadius: 0,
-                  margin: EdgeInsets.all(20),
+                  margin: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                   borderRadius: 10,
                   body: Container(
                       child: Row(

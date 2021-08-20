@@ -11,6 +11,7 @@ import 'package:book_medial/views/notify_reserv/notify_reserv_view.dart';
 import 'package:book_medial/views/register/register_view.dart';
 import 'package:book_medial/views/room/room_view.dart';
 import 'package:book_medial/views/room_disponible/room_disponible_view.dart';
+import 'package:book_medial/views/room_paiement/room_paiement_view.dart';
 import 'package:book_medial/views/room_reservation/room_reservation_view.dart';
 import 'package:book_medial/views/voir_plus/voir_plus_view.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +49,7 @@ Route<dynamic>? onGenerateRouteFunc(RouteSettings settings) {
     case '/room': return PageTransition( child: RoomView(),type: PageTransitionType.fade,settings: settings,);
     case '/room-disponible': return PageTransition( child: RoomDisponibleView(),type: PageTransitionType.fade,settings: settings,);
     case '/room-reservation': return PageTransition( child: RoomReservationView(),type: PageTransitionType.fade,settings: settings,);
+    case '/room-paiement': return PageTransition( child: RoomPaiementView(),type: PageTransitionType.fade,settings: settings,);
 
     case '/compte': return PageTransition( child: CompteView(),type: PageTransitionType.fade,settings: settings,);
     case '/compte-info': return PageTransition( child: CompteInfoView(),type: PageTransitionType.fade,settings: settings,);
