@@ -54,6 +54,7 @@ dependencies:
   flutter_rating_bar: ^4.0.0
   image_picker: ^0.8.3+2
   page_transition: ^2.0.2
+  qr_flutter: ^4.0.0
 
 dev_dependencies:
   flutter_test:
@@ -137,6 +138,7 @@ flutter:
     - assets/icons/notification.png
     - assets/icons/notification-active.png
     - assets/icons/profile.png
+    - assets/icons/info.png
     - assets/icons/404.png
     - assets/icons/resev.png
     - assets/icons/profile-active.png

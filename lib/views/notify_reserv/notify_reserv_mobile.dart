@@ -31,7 +31,7 @@ class _NotifyReservMobile extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 20, top: 30,right: 20),
+                  padding: EdgeInsets.only(left: 20, top: 30, right: 20),
                   child: AutoSizeText(
                     "Tissi Jean-Armel",
                     maxLines: 1,
@@ -45,7 +45,7 @@ class _NotifyReservMobile extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 20, top: 5,right: 20),
+                  padding: EdgeInsets.only(left: 20, top: 5, right: 20),
                   child: AutoSizeText.rich(
                     TextSpan(
                         style: AppTheme.globalFont(TextStyle(
@@ -67,10 +67,12 @@ class _NotifyReservMobile extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 20, top: 20,right: 20),
+                  padding: EdgeInsets.only(left: 20, top: 20, right: 20),
                   child: Row(
                     children: [
-                      Expanded(flex: 1, child: Image.asset("assets/icons/calendar.png")),
+                      Expanded(
+                          flex: 1,
+                          child: Image.asset("assets/icons/calendar.png")),
                       Expanded(
                         flex: 20,
                         child: Container(
@@ -99,9 +101,8 @@ class _NotifyReservMobile extends StatelessWidget {
                     ],
                   ),
                 ),
-
                 Container(
-                  padding: EdgeInsets.only(left: 47, top: 5,right: 20),
+                  padding: EdgeInsets.only(left: 47, top: 5, right: 20),
                   child: AutoSizeText(
                     "(6 jours)",
                     maxLines: 1,
@@ -114,12 +115,13 @@ class _NotifyReservMobile extends StatelessWidget {
                         color: LightColor.primary)),
                   ),
                 ),
-
                 Container(
                   padding: EdgeInsets.only(left: 20, top: 10, right: 20),
                   child: Row(
                     children: [
-                      Expanded(flex: 1, child: Image.asset("assets/icons/heure.png")),
+                      Expanded(
+                          flex: 1,
+                          child: Image.asset("assets/icons/heure.png")),
                       Expanded(
                         flex: 20,
                         child: Container(
@@ -147,12 +149,13 @@ class _NotifyReservMobile extends StatelessWidget {
                     ],
                   ),
                 ),
-
                 Container(
                   padding: EdgeInsets.only(left: 20, top: 10, right: 20),
                   child: Row(
                     children: [
-                      Expanded(flex: 1, child: Image.asset("assets/icons/heure.png")),
+                      Expanded(
+                          flex: 1,
+                          child: Image.asset("assets/icons/heure.png")),
                       Expanded(
                         flex: 20,
                         child: Container(
@@ -181,18 +184,83 @@ class _NotifyReservMobile extends StatelessWidget {
                     ],
                   ),
                 ),
-                
-
                 Container(
-                child: ShareWidget.boxRoom2(
-                  //padding: EdgeInsets.all(10),
-                  margin: EdgeInsets.all(20),
-                  data: null,
-                  context: context,
-                  //route: "/room-reservation"
+                  child: ShareWidget.boxRoom2(
+                    //padding: EdgeInsets.all(10),
+                    margin: EdgeInsets.all(20),
+                    data: null,
+                    context: context,
+                    //route: "/room-reservation"
+                  ),
                 ),
-              ),
+                SizedBox(
+                  height: 30,
+                ),
+                Center(
+                  child: Container(
+                    child: QrImage(
+                      data: "1234567890",
+                      version: QrVersions.auto,
+                      size: AppTheme.fullWidth(context) / 2.1,
+                    ),
+                    decoration: BoxDecoration(
+                        border:
+                            Border.all(width: 1, color: LightColor.primary)),
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                ShareWidget.boxMain(
+                  backgroundColor: Color(0xff8DF1A2),
+                  shadowColor: Color(0x38000000),
+                  shadowOfset: Offset(0.0, 0),
+                  blurRadius: 0,
+                  margin: EdgeInsets.all(20),
+                  borderRadius: 10,
+                  body: Container(
+                      child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Image.asset("assets/icons/info.png")),
+                      Expanded(
+                        flex: 10,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          AutoSizeText(
+                            "Veuillez présenter ce code QR à la",
+                            maxLines: 1,
+                            maxFontSize: 12,
+                            minFontSize: 12,
+                            overflow: TextOverflow.ellipsis,
+                            style: AppTheme.globalFont(TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            )),
+                          ),
+                          AutoSizeText(
+                            "réception de votre hébergement",
+                            maxLines: 1,
+                            maxFontSize: 12,
+                            minFontSize: 12,
+                            overflow: TextOverflow.ellipsis,
+                            style: AppTheme.globalFont(TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            )),
+                          ),
+                        ],
+                      ))
+                    ],
+                  )),
+                ),
 
+                SizedBox(
+                  height: 30,
+                ),
               ],
             ),
           ),

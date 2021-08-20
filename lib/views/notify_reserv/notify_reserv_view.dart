@@ -6,6 +6,7 @@ import 'package:book_medial/theme/light_color.dart';
 import 'package:book_medial/theme/theme.dart';
 import 'package:book_medial/widgets/_share.dart';
 import 'package:book_medial/widgets/bottom_menu.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:flutter/material.dart';
 import 'notify_reserv_view_model.dart';
