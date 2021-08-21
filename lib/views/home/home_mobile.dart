@@ -198,6 +198,7 @@ class _HomeMobile extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          // Container(child: Image.asset("assets/images/logo-book-medial.png", height: 40,)),
                           AutoSizeText.rich(TextSpan(
                               style: AppTheme.globalFont(TextStyle(
                                   fontSize: 36, fontWeight: FontWeight.w700)),

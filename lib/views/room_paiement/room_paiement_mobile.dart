@@ -175,7 +175,7 @@ class _RoomPaiementMobile extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(
-                            width: 10,
+                            width: AppTheme.fullWidth(context)/55,
                           ),
                           Stack(children: [
                             Align(
@@ -192,7 +192,7 @@ class _RoomPaiementMobile extends StatelessWidget {
                           SizedBox(
                             width: 6,
                           ),
-                          Image.asset("assets/images/orange-money.png")
+                          Image.asset("assets/images/orange-money.png",width: AppTheme.fullWidth(context)/8)
                         ],
                       ),
                       textColor: Colors.black,
@@ -202,7 +202,7 @@ class _RoomPaiementMobile extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  width: 10,
+                  width: AppTheme.fullWidth(context)/55,
                 ),
                 Expanded(
                   flex: 1,
@@ -216,7 +216,7 @@ class _RoomPaiementMobile extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(
-                            width: 10,
+                            width: AppTheme.fullWidth(context)/55,
                           ),
                           Stack(children: [
                             Align(
@@ -233,7 +233,7 @@ class _RoomPaiementMobile extends StatelessWidget {
                           SizedBox(
                             width: 10,
                           ),
-                          Image.asset("assets/images/mtn-money.png")
+                          Image.asset("assets/images/mtn-money.png",width: AppTheme.fullWidth(context)/10)
                         ],
                       ),
                       textColor: Colors.black,
@@ -243,7 +243,7 @@ class _RoomPaiementMobile extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  width: 10,
+                  width: AppTheme.fullWidth(context)/55,
                 ),
                 Expanded(
                   flex: 1,
@@ -257,7 +257,7 @@ class _RoomPaiementMobile extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(
-                            width: 10,
+                            width: AppTheme.fullWidth(context)/55,
                           ),
                           Stack(children: [
                             Align(
@@ -272,9 +272,9 @@ class _RoomPaiementMobile extends StatelessWidget {
                                       "assets/icons/select-actif.png")),
                           ]),
                           SizedBox(
-                            width: 10,
+                            width: AppTheme.fullWidth(context)/55,
                           ),
-                          Image.asset("assets/images/moov-money.png")
+                          Image.asset("assets/images/moov-money.png", width: AppTheme.fullWidth(context)/8,)
                         ],
                       ),
                       textColor: Colors.black,

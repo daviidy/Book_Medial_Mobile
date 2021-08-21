@@ -55,6 +55,12 @@ class _CompteMobile extends StatelessWidget {
                             padding: EdgeInsets.only(top: 5),
                             child: Image.asset("assets/icons/right-arrow.png")),
                       ),
+                      // Container(
+                      //     child: Image.asset(
+                      //   "assets/images/logo-book-medial.png",
+                      //   height: 40,
+                      // )),
+
                       AutoSizeText.rich(TextSpan(
                           style: AppTheme.globalFont(TextStyle(
                               fontSize: 36, fontWeight: FontWeight.w700)),
