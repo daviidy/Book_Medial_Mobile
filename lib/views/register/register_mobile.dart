@@ -147,23 +147,29 @@ class _RegisterMobile extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 20),
-                  child: AutoSizeText.rich(TextSpan(
-                      style: AppTheme.globalFont(
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.w700)),
-                      children: [
-                        TextSpan(
-                            text: "Book ",
-                            style: TextStyle(
-                              color: LightColor.primary,
-                            )),
-                        TextSpan(
-                            text: "Médial",
-                            style: TextStyle(
-                              color: LightColor.second,
-                            ))
-                      ])),
-                ),
+                   padding: EdgeInsets.only(left: 14),
+                          child: Image.asset(
+                        "assets/images/logo-book-medial.png",
+                        height: 50,
+                      )),
+                // Container(
+                //   padding: EdgeInsets.only(left: 20),
+                //   child: AutoSizeText.rich(TextSpan(
+                //       style: AppTheme.globalFont(
+                //           TextStyle(fontSize: 24, fontWeight: FontWeight.w700)),
+                //       children: [
+                //         TextSpan(
+                //             text: "Book ",
+                //             style: TextStyle(
+                //               color: LightColor.primary,
+                //             )),
+                //         TextSpan(
+                //             text: "Médial",
+                //             style: TextStyle(
+                //               color: LightColor.second,
+                //             ))
+                //       ])),
+                // ),
                 SizedBox(
                   height: 30,
                 ),

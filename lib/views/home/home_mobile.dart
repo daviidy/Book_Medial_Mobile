@@ -198,22 +198,22 @@ class _HomeMobile extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          // Container(child: Image.asset("assets/images/logo-book-medial.png", height: 40,)),
-                          AutoSizeText.rich(TextSpan(
-                              style: AppTheme.globalFont(TextStyle(
-                                  fontSize: 36, fontWeight: FontWeight.w700)),
-                              children: [
-                                TextSpan(
-                                    text: "Book ",
-                                    style: TextStyle(
-                                      color: LightColor.primary,
-                                    )),
-                                TextSpan(
-                                    text: "Médial",
-                                    style: TextStyle(
-                                      color: LightColor.second,
-                                    ))
-                              ])),
+                          Container(child: Image.asset("assets/images/logo-book-medial.png", height: 50,)),
+                          // AutoSizeText.rich(TextSpan(
+                          //     style: AppTheme.globalFont(TextStyle(
+                          //         fontSize: 36, fontWeight: FontWeight.w700)),
+                          //     children: [
+                          //       TextSpan(
+                          //           text: "Book ",
+                          //           style: TextStyle(
+                          //             color: LightColor.primary,
+                          //           )),
+                          //       TextSpan(
+                          //           text: "Médial",
+                          //           style: TextStyle(
+                          //             color: LightColor.second,
+                          //           ))
+                          //     ])),
                           if (viewModel.isLogin)
                             TextButton(
                               onPressed: () =>

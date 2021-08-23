@@ -55,27 +55,27 @@ class _CompteMobile extends StatelessWidget {
                             padding: EdgeInsets.only(top: 5),
                             child: Image.asset("assets/icons/right-arrow.png")),
                       ),
-                      // Container(
-                      //     child: Image.asset(
-                      //   "assets/images/logo-book-medial.png",
-                      //   height: 40,
-                      // )),
+                      Container(
+                          child: Image.asset(
+                        "assets/images/logo-book-medial.png",
+                        height: 50,
+                      )),
 
-                      AutoSizeText.rich(TextSpan(
-                          style: AppTheme.globalFont(TextStyle(
-                              fontSize: 36, fontWeight: FontWeight.w700)),
-                          children: [
-                            TextSpan(
-                                text: "Book ",
-                                style: TextStyle(
-                                  color: LightColor.primary,
-                                )),
-                            TextSpan(
-                                text: "Médial",
-                                style: TextStyle(
-                                  color: LightColor.second,
-                                ))
-                          ])),
+                      // AutoSizeText.rich(TextSpan(
+                      //     style: AppTheme.globalFont(TextStyle(
+                      //         fontSize: 36, fontWeight: FontWeight.w700)),
+                      //     children: [
+                      //       TextSpan(
+                      //           text: "Book ",
+                      //           style: TextStyle(
+                      //             color: LightColor.primary,
+                      //           )),
+                      //       TextSpan(
+                      //           text: "Médial",
+                      //           style: TextStyle(
+                      //             color: LightColor.second,
+                      //           ))
+                      //     ])),
                     ],
                   ),
                 ),
