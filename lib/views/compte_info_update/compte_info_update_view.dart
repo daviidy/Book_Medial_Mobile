@@ -1,4 +1,4 @@
-library step_three_view;
+library compte_info_update_view;
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:book_medial/core/base/base_provider.dart';
@@ -10,17 +10,17 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:flutter/material.dart';
-import 'step_three_view_model.dart';
+import 'compte_info_update_view_model.dart';
 
-part 'step_three_mobile.dart';
-part 'step_three_tablet.dart';
-part 'step_three_desktop.dart';
+part 'compte_info_update_mobile.dart';
+part 'compte_info_update_tablet.dart';
+part 'compte_info_update_desktop.dart';
 
-class StepThreeView extends StatelessWidget {
+class CompteInfoUpdateView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    StepThreeViewModel viewModel = StepThreeViewModel();
-    return ViewModelProvider<StepThreeViewModel>.withConsumer(
+    CompteInfoUpdateViewModel viewModel = CompteInfoUpdateViewModel();
+    return ViewModelProvider<CompteInfoUpdateViewModel>.withConsumer(
         viewModel: viewModel,
         onModelReady: (viewModel) {
           // Do something once your viewModel is initialized
@@ -28,9 +28,9 @@ class StepThreeView extends StatelessWidget {
         },
         builder: (context, viewModel, child) {
           return ScreenTypeLayout(
-            mobile: _StepThreeMobile(viewModel),
-            desktop: _StepThreeDesktop(viewModel),
-            tablet: _StepThreeTablet(viewModel),
+            mobile: _CompteInfoUpdateMobile(viewModel),
+            desktop: _CompteInfoUpdateDesktop(viewModel),
+            tablet: _CompteInfoUpdateTablet(viewModel),
           );
         });
   }

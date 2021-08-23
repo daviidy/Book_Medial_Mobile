@@ -33,7 +33,8 @@ class StepTwoViewModel extends BaseViewModel {
 
   init(context) {
     this.userEmail = ModalRoute.of(context)!.settings.arguments as String?;
-    this.codeText = context;
+    print(this.userEmail);
+    this.context = context;
   }
 
   send(context) async {

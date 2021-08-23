@@ -19,7 +19,7 @@ class WsAuth {
       Map rpReponse = jsonDecode(utf8.decode(reponse.bodyBytes));
       await _storage.setItem("token", rpReponse["access_token"]);
       await _storage.setItem("userData", rpReponse["user"]);
-      await _storage.setItem("userLogin", rpReponse["data"]);
+      await _storage.setItem("userLogin", data);
       rp.status = true;
     }
 

@@ -1,5 +1,6 @@
 import 'package:book_medial/views/compte/compte_view.dart';
 import 'package:book_medial/views/compte_info/compte_info_view.dart';
+import 'package:book_medial/views/compte_info_update/compte_info_update_view.dart';
 import 'package:book_medial/views/forget_password/step_one/step_one_view.dart';
 import 'package:book_medial/views/forget_password/step_three/step_three_view.dart';
 import 'package:book_medial/views/forget_password/step_two/step_two_view.dart';
@@ -53,6 +54,7 @@ Route<dynamic>? onGenerateRouteFunc(RouteSettings settings) {
 
     case '/compte': return PageTransition( child: CompteView(),type: PageTransitionType.fade,settings: settings,);
     case '/compte-info': return PageTransition( child: CompteInfoView(),type: PageTransitionType.fade,settings: settings,);
+    case '/compte-info-update': return PageTransition( child: CompteInfoUpdateView(),type: PageTransitionType.fade,settings: settings,);
     
     case '/notification': return PageTransition( child: NotifyView(),type: PageTransitionType.fade,settings: settings,);
     case '/notification-reservation': return PageTransition( child: NotifyReservView(),type: PageTransitionType.fade,settings: settings,);
