@@ -6,6 +6,8 @@ import 'package:book_medial/views/home/home_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -34,6 +36,7 @@ class CompteViewModel extends BaseViewModel {
   logout(context) async {
     await this.storage.clear();
     await FirebaseAuth.instance.signOut();
+    await FacebookAuth.instance.logOut();
     Navigator.pushAndRemoveUntil(
       context, 
       PageTransition(type: PageTransitionType.fade, child: HomeView()),

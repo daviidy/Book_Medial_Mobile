@@ -6,6 +6,7 @@ import 'package:book_medial/core/models/session_models.dart';
 import 'package:book_medial/core/services/database_service.dart';
 import 'package:book_medial/core/services/ws/_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart';
 
@@ -116,25 +117,51 @@ class WsAuth {
             await FirebaseAuth.instance.signInWithCredential(credential);
         print(userData);
 
-        Map _loginData = {
-          "email": userData.user!.email,
-          "password": userData.user!.uid
-        };
-        rp = await login(data: _loginData);
-        if (!rp.status) {
-          Map _registerData = {
-            "name": userData.user!.displayName,
-            "email": userData.user!.email,
-            "password": userData.user!.uid,
-            "phone": userData.user!.phoneNumber,
-          };
-          rp = await register(data: _registerData);
-        }
-
-        return rp;
+        return await loginOrRegister(userData);
       }
     } catch (error) {
       print(error);
+    }
+
+    return rp;
+  }
+
+  static Future<WsResponse> facbookSignIn() async {
+    WsResponse rp = new WsResponse();
+    try {
+      final LoginResult loginResult = await FacebookAuth.instance.login();
+
+      final OAuthCredential facebookAuthCredential =
+          FacebookAuthProvider.credential(loginResult.accessToken!.token);
+      UserCredential userData = await FirebaseAuth.instance
+          .signInWithCredential(facebookAuthCredential);
+      print(userData);
+
+      return await loginOrRegister(userData);
+    } catch (error) {
+      print(error);
+    }
+
+    return rp;
+  }
+
+  static Future<WsResponse> loginOrRegister(UserCredential userData) async {
+    WsResponse rp = new WsResponse();
+    
+    Map _loginData = {
+      "email": userData.user!.email,
+      "password": userData.user!.uid
+    };
+
+    rp = await login(data: _loginData);
+    if (!rp.status) {
+      Map _registerData = {
+        "name": userData.user!.displayName,
+        "email": userData.user!.email,
+        "password": userData.user!.uid,
+        "phone": userData.user!.phoneNumber,
+      };
+      rp = await register(data: _registerData);
     }
 
     return rp;

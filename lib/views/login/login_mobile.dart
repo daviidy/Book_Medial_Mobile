@@ -146,14 +146,17 @@ class _LoginMobile extends StatelessWidget {
                       ),
                       Expanded(
                         flex: 1,
-                        child: ShareWidget.buttonIcone(
-                            context: context,
-                            height: 50,
-                            body: Image.asset("assets/icons/facebook.png"),
-                            textColor: Colors.black,
-                            borderColor: Color(0xffA3A3A3),
-                            borderWidth: 1.0,
-                            padding: EdgeInsets.only(left: 15, right: 15)),
+                        child: GestureDetector(
+                          onTap: () => viewModel.loginFacebook(context),
+                          child: ShareWidget.buttonIcone(
+                              context: context,
+                              height: 50,
+                              body: Image.asset("assets/icons/facebook.png"),
+                              textColor: Colors.black,
+                              borderColor: Color(0xffA3A3A3),
+                              borderWidth: 1.0,
+                              padding: EdgeInsets.only(left: 15, right: 15)),
+                        ),
                       ),
                     ],
                   ),

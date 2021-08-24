@@ -16,4 +16,10 @@
     <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
         <item name="android:windowBackground">?android:colorBackground</item>
     </style>
+
+    <string name="app_name">Book Medial</string>
+    <string name="facebook_app_id">515946892839201</string> 
+    <string name="fb_login_protocol_scheme">fb515946892839201</string>
+
+
 </resources>
