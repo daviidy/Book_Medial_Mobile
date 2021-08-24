@@ -4,10 +4,12 @@ import 'package:book_medial/core/services/database_service.dart';
 import 'package:book_medial/core/services/ws/ws_auth.dart';
 import 'package:book_medial/utils/shared.dart';
 import 'package:book_medial/views/home/home_view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:page_transition/page_transition.dart';
 
 class LoginViewModel extends BaseViewModel {
@@ -54,5 +56,30 @@ class LoginViewModel extends BaseViewModel {
     this.loader = false;
   }
 
+  loginGoogle(context) async {
+    this.loader = true;
+    WsResponse rp = await WsAuth.googleSignIn();
+    print(rp.status);
+    print(rp.reponse);
+    if (rp.status) {
+      SharedFunc.toast(msg: "Connecté avec succès");
+      Navigator.pushAndRemoveUntil(
+        context,
+        PageTransition(type: PageTransitionType.fade, child: HomeView()),
+        (route) => false,
+      );
+    } else {
+      String? ms = "Mot de passe ou Email invalide";
+      if (rp.message != null) ms = rp.message;
+      SharedFunc.toast(msg: "$ms", toastLength: Toast.LENGTH_LONG);
+    }
+
+    this.loader = false;
+  }
+  
+  
+  loginFacebook(context){
+    
+  }
   // Add ViewModel specific code here
 }

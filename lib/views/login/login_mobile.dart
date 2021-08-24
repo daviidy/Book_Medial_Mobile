@@ -112,30 +112,33 @@ class _LoginMobile extends StatelessWidget {
                     children: [
                       Expanded(
                         flex: 5,
-                        child: ShareWidget.buttonIcone(
-                          context: context,
-                          height: 50,
-                          body: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset("assets/icons/google.png"),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              AutoSizeText(
-                                "Inscrivez-vous avec Gooogle",
-                                style: AppTheme.globalFont(TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w700,
-                                )),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
+                        child: GestureDetector(
+                          onTap: () => viewModel.loginGoogle(context),
+                          child: ShareWidget.buttonIcone(
+                            context: context,
+                            height: 50,
+                            body: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset("assets/icons/google.png"),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                AutoSizeText(
+                                  "Inscrivez-vous avec Gooogle",
+                                  style: AppTheme.globalFont(TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w700,
+                                  )),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                            textColor: Colors.black,
+                            borderColor: Color(0xffA3A3A3),
+                            borderWidth: 1.0,
                           ),
-                          textColor: Colors.black,
-                          borderColor: Color(0xffA3A3A3),
-                          borderWidth: 1.0,
                         ),
                       ),
                       Container(

@@ -3,6 +3,7 @@ import 'package:book_medial/core/models/user_medels.dart';
 import 'package:book_medial/core/services/database_service.dart';
 import 'package:book_medial/utils/shared.dart';
 import 'package:book_medial/views/home/home_view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
@@ -32,6 +33,7 @@ class CompteViewModel extends BaseViewModel {
 
   logout(context) async {
     await this.storage.clear();
+    await FirebaseAuth.instance.signOut();
     Navigator.pushAndRemoveUntil(
       context, 
       PageTransition(type: PageTransitionType.fade, child: HomeView()),

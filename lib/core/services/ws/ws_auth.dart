@@ -5,10 +5,18 @@ import 'dart:io';
 import 'package:book_medial/core/models/session_models.dart';
 import 'package:book_medial/core/services/database_service.dart';
 import 'package:book_medial/core/services/ws/_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart';
 
 class WsAuth {
   static final DatabaseService _storage = new DatabaseService();
+  static GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+      'https://www.googleapis.com/auth/userinfo.profile',
+    ],
+  );
 
   static Future<WsResponse> login({data, bool isRefresh = false}) async {
     WsResponse rp = new WsResponse();
@@ -66,8 +74,8 @@ class WsAuth {
 
   static Future<WsResponse> updatePassword({data}) async {
     WsResponse rp = new WsResponse();
-    Response reponse = await WsCore.post(
-        data: jsonEncode(data), endpoint: "/password/update");
+    Response reponse =
+        await WsCore.post(data: jsonEncode(data), endpoint: "/password/update");
     if (reponse.statusCode == 200) {
       Map reponseData = jsonDecode(utf8.decode(reponse.bodyBytes));
       rp.message = reponseData["message"];
@@ -87,4 +95,48 @@ class WsAuth {
   }
 
   /// ***  Auth helper fonction END  ****
+
+  static Future<WsResponse> googleSignIn() async {
+    WsResponse rp = new WsResponse();
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      // Obtain the auth details from the request
+      if (googleUser != null) {
+        final GoogleSignInAuthentication googleAuth =
+            await googleUser.authentication;
+        print(googleAuth);
+        // Create a new credential
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+
+        // Once signed in, return the UserCredential
+        UserCredential userData =
+            await FirebaseAuth.instance.signInWithCredential(credential);
+        print(userData);
+
+        Map _loginData = {
+          "email": userData.user!.email,
+          "password": userData.user!.uid
+        };
+        rp = await login(data: _loginData);
+        if (!rp.status) {
+          Map _registerData = {
+            "name": userData.user!.displayName,
+            "email": userData.user!.email,
+            "password": userData.user!.uid,
+            "phone": userData.user!.phoneNumber,
+          };
+          rp = await register(data: _registerData);
+        }
+
+        return rp;
+      }
+    } catch (error) {
+      print(error);
+    }
+
+    return rp;
+  }
 }

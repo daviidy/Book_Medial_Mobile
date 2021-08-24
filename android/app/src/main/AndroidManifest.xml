@@ -4,6 +4,7 @@
    <uses-permission android:name="android.permission.INTERNET"/>
 
    <application
+        android:usesCleartextTraffic="true"
         android:label="Book Medial"
         android:icon="@mipmap/launcher_icon">
         <activity

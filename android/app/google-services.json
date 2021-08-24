@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "434381644883",
+    "project_id": "book-medial-56637",
+    "storage_bucket": "book-medial-56637.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:434381644883:android:e2c28817d2fc10e3d492a6",
+        "android_client_info": {
+          "package_name": "com.klandie.book_medial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "434381644883-f8ojroleked6gvq6cntj9lscb81egfbb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.klandie.book_medial",
+            "certificate_hash": "820e3e4b2d338da314ab78bd93443859ffe3e1a4"
+          }
+        },
+        {
+          "client_id": "434381644883-ghrshn0k86r5s6m8e87qc726vnhbhsml.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.klandie.book_medial",
+            "certificate_hash": "f2e641d46865b80a0919b3e9eee88ef583ae895d"
+          }
+        },
+        {
+          "client_id": "434381644883-sl5hq18p2nl3mmcsqr8j9027ajindgif.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoN80l7Ni4kTJBtw0Q8zL1wEa2F90w2A8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "434381644883-sl5hq18p2nl3mmcsqr8j9027ajindgif.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
