@@ -28,7 +28,7 @@ class _HomeMobile extends StatelessWidget {
             Expanded(
               child: ShareWidget.box1(
                 value: "2 personnes, 1 chambre qwwwwwwwwwww",
-                labelText: "Chambre",
+                labelText: "Nbre Personne",
                 width: AppTheme.fullWidth(context),
               ),
             )
@@ -134,14 +134,19 @@ class _HomeMobile extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        AutoSizeText(
-                          "voir plus",
-                          style: AppTheme.globalFont(TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                              color: LightColor.primary)),
+                        Expanded(
+                          flex: 5,
+                          child: AutoSizeText(
+                            "voir plus",
+                            style: AppTheme.globalFont(TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                                color: LightColor.primary)),
+                          ),
                         ),
-                        Image.asset("assets/icons/arrow-right.png")
+                        Expanded(
+                          flex: 1,
+                          child: Image.asset("assets/icons/arrow-right.png"))
                       ],
                     ),
                   ),
@@ -200,14 +205,19 @@ class _HomeMobile extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        AutoSizeText(
-                          "voir plus",
-                          style: AppTheme.globalFont(TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                              color: LightColor.primary)),
+                        Expanded(
+                          flex: 5,
+                          child: AutoSizeText(
+                            "voir plus",
+                            style: AppTheme.globalFont(TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                                color: LightColor.primary)),
+                          ),
                         ),
-                        Image.asset("assets/icons/arrow-right.png")
+                        Expanded(
+                          flex: 1,
+                          child: Image.asset("assets/icons/arrow-right.png"))
                       ],
                     ),
                   ),
@@ -273,14 +283,19 @@ class _HomeMobile extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        AutoSizeText(
-                          "voir plus",
-                          style: AppTheme.globalFont(TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                              color: LightColor.primary)),
+                        Expanded(
+                          flex: 5,
+                          child: AutoSizeText(
+                            "voir plus",
+                            style: AppTheme.globalFont(TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                                color: LightColor.primary)),
+                          ),
                         ),
-                        Image.asset("assets/icons/arrow-right.png")
+                        Expanded(
+                          flex: 1,
+                          child: Image.asset("assets/icons/arrow-right.png"))
                       ],
                     ),
                   ),
@@ -339,14 +354,19 @@ class _HomeMobile extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        AutoSizeText(
-                          "voir plus",
-                          style: AppTheme.globalFont(TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                              color: LightColor.primary)),
+                        Expanded(
+                          flex: 5,
+                          child: AutoSizeText(
+                            "voir plus",
+                            style: AppTheme.globalFont(TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                                color: LightColor.primary)),
+                          ),
                         ),
-                        Image.asset("assets/icons/arrow-right.png")
+                        Expanded(
+                          flex: 1,
+                          child: Image.asset("assets/icons/arrow-right.png"))
                       ],
                     ),
                   ),
@@ -486,36 +506,41 @@ class _HomeMobile extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                Image.asset("assets/icons/map.png"),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    AutoSizeText(
-                                      "Autour de moi",
-                                      maxLines: 1,
-                                      maxFontSize: 18,
-                                      minFontSize: 18,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: AppTheme.globalFont(TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 18,
-                                          color: Colors.white)),
-                                    ),
-                                    AutoSizeText(
-                                      "24 Juin - 25 Juin       2 personnes, 1 cham",
-                                      maxLines: 1,
-                                      maxFontSize: 12,
-                                      minFontSize: 12,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: AppTheme.globalFont(TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 12,
-                                          color: Colors.white)),
-                                    ),
-                                  ],
+                                Expanded(
+                                  flex: 1,
+                                  child: Image.asset("assets/icons/map.png")),
+                                // SizedBox(
+                                //   width: 10,
+                                // ),
+                                Expanded(
+                                  flex: 4,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      AutoSizeText(
+                                        "Autour de moi",
+                                        maxLines: 1,
+                                        maxFontSize: 18,
+                                        minFontSize: 18,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: AppTheme.globalFont(TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 18,
+                                            color: Colors.white)),
+                                      ),
+                                      AutoSizeText(
+                                        "24 Juin - 25 Juin       2 personnes, 1 cham",
+                                        maxLines: 1,
+                                        maxFontSize: 12,
+                                        minFontSize: 12,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: AppTheme.globalFont(TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 12,
+                                            color: Colors.white)),
+                                      ),
+                                    ],
+                                  ),
                                 )
                               ],
                             ),
