@@ -31,10 +31,22 @@ class SessionModels {
   }
 }
 
+// Autre models
+
 class WsResponse {
   bool status;
   String? message;
   Map? reponse;
 
   WsResponse({this.message, this.reponse, this.status = false});
+}
+
+enum VpParamType { property, category, propertyQuery }
+
+class VpParam {
+  String label;
+  VpParamType type;
+  dynamic data;
+
+  VpParam({required this.label, required this.type, this.data});
 }

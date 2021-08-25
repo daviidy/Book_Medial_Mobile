@@ -11,6 +11,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:flutter/material.dart';
 import 'home_view_model.dart';
+import 'package:skeleton_loader/skeleton_loader.dart';
 
 part 'home_mobile.dart';
 part 'home_tablet.dart';

@@ -1,10 +1,13 @@
 import 'package:book_medial/core/base/base_view_model.dart';
-import 'package:book_medial/core/models/room_models.dart';
+import 'package:book_medial/core/models/propertie_models.dart';
+import 'package:book_medial/core/models/session_models.dart';
 import 'package:book_medial/core/models/user_medels.dart';
 import 'package:book_medial/core/services/database_service.dart';
-import 'package:book_medial/theme/theme.dart';
+import 'package:book_medial/core/services/ws/ws_property.dart';
+import 'package:book_medial/utils/shared.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class HomeViewModel extends BaseViewModel {
   final GlobalKey<FormBuilderState> searchFormKey =
@@ -12,8 +15,11 @@ class HomeViewModel extends BaseViewModel {
 
   bool _isLogin = false;
   bool _chowSearchResume = false;
+  bool _isLoadPopular = false;
+  bool _isLoadLast = false;
 
-  List<RoomGroup> _roomGroupList = [];
+  List<PopularProperty> _popularData = [];
+  List<PopularProperty> _popularDataAll = [];
 
   ScrollController scrollController = new ScrollController(
     initialScrollOffset: 0.0,
@@ -22,9 +28,21 @@ class HomeViewModel extends BaseViewModel {
 
   final DatabaseService storage = new DatabaseService();
 
-  List<RoomGroup> get roomGroupList => this._roomGroupList;
-  set roomGroupList(List<RoomGroup> value) {
-    this._roomGroupList = value;
+  List<PopularProperty> get popularData => this._popularData;
+  set popularData(List<PopularProperty> value) {
+    this._popularData = value;
+    notifyListeners();
+  }
+
+  bool get isLoadPopular => this._isLoadPopular;
+  set isLoadPopular(bool value) {
+    this._isLoadPopular = value;
+    notifyListeners();
+  }
+
+  bool get isLoadLast => this._isLoadLast;
+  set isLoadLast(bool value) {
+    this._isLoadLast = value;
     notifyListeners();
   }
 
@@ -52,37 +70,11 @@ class HomeViewModel extends BaseViewModel {
       this.isLogin = true;
       UserModel userData = UserModel.fromJson(session);
       print(userData.name);
+      this.loadPopular();
     }
-
-    RoomGroupStyle style1 =
-        RoomGroupStyle(height: 223, width: AppTheme.fullWidth(context) / 2.8);
-
-    RoomGroupStyle style2 =
-        RoomGroupStyle(height: 160, width: AppTheme.fullWidth(context) / 1.3);
-
-    RoomGroup goup1 =
-        RoomGroup(title: "Destinations populaires", style: style1, rooms: []);
-    for (var i = 0; i < 3; i++) {
-      Room room = Room(
-          image: "assets/images/intro${i + 1}.png",
-          location: "Lieu",
-          name: "Nom");
-      goup1.rooms.add(room);
-    }
-
-    RoomGroup goup2 =
-        RoomGroup(title: "Les plus récents", style: style2, rooms: []);
-    for (var i = 0; i < 3; i++) {
-      Room room = Room(
-          image: "assets/images/intro2.png", location: "Lieu", name: "Nom");
-      goup2.rooms.add(room);
-    }
-
-    this.roomGroupList.add(goup1);
-    this.roomGroupList.add(goup2);
 
     this.scrollController.addListener(() {
-      print(this.scrollController.offset);
+      //print(this.scrollController.offset);
       if (this.scrollController.offset > 336) {
         this.chowSearchResume = true;
       } else {
@@ -90,6 +82,42 @@ class HomeViewModel extends BaseViewModel {
       }
     });
   }
+
+  loadPopular() async {
+    this.isLoadPopular = true;
+    WsResponse rp = await WsProperty.popular();
+    if (rp.status) {
+      for (var item in rp.reponse!["data"]) {
+        this._popularDataAll.add(PopularProperty.fromJson(item));
+      }
+      this.popularData = this._popularDataAll.take(5).toList();
+    } else {
+      // String? ms = "Email invalide";
+      // if (rp.message != null) ms = rp.message;
+      // SharedFunc.toast(msg: "$ms", toastLength: Toast.LENGTH_LONG);
+    }
+    this.isLoadPopular = false;
+  }
+
+  loadLast() {}
+
+  morePopular(context) {
+    VpParam param = VpParam(
+        label: "Destinations populaires",
+        type: VpParamType.category,
+        data: this._popularDataAll);
+    Navigator.pushNamed(context, "/voir-plus", arguments: param);
+  }
+
+  detailPopular(context, PopularProperty popular) {
+    VpParam param = VpParam(
+        label: "${popular.city} - ${popular.hebergement} hébergements",
+        type: VpParamType.propertyQuery,
+        data: popular);
+    Navigator.pushNamed(context, "/voir-plus", arguments: param);
+  }
+
+  moreLast() {}
 
   moveToTop() {
     this.scrollController.position.animateTo(

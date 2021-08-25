@@ -15,10 +15,8 @@ class _VoirPlusMobile extends StatelessWidget {
           body: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                flex: 1,
-                child: Image.asset("assets/icons/loupe.png")),
-             SizedBox(
+              Expanded(flex: 1, child: Image.asset("assets/icons/loupe.png")),
+              SizedBox(
                 width: 10,
               ),
               Expanded(
@@ -55,8 +53,7 @@ class _VoirPlusMobile extends StatelessWidget {
               //   width: 10,
               // ),
               Expanded(
-                flex: 1,
-                child: Image.asset("assets/icons/dropdown.png")),
+                  flex: 1, child: Image.asset("assets/icons/dropdown.png")),
             ],
           ),
         ),
@@ -64,12 +61,55 @@ class _VoirPlusMobile extends StatelessWidget {
     );
   }
 
+  List<Widget> _property(context) {
+    return viewModel.propertyList
+        .map((property) => ShareWidget.boxHotel1(
+              onTap: () => viewModel.detailProperty(context, property),
+              context: context,
+              height: 160,
+              width: AppTheme.fullWidth(context),
+              name: "${property.name}",
+              margin: EdgeInsets.only(right: 10, bottom: 20, left: 10),
+              image: (property.medias!.length > 0) ? property.medias![0].link : null,
+              location: "${property.city}, ${property.country}",
+            ))
+        .toList();
+  }
+
+  List<Widget> _category(context) {
+    return viewModel.categoryList
+        .map((popular) => ShareWidget.boxHotel1(
+              onTap: () => viewModel.detailPopular(context, popular),
+              context: context,
+              height: 160,
+              width: AppTheme.fullWidth(context),
+              name: "${popular.hebergement} hébergements",
+              margin: EdgeInsets.only(right: 10, bottom: 20, left: 10),
+              image: "${popular.media_link}",
+              location: "${popular.city}",
+            ))
+        .toList();
+  }
+
+  List<Widget> _loaderBox(context) {
+    return [1, 2, 3]
+        .map((popular) => ShareWidget.boxHotel1(
+              param: null,
+              context: context,
+              height: 160,
+              width: AppTheme.fullWidth(context),
+              name: "room.name",
+              margin: EdgeInsets.only(right: 10, bottom: 20, left: 10),
+              //image: "assets/images/home1.png",
+              location: "lieu",
+            ))
+        .toList();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
+        body: Container(
           margin: EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,7 +128,7 @@ class _VoirPlusMobile extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(left: 20, right: 20),
                 child: AutoSizeText(
-                  "${viewModel.roomGroup!.title}",
+                  "${viewModel.param.label}",
                   maxLines: 1,
                   maxFontSize: 18,
                   minFontSize: 18,
@@ -100,29 +140,30 @@ class _VoirPlusMobile extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  children: viewModel.roomGroup!.rooms
-                      .map((room) => ShareWidget.boxHotel1(
-                            room: room,
-                            context: context,
-                            height: 160,
-                            width: AppTheme.fullWidth(context),
-                            name: room.name,
-                            margin: EdgeInsets.only(right: 10, bottom: 20, left: 10),
-                            image: room.image, //"assets/images/home1.png",
-                            location: "${room.location}",
-                          ))
-                      .toList(),
-                ),
-              ),
+              (viewModel.isLoad)
+                  ? Expanded(
+                      child: SingleChildScrollView(
+                        child: SkeletonLoader(
+                          builder: Container(
+                            margin: EdgeInsets.symmetric(horizontal: 10),
+                            child: Column(
+                              children: _loaderBox(context),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  : Expanded(
+                      child: ListView(
+                      children: (viewModel.param.type == VpParamType.category)
+                          ? _category(context)
+                          : _property(context),
+                    )),
             ],
           ),
         ),
-      ),
-
-      bottomNavigationBar: BottomMenuWidget.home(context:context,)
-    );
+        bottomNavigationBar: BottomMenuWidget.home(
+          context: context,
+        ));
   }
 }

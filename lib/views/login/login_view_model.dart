@@ -1,13 +1,10 @@
 import 'package:book_medial/core/base/base_view_model.dart';
 import 'package:book_medial/core/models/session_models.dart';
-import 'package:book_medial/core/services/database_service.dart';
 import 'package:book_medial/core/services/ws/ws_auth.dart';
 import 'package:book_medial/utils/shared.dart';
 import 'package:book_medial/views/home/home_view.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:page_transition/page_transition.dart';

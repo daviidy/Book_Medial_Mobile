@@ -17,7 +17,9 @@ class _RoomMobile extends StatelessWidget {
             decoration: BoxDecoration(
               color: LightColor.primary,
               image: DecorationImage(
-                image: AssetImage("assets/images/room.png"),
+                image: NetworkImage((viewModel.property.medias!.length > 0)
+                    ? "${viewModel.property.medias![0].link}"
+                    : Constant.defaultImage),
                 fit: BoxFit.cover,
               ),
             ),
@@ -102,7 +104,7 @@ class _RoomMobile extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AutoSizeText(
-                          "Sexy suite",
+                          "${viewModel.property.name}",
                           maxLines: 1,
                           maxFontSize: 18,
                           minFontSize: 18,
@@ -116,7 +118,7 @@ class _RoomMobile extends StatelessWidget {
                           height: 5,
                         ),
                         AutoSizeText(
-                          "Abidjan       Riviera Bonoumin",
+                          "${viewModel.property.city}       ${viewModel.property.address}",
                           maxLines: 1,
                           maxFontSize: 12,
                           minFontSize: 12,
@@ -133,7 +135,8 @@ class _RoomMobile extends StatelessWidget {
                             style: AppTheme.globalFont(null),
                             children: [
                               TextSpan(
-                                  text: "6000 Fcfa ",
+                                  text:
+                                      "${viewModel.property.price_per_night!.round()} Fcfa ",
                                   style: AppTheme.globalFont(TextStyle(
                                       color: LightColor.primary,
                                       fontWeight: FontWeight.w700,
@@ -252,9 +255,11 @@ class _RoomMobile extends StatelessWidget {
 
   Widget _descriptionBox(context) {
     return Container(
+      width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: AutoSizeText(
-        "Capi Luxury is the most luxurious luxury hotel segment of Capi, located in big... ",
+        "${viewModel.property.description}",
+        textAlign: TextAlign.start,
         style: AppTheme.globalFont(
             TextStyle(fontSize: 16, color: Color(0xff828282))),
       ),
@@ -275,19 +280,19 @@ class _RoomMobile extends StatelessWidget {
         Container(
           margin: EdgeInsets.only(top: 10),
           decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
+            borderRadius: BorderRadius.circular(20.0),
+          ),
           child: Stack(children: [
             Container(
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                        color: Color(0xFFDDDDDD),
-                        blurRadius: 10.0,
-                        offset: Offset(0.0, 5))
-                  ],
-                ),
+                borderRadius: BorderRadius.circular(20.0),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                      color: Color(0xFFDDDDDD),
+                      blurRadius: 10.0,
+                      offset: Offset(0.0, 5))
+                ],
+              ),
               margin: EdgeInsets.symmetric(horizontal: 15),
               child: CarouselSlider(
                 options: CarouselOptions(
@@ -341,7 +346,7 @@ class _RoomMobile extends StatelessWidget {
             margin: EdgeInsets.only(top: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: viewModel.imgList.asMap().entries.map((entry) {
+              children: (viewModel.property.medias!.length > 0) ? viewModel.property.medias!.asMap().entries.map((entry) {
                 return GestureDetector(
                   onTap: () => viewModel.controller.animateToPage(entry.key),
                   child: Container(
@@ -359,75 +364,110 @@ class _RoomMobile extends StatelessWidget {
                                 viewModel.current == entry.key ? 1 : 0.3)),
                   ),
                 );
-              }).toList(),
+              }).toList() : [GestureDetector(
+                  onTap: () => viewModel.controller.animateToPage(0),
+                  child: Container(
+                    width: viewModel.current == 0 ? 20 : 6.0,
+                    height: 6.0,
+                    margin:
+                        EdgeInsets.symmetric(vertical: 8.0, horizontal: 3.0),
+                    decoration: BoxDecoration(
+                        //shape: viewModel.current == entry.key ? BoxShape.rectangle : BoxShape.circle,
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: (Theme.of(context).brightness == Brightness.dark
+                                ? Colors.white
+                                : LightColor.primary)
+                            .withOpacity(
+                                viewModel.current == 0 ? 1 : 0.3)),
+                  ),
+                )]
             )),
       ],
     );
   }
 
   List<Widget> imageSliders(context) {
-    return viewModel.imgList
-        .map((item) => Container(
+    return (viewModel.property.medias!.length > 0)
+        ? viewModel.property.medias!
+            .map((item) => Container(
+                  child: Container(
+                    //margin: EdgeInsets.only(left: 5, right: 5, bottom: 5),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        child: Stack(
+                          children: <Widget>[
+                            Image.network(item.link,
+                                fit: BoxFit.cover, width: 1000.0),
+                          ],
+                        )),
+                  ),
+                ))
+            .toList()
+        : [
+            Container(
               child: Container(
                 //margin: EdgeInsets.only(left: 5, right: 5, bottom: 5),
                 child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(20.0)),
                     child: Stack(
                       children: <Widget>[
-                        Image.asset(item, fit: BoxFit.cover, width: 1000.0),
+                        Image.network(Constant.defaultImage,
+                            fit: BoxFit.cover, width: 1000.0),
                       ],
                     )),
               ),
-            ))
-        .toList();
+            )
+          ];
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          child: Stack(
-            children: [
-              _headerBox(context),
-              _infoBox(context),
-              Container(
-                margin: EdgeInsets.only(
-                    top: AppTheme.fullHeight(context) / 1.45,
-                    left: 10,
-                    right: 10),
-                child: Column(
-                  children: [
-                    _menuBox(context),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    if(viewModel.menuIndex == 0) _descriptionBox(context),
-                    if(viewModel.menuIndex == 1) _imageBox(context),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pushNamed(context, '/room-disponible'),
-                      child: ShareWidget.button(
-                          context: context,
-                          title: "Voir les disponibilités",
-                          margin: 15,
-                          height: 45,
-                          width: AppTheme.fullWidth(context),
-                          backgoundColor: LightColor.primary),
-                    ),
-                    SizedBox(
-                      height: (viewModel.menuIndex == 0) ? 400 : 100,
-                    ),
-                  ],
-                ),
-              )
-            ],
+        body: SingleChildScrollView(
+          child: Container(
+            child: Stack(
+              children: [
+                _headerBox(context),
+                _infoBox(context),
+                Container(
+                  margin: EdgeInsets.only(
+                      top: AppTheme.fullHeight(context) / 1.45,
+                      left: 10,
+                      right: 10),
+                  child: Column(
+                    children: [
+                      _menuBox(context),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      if (viewModel.menuIndex == 0) _descriptionBox(context),
+                      if (viewModel.menuIndex == 1) _imageBox(context),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pushNamed(context, '/room-disponible'),
+                        child: ShareWidget.button(
+                            context: context,
+                            title: "Voir les disponibilités",
+                            margin: 15,
+                            height: 45,
+                            width: AppTheme.fullWidth(context),
+                            backgoundColor: LightColor.primary),
+                      ),
+                      SizedBox(
+                        height: (viewModel.menuIndex == 0) ? 200 : 100,
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
-      ),
-      bottomNavigationBar: BottomMenuWidget.home(context:context,)
-    );
+        bottomNavigationBar: BottomMenuWidget.home(
+          context: context,
+        ));
   }
 }

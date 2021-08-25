@@ -6,4 +6,6 @@ class Constant {
   static final String baseUrlProd = "api-bookmedial.rikudo.ci";
   static final String baseUrlPreProd = "api-bookmedial.rikudo.ci";
 
+  static final String defaultImage =
+      "https://book-medial.rikudo.ci/assets/images/climate.jpg";
 }

@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:book_medial/core/models/room_models.dart';
 import 'package:book_medial/theme/light_color.dart';
 import 'package:book_medial/theme/theme.dart';
+import 'package:book_medial/utils/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -785,7 +786,9 @@ class ShareWidget {
       padding: padding,
       child: body,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(borderRadius), topRight: Radius.circular(borderRadius)),
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(borderRadius),
+            topRight: Radius.circular(borderRadius)),
         color: backgroundColors,
         border: Border(
             top: BorderSide(width: borderWidth, color: borderColors),
@@ -836,20 +839,21 @@ class ShareWidget {
 
   static Widget boxHotel1({
     required BuildContext context,
-    Room? room,
+    dynamic param,
     String? route,
     String? name,
     String? location,
-    String image = "assets/images/intro1.png",
+    String? image,
     double? width = 50.0,
     double height = 50.0,
+    dynamic onTap,
     EdgeInsets? margin = const EdgeInsets.all(0),
     EdgeInsets? padding = const EdgeInsets.all(0),
   }) {
+    if (image == null || image.isEmpty) image = Constant.defaultImage;
+
     return GestureDetector(
-      onTap: () => (room != null)
-          ? Navigator.pushNamed(context, "/room", arguments: room)
-          : null,
+      onTap: onTap,
       child: Container(
         width: width,
         height: height,
@@ -857,9 +861,9 @@ class ShareWidget {
         padding: padding,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
-          color: Colors.black,
+          color: Colors.grey[300],
           image: DecorationImage(
-            image: AssetImage(image),
+            image: NetworkImage(image),
             fit: BoxFit.cover,
           ),
           boxShadow: [
@@ -875,9 +879,9 @@ class ShareWidget {
                   Color.fromARGB(200, 0, 0, 0),
                   Color.fromARGB(190, 0, 0, 0),
                   Color.fromARGB(100, 0, 0, 0),
-                  Color.fromARGB(0, 0, 0, 0),
-                  Color.fromARGB(0, 0, 0, 0),
-                  Color.fromARGB(0, 0, 0, 0),
+                  Color.fromARGB(50, 0, 0, 0),
+                  Color.fromARGB(20, 0, 0, 0),
+                  Color.fromARGB(5, 0, 0, 0),
                   Color.fromARGB(0, 0, 0, 0),
                   Color.fromARGB(0, 0, 0, 0),
                 ],
@@ -885,33 +889,50 @@ class ShareWidget {
                 end: Alignment.topCenter,
               ),
             ),
-            padding: EdgeInsets.only(left: 20, bottom: 20),
+            padding: EdgeInsets.only(
+              left: 20,
+              bottom: 20,
+              right: 20,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 AutoSizeText(
-                  "Nom",
+                  "$name",
+                  maxFontSize: 16,
+                  minFontSize: 16,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: AppTheme.globalFont(TextStyle(
                       fontSize: 16,
                       color: Colors.white,
                       fontWeight: FontWeight.w600)),
                 ),
                 SizedBox(
-                  height: 5,
+                  height: 0,
                 ),
                 Row(
                   children: [
-                    Image.asset("assets/icons/location.png"),
+                    Expanded(
+                        flex: 1,
+                        child: Image.asset("assets/icons/location.png")),
                     SizedBox(
                       width: 5,
                     ),
-                    AutoSizeText(
-                      "Lieu",
-                      style: AppTheme.globalFont(TextStyle(
-                          fontSize: 14,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400)),
+                    Expanded(
+                      flex: 9,
+                      child: AutoSizeText(
+                        "$location",
+                        maxFontSize: 14,
+                        minFontSize: 14,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTheme.globalFont(TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400)),
+                      ),
                     ),
                   ],
                 ),

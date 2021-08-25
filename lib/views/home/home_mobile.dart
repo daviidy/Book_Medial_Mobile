@@ -59,10 +59,8 @@ class _HomeMobile extends StatelessWidget {
           body: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                flex: 1,
-                child: Image.asset("assets/icons/loupe.png")),
-             SizedBox(
+              Expanded(flex: 1, child: Image.asset("assets/icons/loupe.png")),
+              SizedBox(
                 width: 10,
               ),
               Expanded(
@@ -99,8 +97,7 @@ class _HomeMobile extends StatelessWidget {
               //   width: 10,
               // ),
               Expanded(
-                flex: 1,
-                child: Image.asset("assets/icons/dropdown.png")),
+                  flex: 1, child: Image.asset("assets/icons/dropdown.png")),
             ],
           ),
         ),
@@ -108,74 +105,280 @@ class _HomeMobile extends StatelessWidget {
     );
   }
 
-  Widget _roomByCatBox(
-      {required BuildContext context, required RoomGroup roomGroup}) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 20),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                flex: 3,
-                child: AutoSizeText(
-                  "${roomGroup.title}",
-                  maxLines: 1,
-                  maxFontSize: 18,
-                  minFontSize: 18,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppTheme.globalFont(
-                      TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: TextButton(
-                  onPressed: () => Navigator.pushNamed(context, "/voir-plus",
-                      arguments: roomGroup),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      AutoSizeText(
-                        "voir plus",
-                        style: AppTheme.globalFont(TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12,
-                            color: LightColor.primary)),
-                      ),
-                      Image.asset("assets/icons/arrow-right.png")
-                    ],
+  Widget _popularPropertiesBox({required BuildContext context}) {
+    if (viewModel.isLoadPopular) {
+      return SkeletonLoader(
+          builder: Container(
+        margin: EdgeInsets.only(bottom: 20),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: AutoSizeText(
+                    "Destinations populaires",
+                    maxLines: 1,
+                    maxFontSize: 18,
+                    minFontSize: 18,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTheme.globalFont(
+                        TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
                   ),
                 ),
-              )
-            ],
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Container(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Row(
-                  children: roomGroup.rooms
-                      .map((room) => ShareWidget.boxHotel1(
-                            room: room,
-                            context: context,
-                            height: roomGroup.style!.height,
-                            width: roomGroup.style!.width,
-                            name: room.name,
-                            margin: EdgeInsets.only(right: 10, left: 10),
-                            image: room.image, //"assets/images/home1.png",
-                            location: "${room.location}",
-                          ))
-                      .toList()),
+                Expanded(
+                  flex: 1,
+                  child: TextButton(
+                    onPressed: () => null,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        AutoSizeText(
+                          "voir plus",
+                          style: AppTheme.globalFont(TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                              color: LightColor.primary)),
+                        ),
+                        Image.asset("assets/icons/arrow-right.png")
+                      ],
+                    ),
+                  ),
+                )
+              ],
             ),
-          ),
-        ],
-      ),
-    );
+            SizedBox(
+              height: 10,
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Container(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Row(
+                    children: [1, 2, 3]
+                        .map((room) => ShareWidget.boxHotel1(
+                              param: null,
+                              context: context,
+                              height: 223,
+                              width: AppTheme.fullWidth(context) / 2.8,
+                              name: "room.name",
+                              margin: EdgeInsets.only(right: 10, left: 10),
+                              //image: "assets/images/intro1.png",
+                              location: "room.location",
+                            ))
+                        .toList()),
+              ),
+            ),
+          ],
+        ),
+      ));
+    } else {
+      return Container(
+        margin: EdgeInsets.only(bottom: 20),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: AutoSizeText(
+                    "Destinations populaires",
+                    maxLines: 1,
+                    maxFontSize: 18,
+                    minFontSize: 18,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTheme.globalFont(
+                        TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: TextButton(
+                    onPressed: () => viewModel.morePopular(context),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        AutoSizeText(
+                          "voir plus",
+                          style: AppTheme.globalFont(TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                              color: LightColor.primary)),
+                        ),
+                        Image.asset("assets/icons/arrow-right.png")
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Container(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Row(
+                    children: viewModel.popularData
+                        .map((popular) => ShareWidget.boxHotel1(
+                          onTap: () =>
+                              viewModel.detailPopular(context, popular),
+                          param: null,
+                          context: context,
+                          height: 223,
+                          width: AppTheme.fullWidth(context) / 2.8,
+                          name: "${popular.hebergement} hébergements",
+                          margin: EdgeInsets.only(right: 10, left: 10),
+                          image: "${popular.media_link}",
+                          location: "${popular.city}",
+                        ))
+                        .toList()),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  Widget _lastPropertiesBox({required BuildContext context}) {
+    if (viewModel.isLoadLast) {
+      return SkeletonLoader(
+          builder: Container(
+        margin: EdgeInsets.only(bottom: 20),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: AutoSizeText(
+                    "Les plus récents",
+                    maxLines: 1,
+                    maxFontSize: 18,
+                    minFontSize: 18,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTheme.globalFont(
+                        TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: TextButton(
+                    onPressed: () => null,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        AutoSizeText(
+                          "voir plus",
+                          style: AppTheme.globalFont(TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                              color: LightColor.primary)),
+                        ),
+                        Image.asset("assets/icons/arrow-right.png")
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Container(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Row(
+                    children: [1, 2]
+                        .map((room) => ShareWidget.boxHotel1(
+                              param: null,
+                              context: context,
+                              height: 160,
+                              width: AppTheme.fullWidth(context) / 1.3,
+                              name: "Nom",
+                              margin: EdgeInsets.only(right: 10, left: 10),
+                              // image: "assets/images/intro2.png",
+                              location: "Lieu",
+                            ))
+                        .toList()),
+              ),
+            ),
+          ],
+        ),
+      ));
+    } else {
+      return Container(
+        margin: EdgeInsets.only(bottom: 20),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: AutoSizeText(
+                    "Les plus récents",
+                    maxLines: 1,
+                    maxFontSize: 18,
+                    minFontSize: 18,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTheme.globalFont(
+                        TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: TextButton(
+                    onPressed: () => viewModel.moreLast(),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        AutoSizeText(
+                          "voir plus",
+                          style: AppTheme.globalFont(TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                              color: LightColor.primary)),
+                        ),
+                        Image.asset("assets/icons/arrow-right.png")
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Container(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Row(
+                    children: [1, 2]
+                        .map((room) => ShareWidget.boxHotel1(
+                              param: null,
+                              context: context,
+                              height: 160,
+                              width: AppTheme.fullWidth(context) / 1.3,
+                              name: "Nom",
+                              margin: EdgeInsets.only(right: 10, left: 10),
+                              //image: "assets/images/intro2.png",
+                              location: "Lieu",
+                            ))
+                        .toList()),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   @override
@@ -198,7 +401,11 @@ class _HomeMobile extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Container(child: Image.asset("assets/images/logo-book-medial.png", height: 50,)),
+                          Container(
+                              child: Image.asset(
+                            "assets/images/logo-book-medial.png",
+                            height: 50,
+                          )),
                           // AutoSizeText.rich(TextSpan(
                           //     style: AppTheme.globalFont(TextStyle(
                           //         fontSize: 36, fontWeight: FontWeight.w700)),
@@ -240,12 +447,10 @@ class _HomeMobile extends StatelessWidget {
                     ),
                     if (viewModel.isLogin)
                       Container(
-                        child: Column(
-                          children: viewModel.roomGroupList
-                              .map((e) =>
-                                  _roomByCatBox(context: context, roomGroup: e))
-                              .toList(),
-                        ),
+                        child: Column(children: [
+                          _popularPropertiesBox(context: context),
+                          _lastPropertiesBox(context: context),
+                        ]),
                       ),
                     Container(
                       child: AutoSizeText(
@@ -369,7 +574,8 @@ class _HomeMobile extends StatelessWidget {
                                 height: 5,
                               ),
                               TextButton(
-                                onPressed: () => Navigator.pushNamed(context, "/login"),
+                                onPressed: () =>
+                                    Navigator.pushNamed(context, "/login"),
                                 child: ShareWidget.button(
                                     context: context,
                                     backgoundColor: Colors.white,
@@ -445,6 +651,7 @@ class _HomeMobile extends StatelessWidget {
                 margin: EdgeInsets.only(left: 10, right: 10, top: 20),
                 child: _searchResume(context))
         ]),
-        bottomNavigationBar: BottomMenuWidget.home(context:context, disable: true));
+        bottomNavigationBar:
+            BottomMenuWidget.home(context: context, disable: true));
   }
 }
