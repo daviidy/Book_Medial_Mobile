@@ -102,4 +102,49 @@ class RegisterViewModel extends BaseViewModel {
 
     this.loader = false;
   }
+
+  registerGoogle(context) async {
+    this.loader = true;
+    WsResponse rp = await WsAuth.googleSignIn();
+    print(rp.status);
+    print(rp.reponse);
+    if (rp.status) {
+      SharedFunc.toast(msg: "Connecté avec succès");
+      Navigator.pushAndRemoveUntil(
+        context,
+        PageTransition(type: PageTransitionType.fade, child: HomeView()),
+        (route) => false,
+      );
+    } else {
+      String? ms =
+          "une erreur s'est produite lors de la recuperation des données google";
+      if (rp.message != null) ms = rp.message;
+      SharedFunc.toast(msg: "$ms", toastLength: Toast.LENGTH_LONG);
+    }
+
+    this.loader = false;
+  }
+
+  registerFacebook(context) async {
+    this.loader = true;
+    WsResponse rp = await WsAuth.facbookSignIn();
+    print(rp.status);
+    print(rp.reponse);
+    if (rp.status) {
+      SharedFunc.toast(msg: "Connecté avec succès");
+      Navigator.pushAndRemoveUntil(
+        context,
+        PageTransition(type: PageTransitionType.fade, child: HomeView()),
+        (route) => false,
+      );
+    } else {
+      String? ms =
+          "Une erreur s'est produite lors de la recuperation des données facebook";
+      if (rp.message != null) ms = rp.message;
+      SharedFunc.toast(msg: "$ms", toastLength: Toast.LENGTH_LONG);
+    }
+
+    this.loader = false;
+  }
+  // Add ViewModel specific code here
 }
