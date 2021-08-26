@@ -21,6 +21,9 @@ class HomeViewModel extends BaseViewModel {
   List<PopularProperty> _popularData = [];
   List<PopularProperty> _popularDataAll = [];
 
+  List<Property> _lastData = [];
+  List<Property> _lastDataAll = [];
+
   ScrollController scrollController = new ScrollController(
     initialScrollOffset: 0.0,
     keepScrollOffset: true,
@@ -31,6 +34,12 @@ class HomeViewModel extends BaseViewModel {
   List<PopularProperty> get popularData => this._popularData;
   set popularData(List<PopularProperty> value) {
     this._popularData = value;
+    notifyListeners();
+  }
+
+  List<Property> get lastData => this._lastData;
+  set lastData(List<Property> value) {
+    this._lastData = value;
     notifyListeners();
   }
 
@@ -71,6 +80,7 @@ class HomeViewModel extends BaseViewModel {
       UserModel userData = UserModel.fromJson(session);
       print(userData.name);
       this.loadPopular();
+      this.loadLast();
     }
 
     this.scrollController.addListener(() {
@@ -94,12 +104,32 @@ class HomeViewModel extends BaseViewModel {
     } else {
       // String? ms = "Email invalide";
       // if (rp.message != null) ms = rp.message;
-      // SharedFunc.toast(msg: "$ms", toastLength: Toast.LENGTH_LONG);
+      SharedFunc.toast(
+          msg: "Une erreur s'est produite lors de la recuperation des données",
+          toastLength: Toast.LENGTH_LONG);
     }
     this.isLoadPopular = false;
   }
 
-  loadLast() {}
+  loadLast() async {
+    this.isLoadLast = true;
+    WsResponse rp = await WsProperty.last();
+    if (rp.status) {
+      for (var item in rp.reponse!["properties"]["data"]) {
+        Property property = Property.fromJson(item);
+        //if(property.name != null)
+        this._lastDataAll.add(property);
+      }
+      this.lastData = this._lastDataAll.take(4).toList();
+    } else {
+      // String? ms = "Email invalide";
+      // if (rp.message != null) ms = rp.message;
+      SharedFunc.toast(
+          msg: "Une erreur s'est produite lors de la recuperation des données",
+          toastLength: Toast.LENGTH_LONG);
+    }
+    this.isLoadLast = false;
+  }
 
   morePopular(context) {
     VpParam param = VpParam(
@@ -117,7 +147,17 @@ class HomeViewModel extends BaseViewModel {
     Navigator.pushNamed(context, "/voir-plus", arguments: param);
   }
 
-  moreLast() {}
+  moreLast(context) {
+    VpParam param = VpParam(
+        label: "Les plus récents",
+        type: VpParamType.property,
+        data: this._lastDataAll);
+    Navigator.pushNamed(context, "/voir-plus", arguments: param);
+  }
+
+  detailProperty(context, Property property) {
+    Navigator.pushNamed(context, "/room", arguments: property);
+  }
 
   moveToTop() {
     this.scrollController.position.animateTo(

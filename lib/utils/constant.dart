@@ -8,4 +8,5 @@ class Constant {
 
   static final String defaultImage =
       "https://book-medial.rikudo.ci/assets/images/climate.jpg";
+  static final String kGoogleApiKey = "AIzaSyAMbjx_FKQ9eKb1KKwXIDA1g_UefF0fArI";
 }

@@ -27,6 +27,20 @@ class WsProperty {
     return rp;
   }
 
+  static Future<WsResponse> last() async {
+    WsResponse rp = new WsResponse();
+    // refresh token
+    await WsAuth.refreshSession();
+
+    Response reponse = await WsCore.get(
+        endpoint: "/properties", token: await _storage.getItem("token"));
+    if (reponse.statusCode == 200) {
+      Map reponseData = jsonDecode(utf8.decode(reponse.bodyBytes));
+      rp.reponse = reponseData;
+      rp.status = true;
+    }
+    return rp;
+  }
 
   static Future<WsResponse> byCity(city) async {
     WsResponse rp = new WsResponse();

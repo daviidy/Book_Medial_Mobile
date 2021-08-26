@@ -350,7 +350,7 @@ class _HomeMobile extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: TextButton(
-                    onPressed: () => viewModel.moreLast(),
+                    onPressed: () => viewModel.moreLast(context),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -381,16 +381,16 @@ class _HomeMobile extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.only(bottom: 10),
                 child: Row(
-                    children: [1, 2]
-                        .map((room) => ShareWidget.boxHotel1(
-                              param: null,
+                    children: viewModel.lastData
+                        .map((property) => ShareWidget.boxHotel1(
+                              onTap: () => viewModel.detailProperty(context, property),
                               context: context,
                               height: 160,
                               width: AppTheme.fullWidth(context) / 1.3,
-                              name: "Nom",
+                              name: "${property.name}",
                               margin: EdgeInsets.only(right: 10, left: 10),
-                              //image: "assets/images/intro2.png",
-                              location: "Lieu",
+                              image: (property.medias!.length > 0 ) ? property.medias![0].link: null,
+                              location: "${property.city}",
                             ))
                         .toList()),
               ),
