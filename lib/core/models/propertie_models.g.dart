@@ -243,3 +243,27 @@ Map<String, dynamic> _$PopularPropertyToJson(PopularProperty instance) =>
       'hebergement': instance.hebergement,
       'city': instance.city,
     };
+
+SearchPropertyParam _$SearchPropertyParamFromJson(Map<String, dynamic> json) {
+  return SearchPropertyParam(
+    location: json['location'] as String?,
+    sejourStart: json['sejourStart'] as String?,
+    sejourEnd: json['sejourEnd'] as String?,
+    totalPersons: json['totalPersons'] as int?,
+    personsValue: json['personsValue'] as String?,
+    sejourValue: json['sejourValue'] as String?,
+    locationValue: json['locationValue'] as String?,
+  );
+}
+
+Map<String, dynamic> _$SearchPropertyParamToJson(
+        SearchPropertyParam instance) =>
+    <String, dynamic>{
+      'location': instance.location,
+      'sejourStart': instance.sejourStart,
+      'sejourEnd': instance.sejourEnd,
+      'totalPersons': instance.totalPersons,
+      'personsValue': instance.personsValue,
+      'sejourValue': instance.sejourValue,
+      'locationValue': instance.locationValue,
+    };

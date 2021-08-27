@@ -8,28 +8,37 @@ class _HomeMobile extends StatelessWidget {
   Widget _searchForm(context) {
     return Column(
       children: <Widget>[
-        ShareWidget.box1(
-          width: AppTheme.fullWidth(context),
-          value: "Abidjan",
-          labelText: "Destination",
+        GestureDetector(
+          onTap: () => viewModel.onDestination(context),
+          child: ShareWidget.box1(
+            width: AppTheme.fullWidth(context),
+            value: "${viewModel.sPropParam.locationValue}",
+            labelText: "Destination",
+          ),
         ),
         SizedBox(height: 5),
         Row(
           children: [
             Expanded(
-                child: ShareWidget.box1(
-              value: "24 Juin - 25 Juin",
-              labelText: "Date",
-              width: AppTheme.fullWidth(context),
-            )),
+                child: GestureDetector(
+                  onTap: () => viewModel.onDate(context),
+                  child: ShareWidget.box1(
+                              value: "${viewModel.sPropParam.sejourValue}",
+                              labelText: "Date",
+                              width: AppTheme.fullWidth(context),
+                            ),
+                )),
             Container(
               width: 5,
             ),
             Expanded(
-              child: ShareWidget.box1(
-                value: "2 personnes, 1 chambre qwwwwwwwwwww",
-                labelText: "Nbre Personne",
-                width: AppTheme.fullWidth(context),
+              child: GestureDetector(
+                onTap: () => viewModel.onNbrPersonne(context),
+                child: ShareWidget.box1(
+                  value: "${viewModel.sPropParam.personsValue}",
+                  labelText: "Nbre Personne",
+                  width: AppTheme.fullWidth(context),
+                ),
               ),
             )
           ],
@@ -37,14 +46,17 @@ class _HomeMobile extends StatelessWidget {
         SizedBox(
           height: AppTheme.fullHeight(context) / 50,
         ),
-        ShareWidget.button(
-            context: context,
-            backgoundColor: LightColor.primary,
-            borderWidth: 0.0,
-            title: "Rechercher",
-            textColor: Colors.white,
-            height: 40,
-            margin: 0),
+        GestureDetector(
+          onTap: () => viewModel.onSearch(context),
+          child: ShareWidget.button(
+              context: context,
+              backgoundColor: LightColor.primary,
+              borderWidth: 0.0,
+              title: "Rechercher",
+              textColor: Colors.white,
+              height: 40,
+              margin: 0),
+        ),
       ],
     );
   }

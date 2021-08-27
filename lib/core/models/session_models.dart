@@ -50,3 +50,4 @@ class VpParam {
 
   VpParam({required this.label, required this.type, this.data});
 }
+

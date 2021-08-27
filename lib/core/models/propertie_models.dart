@@ -204,8 +204,6 @@ class Media {
   Map<String, dynamic> toJson() => _$MediaToJson(this);
 }
 
-
-
 @JsonSerializable()
 class PopularProperty {
   String? media_link;
@@ -220,6 +218,32 @@ class PopularProperty {
     this.city,
   });
 
-  factory PopularProperty.fromJson(Map<String, dynamic> json) => _$PopularPropertyFromJson(json);
+  factory PopularProperty.fromJson(Map<String, dynamic> json) =>
+      _$PopularPropertyFromJson(json);
   Map<String, dynamic> toJson() => _$PopularPropertyToJson(this);
+}
+
+@JsonSerializable()
+class SearchPropertyParam {
+  String? location;
+  String? sejourStart;
+  String? sejourEnd;
+  int? totalPersons;
+  String? personsValue;
+  String? sejourValue;
+  String? locationValue;
+
+  SearchPropertyParam({
+    this.location,
+    this.sejourStart,
+    this.sejourEnd,
+    this.totalPersons,
+    this.personsValue,
+    this.sejourValue,
+    this.locationValue,
+  });
+
+  factory SearchPropertyParam.fromJson(Map<String, dynamic> json) =>
+      _$SearchPropertyParamFromJson(json);
+  Map<String, dynamic> toJson() => _$SearchPropertyParamToJson(this);
 }

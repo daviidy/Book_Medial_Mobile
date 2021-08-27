@@ -2,6 +2,7 @@ import 'package:book_medial/theme/theme.dart';
 import 'package:book_medial/utils/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'core/locator.dart';
 import 'core/providers.dart';
@@ -57,6 +58,8 @@ class _MainApplicationState extends State<MainApplication> {
     return MultiProvider(
       providers: ProviderInjector.providers,
       child: MaterialApp(
+        localizationsDelegates: [GlobalMaterialLocalizations.delegate],
+        supportedLocales: [const Locale('en'), const Locale('fr')],
         theme: AppTheme.lightTheme,
         //routes: routes,
         initialRoute: "/",
