@@ -194,6 +194,7 @@ class _VoirPlusMobile extends StatelessWidget {
                     )
                   : Expanded(
                       child: ListView(
+                        controller: viewModel.scrollController,
                       children: (viewModel.param.type == VpParamType.category)
                           ? _category(context)
                           : _property(context),

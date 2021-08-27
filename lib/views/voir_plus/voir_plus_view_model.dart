@@ -15,6 +15,11 @@ class VoirPlusViewModel extends BaseViewModel {
 
   late VpParam _param;
 
+  ScrollController scrollController = new ScrollController(
+    initialScrollOffset: 0.0,
+    keepScrollOffset: true,
+  );
+
   bool _isLoad = false;
   bool _isBackgroundLoad = false;
   int _current_page = 1;
@@ -150,22 +155,38 @@ class VoirPlusViewModel extends BaseViewModel {
         await WsProperty.search(data: search, queryParameters: queryParameters);
     if (rp.status) {
       this._last_page = rp.reponse!["properties"]["last_page"];
-      for (var item in rp.reponse!["properties"]["data"]) {
-        this._propertyList.add(Property.fromJson(item));
+      int _currentP = rp.reponse!["properties"]["current_page"];
+      if (_currentP == this._current_page) {
+        for (var item in rp.reponse!["properties"]["data"]) {
+          this._propertyList.add(Property.fromJson(item));
+        }
       }
+
       this.param.type = VpParamType.property;
+      this.isBackgroundLoad = false;
 
       this.isLoad = false;
       if (this._current_page < this._last_page) {
-        this.isBackgroundLoad = true;
-        this._current_page++;
+        if (_currentP == this._current_page) this._current_page++;
         notifyListeners();
         print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         print("@@@@@@@ PAGE ${this._current_page} @@@@@@@@");
         print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        await Future.delayed(Duration(seconds: 10));
-        await this.searchProperty(
-            search: search, queryParameters: {'page': '${this._current_page}'});
+        //print(this.scrollController.offset);
+        this.scrollController.addListener(() async {
+          if (this.scrollController.offset ==
+                  this.scrollController.position.maxScrollExtent &&
+              this.isBackgroundLoad == false) {
+            print(true);
+            print(this.scrollController.offset);
+            print(this.scrollController.position.maxScrollExtent);
+
+            this.isBackgroundLoad = true;
+            await this.searchProperty(
+                search: search,
+                queryParameters: {'page': '${this._current_page}'});
+          }
+        });
       }
     } else {
       // String? ms = "Email invalide";
