@@ -69,3 +69,21 @@ Authorization: Bearer {{token}}
 GET {{baseUrl}}/properties/city/Abidjan
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
+###
+
+POST {{baseUrl}}/properties/search?
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "location": "Abidjan", 
+    "sejourStart": "27/08/2021", 
+    "sejourEnd": "28/08/2021", 
+    "totalPersons": 2, 
+    "personsValue": "2 personnes", 
+    "sejourValue": "27 août - 28 août", 
+    "locationValue": "Grand-Bassam, Côte d'Ivoire"
+}
+
+###

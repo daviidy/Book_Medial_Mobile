@@ -25,7 +25,7 @@ class _VoirPlusMobile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AutoSizeText(
-                      "Abidjan",
+                      "${viewModel.sPropParam.locationValue}",
                       maxLines: 1,
                       maxFontSize: 14,
                       minFontSize: 14,
@@ -36,7 +36,7 @@ class _VoirPlusMobile extends StatelessWidget {
                           color: Colors.black)),
                     ),
                     AutoSizeText(
-                      "24 Juin - 25 Juin       2 personnes, 1 cham",
+                      "${viewModel.sPropParam.sejourValue}       ${viewModel.sPropParam.personsValue}",
                       maxLines: 1,
                       maxFontSize: 12,
                       minFontSize: 12,
@@ -62,48 +62,89 @@ class _VoirPlusMobile extends StatelessWidget {
   }
 
   List<Widget> _property(context) {
-    return viewModel.propertyList
-        .map((property) => ShareWidget.boxHotel1(
-              onTap: () => viewModel.detailProperty(context, property),
-              context: context,
-              height: 160,
-              width: AppTheme.fullWidth(context),
-              name: "${property.name}",
-              margin: EdgeInsets.only(right: 10, bottom: 20, left: 10),
-              image: (property.medias!.length > 0) ? property.medias![0].link : null,
-              location: "${property.city}, ${property.country}",
-            ))
-        .toList();
+    if ((viewModel.propertyList.length > 0)) {
+      List<Widget> _propData = viewModel.propertyList
+          .map((property) => ShareWidget.boxHotel1(
+                onTap: () => viewModel.detailProperty(context, property),
+                context: context,
+                height: 160,
+                width: AppTheme.fullWidth(context),
+                name: "${property.name}",
+                margin: EdgeInsets.only(right: 10, bottom: 20, left: 10),
+                image: (property.medias!.length > 0)
+                    ? property.medias![0].link
+                    : null,
+                location: "${property.city}, ${property.country}",
+              ))
+          .toList();
+
+      if (viewModel.isBackgroundLoad) {
+        _propData = _propData + this._loaderBox(context);
+      }
+      return _propData;
+    } else {
+      return [this._box404(context, "Aucun trouvé")];
+    }
   }
 
   List<Widget> _category(context) {
-    return viewModel.categoryList
-        .map((popular) => ShareWidget.boxHotel1(
-              onTap: () => viewModel.detailPopular(context, popular),
-              context: context,
-              height: 160,
-              width: AppTheme.fullWidth(context),
-              name: "${popular.hebergement} hébergements",
-              margin: EdgeInsets.only(right: 10, bottom: 20, left: 10),
-              image: "${popular.media_link}",
-              location: "${popular.city}",
-            ))
-        .toList();
+    if ((viewModel.categoryList.length > 0)) {
+      return viewModel.categoryList
+          .map((popular) => ShareWidget.boxHotel1(
+                onTap: () => viewModel.detailPopular(context, popular),
+                context: context,
+                height: 160,
+                width: AppTheme.fullWidth(context),
+                name: "${popular.hebergement} hébergements",
+                margin: EdgeInsets.only(right: 10, bottom: 20, left: 10),
+                image: "${popular.media_link}",
+                location: "${popular.city}",
+              ))
+          .toList();
+    } else {
+      return [this._box404(context, "Aucun trouvé")];
+    }
   }
 
   List<Widget> _loaderBox(context) {
     return [1, 2, 3]
-        .map((popular) => ShareWidget.boxHotel1(
-              param: null,
-              context: context,
-              height: 160,
-              width: AppTheme.fullWidth(context),
-              name: "room.name",
-              margin: EdgeInsets.only(right: 10, bottom: 20, left: 10),
-              //image: "assets/images/home1.png",
-              location: "lieu",
+        .map((popular) => SkeletonLoader(
+              builder: ShareWidget.boxHotel1(
+                param: null,
+                context: context,
+                height: 160,
+                width: AppTheme.fullWidth(context),
+                name: "room.name",
+                margin: EdgeInsets.only(right: 10, bottom: 20, left: 10),
+                //image: "assets/images/home1.png",
+                location: "lieu",
+              ),
             ))
         .toList();
+  }
+
+  Widget _box404(context, label) {
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 20,
+          ),
+          Image.asset("assets/icons/data-not-found.png"),
+          SizedBox(
+            height: 20,
+          ),
+          AutoSizeText(
+            "$label",
+            style: AppTheme.globalFont(TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: Color(0xffC4C4C4))),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -143,12 +184,10 @@ class _VoirPlusMobile extends StatelessWidget {
               (viewModel.isLoad)
                   ? Expanded(
                       child: SingleChildScrollView(
-                        child: SkeletonLoader(
-                          builder: Container(
-                            margin: EdgeInsets.symmetric(horizontal: 10),
-                            child: Column(
-                              children: _loaderBox(context),
-                            ),
+                        child: Container(
+                          margin: EdgeInsets.symmetric(horizontal: 10),
+                          child: Column(
+                            children: _loaderBox(context),
                           ),
                         ),
                       ),

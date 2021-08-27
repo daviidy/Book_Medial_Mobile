@@ -22,13 +22,13 @@ class WsCore {
     return Constant.baseUrlProd;
   }
 
-  static Future get({required String endpoint, String? token}) async {
+  static Future get({required String endpoint, String? token, Map<String, dynamic>? queryParameters}) async {
     var client = http.Client();
     Map<String, String> headers = {"Authorization": "Bearer $token"};
 
     try {
       var uriResponse = await client.get(
-          Uri.https(await baseUrl(), "/api" + endpoint),
+          Uri.https(await baseUrl(), "/api" + endpoint, queryParameters),
           headers: headers);
       // try {
       //   return uriResponse;
@@ -41,7 +41,7 @@ class WsCore {
     }
   }
 
-  static Future post({required String endpoint, data, String? token}) async {
+  static Future post({required String endpoint, data, String? token, Map<String, dynamic>? queryParameters}) async {
     var client = http.Client();
     Map<String, String> headers = {
       "Content-Type": "application/json",
@@ -51,7 +51,7 @@ class WsCore {
 
     try {
       var uriResponse = await client.post(
-          Uri.https(await baseUrl(), "/api" + endpoint),
+          Uri.https(await baseUrl(), "/api" + endpoint, queryParameters),
           body: data,
           headers: headers);
       // try {

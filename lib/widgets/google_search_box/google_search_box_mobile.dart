@@ -9,7 +9,7 @@ class _GoogleSearchBoxMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -49,7 +49,7 @@ class _GoogleSearchBoxMobile extends StatelessWidget {
                     ),
                   ),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(5.0),
                     //border: Border.all(width: 1.0, color: Color(0xffDFDBDB)),
                     // boxShadow: [
                     //   BoxShadow(
@@ -60,19 +60,18 @@ class _GoogleSearchBoxMobile extends StatelessWidget {
                   ),
                 ),
                 Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          color: Color(0xffE4E4E4),
-                          height: 0,
-                          thickness: 1,
-                          indent: 0,
-                          endIndent: 0,
-                        ),
+                  children: [
+                    Expanded(
+                      child: Divider(
+                        color: Color(0xffE4E4E4),
+                        height: 0,
+                        thickness: 1,
+                        indent: 0,
+                        endIndent: 0,
                       ),
-                      
-                    ],
-                  ),
+                    ),
+                  ],
+                ),
                 Expanded(
                   child: Container(
                     child: ListView.separated(
@@ -83,7 +82,10 @@ class _GoogleSearchBoxMobile extends StatelessWidget {
                       ),
                       itemBuilder: (BuildContext context, int index) {
                         return ListTile(
-                          leading: Icon(Icons.place_outlined, color: LightColor.primary,),
+                          leading: Icon(
+                            Icons.place_outlined,
+                            color: LightColor.primary,
+                          ),
                           onTap: () => Navigator.pop(
                               context, viewModel.itemsList.results[index]),
                           contentPadding: EdgeInsets.only(left: 10, right: 10),
@@ -98,22 +100,20 @@ class _GoogleSearchBoxMobile extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 Container(
                   child: Row(
-                      children: [
-                        Expanded(
-                          child: Divider(
-                            color: Color(0xffE4E4E4),
-                            height: 20,
-                            thickness: 1,
-                            indent: 0,
-                            endIndent: 0,
-                          ),
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          color: Color(0xffE4E4E4),
+                          height: 20,
+                          thickness: 1,
+                          indent: 0,
+                          endIndent: 0,
                         ),
-                        
-                      ],
-                    ),
+                      ),
+                    ],
+                  ),
                 ),
                 GestureDetector(
                   onTap: () => Navigator.pop(context),

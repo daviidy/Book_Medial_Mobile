@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:book_medial/core/models/room_models.dart';
 import 'package:book_medial/theme/light_color.dart';
 import 'package:book_medial/theme/theme.dart';
 import 'package:book_medial/utils/constant.dart';
@@ -18,6 +17,7 @@ class ShareWidget {
       String? title,
       double fontSize = 14,
       double height = 40.0,
+      double borderRadius = 10.0,
       double margin = 60}) {
     return Container(
       margin: EdgeInsets.only(left: margin, right: margin),
@@ -35,7 +35,7 @@ class ShareWidget {
         ),
       ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(borderRadius),
         color: backgoundColor,
         border: Border.all(width: borderWidth, color: borderColor),
         boxShadow: [

@@ -154,6 +154,7 @@ flutter:
     - assets/icons/profile.png
     - assets/icons/info.png
     - assets/icons/404.png
+    - assets/icons/data-not-found.png
     - assets/icons/resev.png
     - assets/icons/succes-pay.png
     - assets/icons/profile-active.png

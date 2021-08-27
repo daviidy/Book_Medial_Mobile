@@ -41,7 +41,7 @@ class WsResponse {
   WsResponse({this.message, this.reponse, this.status = false});
 }
 
-enum VpParamType { property, category, propertyQuery }
+enum VpParamType { property, category, propertyQuery, searchProperty, autourDeMoi }
 
 class VpParam {
   String label;

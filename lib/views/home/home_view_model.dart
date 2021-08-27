@@ -25,6 +25,8 @@ class HomeViewModel extends BaseViewModel {
   final geocoding = new GoogleMapsGeocoding(apiKey: Constant.kGoogleApiKey);
   final places = new GoogleMapsPlaces(apiKey: Constant.kGoogleApiKey);
 
+  final DatabaseService storage = new DatabaseService();
+
   bool _isLogin = false;
   bool _chowSearchResume = false;
   bool _isLoadPopular = false;
@@ -45,8 +47,6 @@ class HomeViewModel extends BaseViewModel {
     initialScrollOffset: 0.0,
     keepScrollOffset: true,
   );
-
-  final DatabaseService storage = new DatabaseService();
 
   List<PopularProperty> get popularData => this._popularData;
   set popularData(List<PopularProperty> value) {
@@ -180,11 +180,39 @@ class HomeViewModel extends BaseViewModel {
         );
   }
 
-  proxiSearch(context) {}
+  proxiSearch(context) async {
+    SearchPropertyParam _searche = this.sPropParam;
+    this._currentPosition = await this.getPosition();
+    if (this._currentPosition != null) {
+      print("this._currentPosition");
+      print(this._currentPosition!.toJson());
+
+      Placemark? place = await this.getGeocoding(
+          lat: this._currentPosition!.latitude,
+          lng: this._currentPosition!.longitude);
+      if (place != null) {
+        _searche.locationValue = "${place.subAdministrativeArea}";
+        _searche.location = "${place.locality}";
+        
+        VpParam param = VpParam(
+            label: "Autour de moi",
+            type: VpParamType.autourDeMoi,
+            data: {"seacheData" : _searche, "position" : this._currentPosition});
+        Navigator.pushNamed(context, "/voir-plus", arguments: param);
+      }
+    }
+  }
 
   /// ***** Formulaire de recherche ********************/
 
   initSearch() async {
+    var searchPropertyParam = await this.storage.getItem("searchData");
+    if (searchPropertyParam != null) {
+      this.sPropParam = SearchPropertyParam.fromJson(searchPropertyParam);
+      notifyListeners();
+      return;
+    }
+
     DateTime _start = this.initialDate;
     DateTime _end = DateTime(_start.year, _start.month, _start.day + 1);
 
@@ -202,26 +230,31 @@ class HomeViewModel extends BaseViewModel {
       print("this._currentPosition");
       print(this._currentPosition!.toJson());
 
-      try {
-        List<Placemark> placemarks = await placemarkFromCoordinates(
-          this._currentPosition!.latitude,
-          this._currentPosition!.longitude,
-        );
-
-        this.sPropParam.locationValue =
-            "${placemarks.first.subAdministrativeArea}";
-        this.sPropParam.location = "${placemarks.first.subAdministrativeArea}";
+      Placemark? place = await this.getGeocoding(
+          lat: this._currentPosition!.latitude,
+          lng: this._currentPosition!.longitude);
+      if (place != null) {
+        this.sPropParam.locationValue = "${place.subAdministrativeArea}";
+        this.sPropParam.location = "${place.locality}";
         notifyListeners();
-        print(placemarks[0]);
-      } catch (err) {
-        print(err);
       }
     }
-
+    await this.storage.setItem("searchData", this.sPropParam.toJson());
     print(this._currentPosition);
   }
 
-  initGeocoding() {}
+  Future<Placemark?> getGeocoding(
+      {required double lat, required double lng}) async {
+    try {
+      List<Placemark> placemarks = await placemarkFromCoordinates(lat, lng);
+      print(placemarks[0]);
+      return placemarks[0];
+    } catch (err) {
+      print('@@@@@@@@@@@@@@@@@@@@@@@@');
+      print(err);
+      return null;
+    }
+  }
 
   Future<Position?> getPosition() async {
     bool serviceEnabled;
@@ -274,20 +307,18 @@ class HomeViewModel extends BaseViewModel {
         builder: (BuildContext context) {
           return GoogleSearchBoxView();
         });
-    if (res != null) {
-      try {
-        List<Placemark> placemarks = await placemarkFromCoordinates(
-          res.geometry!.location.lat,
-          res.geometry!.location.lng,
-        );
 
-        this.sPropParam.locationValue = res.formattedAddress;
-        this.sPropParam.location = "${placemarks.first.subAdministrativeArea}";
-        notifyListeners();
-        print(placemarks[0]);
-      } catch (err) {
-        print(err);
+    if (res != null) {
+      this.sPropParam.locationValue = res.formattedAddress;
+      this.sPropParam.location = res.formattedAddress;
+      Placemark? place = await this.getGeocoding(
+          lat: res.geometry!.location.lat, lng: res.geometry!.location.lng);
+      if (place != null) {
+        this.sPropParam.location = "${place.locality}";
       }
+
+      print(this.sPropParam.toJson());
+      notifyListeners();
     }
   }
 
@@ -297,6 +328,13 @@ class HomeViewModel extends BaseViewModel {
         builder: (BuildContext context) {
           return NbrePerBoxView();
         });
+
+    if (res != null) {
+      this.sPropParam.totalPersons = res;
+      this.sPropParam.personsValue = "$res personnes";
+      print(this.sPropParam.toJson());
+      notifyListeners();
+    }
   }
 
   onDate(context) async {
@@ -324,7 +362,16 @@ class HomeViewModel extends BaseViewModel {
     }
   }
 
-  onSearch(context) {}
+  onSearch(context) async {
+    print("search");
+    await this.storage.setItem("searchData", this.sPropParam.toJson());
+
+    VpParam param = VpParam(
+        label: "Hébergement recherché",
+        type: VpParamType.searchProperty,
+        data: this.sPropParam);
+    Navigator.pushNamed(context, "/voir-plus", arguments: param);
+  }
 
   /******* Formulaire de recherche END *******************/
 

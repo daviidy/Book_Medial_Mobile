@@ -1,10 +1,14 @@
 import 'package:book_medial/core/base/base_view_model.dart';
 import 'package:book_medial/core/models/propertie_models.dart';
 import 'package:book_medial/core/models/session_models.dart';
+import 'package:book_medial/core/services/database_service.dart';
 import 'package:book_medial/core/services/ws/ws_property.dart';
+import 'package:book_medial/utils/constant.dart';
 import 'package:book_medial/utils/shared.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 
 class VoirPlusViewModel extends BaseViewModel {
   VoirPlusViewModel();
@@ -12,13 +16,31 @@ class VoirPlusViewModel extends BaseViewModel {
   late VpParam _param;
 
   bool _isLoad = false;
+  bool _isBackgroundLoad = false;
+  int _current_page = 1;
+  int _last_page = 1;
 
   List<Property> _propertyList = [];
   List<PopularProperty> _categoryList = [];
 
+  final DatabaseService storage = new DatabaseService();
+  SearchPropertyParam _sPropParam = SearchPropertyParam();
+
+  SearchPropertyParam get sPropParam => this._sPropParam;
+  set sPropParam(SearchPropertyParam value) {
+    this._sPropParam = value;
+    notifyListeners();
+  }
+
   bool get isLoad => this._isLoad;
   set isLoad(bool value) {
     this._isLoad = value;
+    notifyListeners();
+  }
+
+  bool get isBackgroundLoad => this._isBackgroundLoad;
+  set isBackgroundLoad(bool value) {
+    this._isBackgroundLoad = value;
     notifyListeners();
   }
 
@@ -42,7 +64,10 @@ class VoirPlusViewModel extends BaseViewModel {
 
   // Add ViewModel specific code here
 
-  init(context) {
+  init(context) async {
+    this.sPropParam =
+        SearchPropertyParam.fromJson(await this.storage.getItem("searchData"));
+
     this._param = ModalRoute.of(context)?.settings.arguments as VpParam;
     switch (this.param.type) {
       case VpParamType.category:
@@ -54,16 +79,110 @@ class VoirPlusViewModel extends BaseViewModel {
       case VpParamType.propertyQuery:
         this.loadPropertyByCity(this._param.data);
         break;
+      case VpParamType.searchProperty:
+        this.isLoad = true;
+        this.searchProperty(search: this._param.data);
+        break;
+      case VpParamType.autourDeMoi:
+        this.autourDeMoi(this._param.data);
+        break;
       default:
         this.isLoad = true;
     }
+  }
+
+  autourDeMoi(param) async {
+    this.isLoad = true;
+
+    this.sPropParam = param["seacheData"] as SearchPropertyParam;
+    Position currentPosition = param["position"] as Position;
+
+    WsResponse rp = await WsProperty.byCity(this.sPropParam.location);
+    if (rp.status) {
+      for (var item in rp.reponse!["properties"]) {
+        Property _property = Property.fromJson(item);
+        final bool isValide =
+            await this.calculeDistance(_property, currentPosition);
+        if (isValide) {
+          this._propertyList.add(_property);
+        }
+      }
+
+      this.param.type = VpParamType.property;
+    } else {
+      // String? ms = "Email invalide";
+      // if (rp.message != null) ms = rp.message;
+      SharedFunc.toast(
+          msg: "Une erreur s'est produite lors de la recuperation des données",
+          toastLength: Toast.LENGTH_LONG);
+    }
+
+    this.isLoad = false;
+  }
+
+  Future<bool> calculeDistance(_property, currentPosition) async {
+    try {
+      List<Location> propertyLocation =
+          await locationFromAddress("${_property.address}");
+
+      double distanceInMeters = Geolocator.distanceBetween(
+        currentPosition.latitude,
+        currentPosition.longitude,
+        propertyLocation[0].latitude,
+        propertyLocation[0].longitude,
+      );
+
+      if ((distanceInMeters / 1000) <= Constant.limitRayon) {
+        return true;
+      }
+    } catch (e) {
+      print(e);
+    }
+
+    return false;
+  }
+
+  searchProperty(
+      {required SearchPropertyParam search,
+      Map<String, dynamic>? queryParameters}) async {
+    this.sPropParam = search;
+    WsResponse rp =
+        await WsProperty.search(data: search, queryParameters: queryParameters);
+    if (rp.status) {
+      this._last_page = rp.reponse!["properties"]["last_page"];
+      for (var item in rp.reponse!["properties"]["data"]) {
+        this._propertyList.add(Property.fromJson(item));
+      }
+      this.param.type = VpParamType.property;
+
+      this.isLoad = false;
+      if (this._current_page < this._last_page) {
+        this.isBackgroundLoad = true;
+        this._current_page++;
+        notifyListeners();
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        print("@@@@@@@ PAGE ${this._current_page} @@@@@@@@");
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        await Future.delayed(Duration(seconds: 10));
+        await this.searchProperty(
+            search: search, queryParameters: {'page': '${this._current_page}'});
+      }
+    } else {
+      // String? ms = "Email invalide";
+      // if (rp.message != null) ms = rp.message;
+      this.isLoad = false;
+      SharedFunc.toast(
+          msg: "Une erreur s'est produite lors de la recuperation des données",
+          toastLength: Toast.LENGTH_LONG);
+    }
+
+    this.isBackgroundLoad = false;
   }
 
   loadPropertyByCity(PopularProperty popular) async {
     this.isLoad = true;
     WsResponse rp = await WsProperty.byCity(popular.city);
     if (rp.status) {
-      int i = 0;
       for (var item in rp.reponse!["properties"]) {
         this._propertyList.add(Property.fromJson(item));
       }

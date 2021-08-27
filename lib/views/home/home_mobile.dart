@@ -21,13 +21,13 @@ class _HomeMobile extends StatelessWidget {
           children: [
             Expanded(
                 child: GestureDetector(
-                  onTap: () => viewModel.onDate(context),
-                  child: ShareWidget.box1(
-                              value: "${viewModel.sPropParam.sejourValue}",
-                              labelText: "Date",
-                              width: AppTheme.fullWidth(context),
-                            ),
-                )),
+              onTap: () => viewModel.onDate(context),
+              child: ShareWidget.box1(
+                value: "${viewModel.sPropParam.sejourValue}",
+                labelText: "Date",
+                width: AppTheme.fullWidth(context),
+              ),
+            )),
             Container(
               width: 5,
             ),
@@ -81,7 +81,7 @@ class _HomeMobile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AutoSizeText(
-                      "Abidjan",
+                      "${viewModel.sPropParam.locationValue}",
                       maxLines: 1,
                       maxFontSize: 14,
                       minFontSize: 14,
@@ -92,7 +92,7 @@ class _HomeMobile extends StatelessWidget {
                           color: Colors.black)),
                     ),
                     AutoSizeText(
-                      "24 Juin - 25 Juin       2 personnes, 1 cham",
+                      "${viewModel.sPropParam.sejourValue}       ${viewModel.sPropParam.personsValue}",
                       maxLines: 1,
                       maxFontSize: 12,
                       minFontSize: 12,
@@ -157,8 +157,8 @@ class _HomeMobile extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                          flex: 1,
-                          child: Image.asset("assets/icons/arrow-right.png"))
+                            flex: 1,
+                            child: Image.asset("assets/icons/arrow-right.png"))
                       ],
                     ),
                   ),
@@ -228,8 +228,8 @@ class _HomeMobile extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                          flex: 1,
-                          child: Image.asset("assets/icons/arrow-right.png"))
+                            flex: 1,
+                            child: Image.asset("assets/icons/arrow-right.png"))
                       ],
                     ),
                   ),
@@ -246,17 +246,17 @@ class _HomeMobile extends StatelessWidget {
                 child: Row(
                     children: viewModel.popularData
                         .map((popular) => ShareWidget.boxHotel1(
-                          onTap: () =>
-                              viewModel.detailPopular(context, popular),
-                          param: null,
-                          context: context,
-                          height: 223,
-                          width: AppTheme.fullWidth(context) / 2.8,
-                          name: "${popular.hebergement} hébergements",
-                          margin: EdgeInsets.only(right: 10, left: 10),
-                          image: "${popular.media_link}",
-                          location: "${popular.city}",
-                        ))
+                              onTap: () =>
+                                  viewModel.detailPopular(context, popular),
+                              param: null,
+                              context: context,
+                              height: 223,
+                              width: AppTheme.fullWidth(context) / 2.8,
+                              name: "${popular.hebergement} hébergements",
+                              margin: EdgeInsets.only(right: 10, left: 10),
+                              image: "${popular.media_link}",
+                              location: "${popular.city}",
+                            ))
                         .toList()),
               ),
             ),
@@ -306,8 +306,8 @@ class _HomeMobile extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                          flex: 1,
-                          child: Image.asset("assets/icons/arrow-right.png"))
+                            flex: 1,
+                            child: Image.asset("assets/icons/arrow-right.png"))
                       ],
                     ),
                   ),
@@ -377,8 +377,8 @@ class _HomeMobile extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                          flex: 1,
-                          child: Image.asset("assets/icons/arrow-right.png"))
+                            flex: 1,
+                            child: Image.asset("assets/icons/arrow-right.png"))
                       ],
                     ),
                   ),
@@ -395,13 +395,16 @@ class _HomeMobile extends StatelessWidget {
                 child: Row(
                     children: viewModel.lastData
                         .map((property) => ShareWidget.boxHotel1(
-                              onTap: () => viewModel.detailProperty(context, property),
+                              onTap: () =>
+                                  viewModel.detailProperty(context, property),
                               context: context,
                               height: 160,
                               width: AppTheme.fullWidth(context) / 1.3,
                               name: "${property.name}",
                               margin: EdgeInsets.only(right: 10, left: 10),
-                              image: (property.medias!.length > 0 ) ? property.medias![0].link: null,
+                              image: (property.medias!.length > 0)
+                                  ? property.medias![0].link
+                                  : null,
                               location: "${property.city}",
                             ))
                         .toList()),
@@ -519,15 +522,16 @@ class _HomeMobile extends StatelessWidget {
                             Row(
                               children: [
                                 Expanded(
-                                  flex: 1,
-                                  child: Image.asset("assets/icons/map.png")),
+                                    flex: 1,
+                                    child: Image.asset("assets/icons/map.png")),
                                 // SizedBox(
                                 //   width: 10,
                                 // ),
                                 Expanded(
                                   flex: 4,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       AutoSizeText(
                                         "Autour de moi",
@@ -541,7 +545,7 @@ class _HomeMobile extends StatelessWidget {
                                             color: Colors.white)),
                                       ),
                                       AutoSizeText(
-                                        "24 Juin - 25 Juin       2 personnes, 1 cham",
+                                        "${viewModel.sPropParam.sejourValue}       ${viewModel.sPropParam.personsValue}",
                                         maxLines: 1,
                                         maxFontSize: 12,
                                         minFontSize: 12,
@@ -557,7 +561,7 @@ class _HomeMobile extends StatelessWidget {
                               ],
                             ),
                             SizedBox(
-                              height: 5,
+                              height: 0,
                             ),
                             TextButton(
                               onPressed: () => viewModel.proxiSearch(context),

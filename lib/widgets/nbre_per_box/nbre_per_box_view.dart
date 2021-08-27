@@ -1,6 +1,10 @@
 library nbre_per_box_view;
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:book_medial/core/base/base_provider.dart';
+import 'package:book_medial/theme/light_color.dart';
+import 'package:book_medial/theme/theme.dart';
+import 'package:book_medial/widgets/_share.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:flutter/material.dart';
 import 'nbre_per_box_view_model.dart';
