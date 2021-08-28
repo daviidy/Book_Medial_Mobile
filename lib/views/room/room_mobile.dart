@@ -390,31 +390,40 @@ class _RoomMobile extends StatelessWidget {
     return (viewModel.property.medias!.length > 0)
         ? viewModel.property.medias!
             .map((item) => Container(
-                  child: Container(
-                    //margin: EdgeInsets.only(left: 5, right: 5, bottom: 5),
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                        child: Stack(
-                          children: <Widget>[
-                            Image.network(item.link,
-                                fit: BoxFit.cover, width: 1000.0),
-                          ],
-                        )),
+                  child: GestureDetector(
+                    onTap: () => viewModel.showPhoto(context, item),
+                    child: Container(
+                      //margin: EdgeInsets.only(left: 5, right: 5, bottom: 5),
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                          child: Stack(
+                            children: <Widget>[
+                              Hero(
+                                tag: "${item.id}",
+                                child: Image.network(item.link,
+                                    fit: BoxFit.cover, width: 1000.0),
+                              ),
+                            ],
+                          )),
+                    ),
                   ),
                 ))
             .toList()
         : [
             Container(
-              child: Container(
-                //margin: EdgeInsets.only(left: 5, right: 5, bottom: 5),
-                child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                    child: Stack(
-                      children: <Widget>[
-                        Image.network(Constant.defaultImage,
-                            fit: BoxFit.cover, width: 1000.0),
-                      ],
-                    )),
+              child: GestureDetector(
+                onTap: () => viewModel.showPhoto(context, new Media(id: 1, link: Constant.defaultImage)),
+                child: Container(
+                  //margin: EdgeInsets.only(left: 5, right: 5, bottom: 5),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      child: Stack(
+                        children: <Widget>[
+                          Image.network(Constant.defaultImage,
+                              fit: BoxFit.cover, width: 1000.0),
+                        ],
+                      )),
+                ),
               ),
             )
           ];

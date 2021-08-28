@@ -2,6 +2,7 @@ library room_view;
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:book_medial/core/base/base_provider.dart';
+import 'package:book_medial/core/models/propertie_models.dart';
 import 'package:book_medial/theme/light_color.dart';
 import 'package:book_medial/theme/theme.dart';
 import 'package:book_medial/utils/constant.dart';

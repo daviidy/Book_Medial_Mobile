@@ -1,6 +1,8 @@
 import 'package:book_medial/core/base/base_view_model.dart';
 import 'package:book_medial/core/models/propertie_models.dart';
+import 'package:book_medial/widgets/photo_full/photo_full_view.dart';
 import 'package:carousel_slider/carousel_controller.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class RoomViewModel extends BaseViewModel {
@@ -45,5 +47,13 @@ class RoomViewModel extends BaseViewModel {
 
   swithMenu(index) {
     this.menuIndex = index;
+  }
+
+  showPhoto(context, Media media) async {
+     await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return PhotoFullView(photoUrl: media.link, photoTag: media.id.toString(),);
+        });
   }
 }
