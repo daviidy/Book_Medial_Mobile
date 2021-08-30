@@ -19,8 +19,25 @@ Content-Type: application/json
 {
     "title": "Monsieur",
     "name": "Armel Tissi",
-    "email": "a.tissi@armeltissi.com",
+    "email": "tkjarmel@gmail.com",
     "password": "Password",
+    "phone": "",
+    "birth_date": "",
+    "nationality": "",
+    "gender": ""
+}
+
+###
+
+POST {{baseUrl}}/social/login
+Content-Type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJUb2tlbiBBdXRoIiwiaWRQZXIiOiIxMTA4NTE0MCIsImNhdGVnIjoiVVNFUkVYVCIsImlzcyI6InZlb3MyIC0gUFJFUFJPRCAtIE9MRUEiLCJsYW5ndWFnZSI6IkYiLCJleHAiOjE2MjkzNzQwNDMsImlhdCI6MTYyOTM2MzI0M30.jNg22_Q63sr2_8vqQRtx8IqBgfo_YluvTawumO6ijKU
+
+{
+    "title": "Monsieur",
+    "name": "Armel Tissi",
+    "email": "tkjarmel2@gmail.com",
+    "password": "Armel1234",
     "phone": "",
     "birth_date": "",
     "nationality": "",

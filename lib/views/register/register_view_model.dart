@@ -117,7 +117,7 @@ class RegisterViewModel extends BaseViewModel {
       );
     } else {
       String? ms =
-          "une erreur s'est produite lors de la recuperation des données google";
+          "une erreur s'est produite lors de la récupération des données google";
       if (rp.message != null) ms = rp.message;
       SharedFunc.toast(msg: "$ms", toastLength: Toast.LENGTH_LONG);
     }
@@ -139,7 +139,7 @@ class RegisterViewModel extends BaseViewModel {
       );
     } else {
       String? ms =
-          "Une erreur s'est produite lors de la recuperation des données facebook";
+          "Une erreur s'est produite lors de la récupération des données facebook";
       if (rp.message != null) ms = rp.message;
       SharedFunc.toast(msg: "$ms", toastLength: Toast.LENGTH_LONG);
     }

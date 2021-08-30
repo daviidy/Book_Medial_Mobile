@@ -66,7 +66,7 @@ class LoginViewModel extends BaseViewModel {
         (route) => false,
       );
     } else {
-      String? ms = "une erreur s'est produite lors de la recuperation des données google";
+      String? ms = "une erreur s'est produite lors de la récupération des données google";
       if (rp.message != null) ms = rp.message;
       SharedFunc.toast(msg: "$ms", toastLength: Toast.LENGTH_LONG);
     }
@@ -87,7 +87,7 @@ class LoginViewModel extends BaseViewModel {
         (route) => false,
       );
     } else {
-      String? ms = "Une erreur s'est produite lors de la recuperation des données facebook";
+      String? ms = "Une erreur s'est produite lors de la récupération des données facebook";
       if (rp.message != null) ms = rp.message;
       SharedFunc.toast(msg: "$ms", toastLength: Toast.LENGTH_LONG);
     }

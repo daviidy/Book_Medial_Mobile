@@ -26,10 +26,16 @@ class WsAuth {
         await WsCore.post(data: jsonEncode(data), endpoint: "/login");
     if (reponse.statusCode == 200) {
       Map rpReponse = jsonDecode(utf8.decode(reponse.bodyBytes));
-      await _storage.setItem("token", rpReponse["access_token"]);
-      await _storage.setItem("userData", rpReponse["user"]);
-      await _storage.setItem("userLogin", data);
-      rp.status = true;
+      if (rpReponse["user"]["type"] == "client") {
+        await _storage.setItem("token", rpReponse["access_token"]);
+        await _storage.setItem("userData", rpReponse["user"]);
+        await _storage.setItem("userLogin", data);
+        await _storage.setItem("socialLogin", false);
+        rp.status = true;
+      } else {
+        rp.message =
+            "Cette application ne gère pas les comptes partenaires. Veuillez créer un nouveau compte client pour utiliser l'application";
+      }
     }
 
     return rp;
@@ -89,7 +95,13 @@ class WsAuth {
     WsResponse rp = new WsResponse();
 
     var userLogin = await _storage.getItem("userLogin");
-    if (userLogin != null) rp = await login(data: userLogin);
+    var isSocial = await _storage.getItem("socialLogin");
+
+    if (userLogin != null) {
+      (isSocial == true)
+          ? rp = await socialLog(data: userLogin)
+          : rp = await login(data: userLogin);
+    }
     // print("refreshSession");
     // print(useExtData);
     return rp;
@@ -146,22 +158,33 @@ class WsAuth {
   }
 
   static Future<WsResponse> loginOrRegister(UserCredential userData) async {
-    WsResponse rp = new WsResponse();
-    
-    Map _loginData = {
+    Map _data = {
+      "name": userData.user!.displayName,
       "email": userData.user!.email,
-      "password": userData.user!.uid
+      "password": userData.user!.uid,
+      "phone": userData.user!.phoneNumber,
     };
 
-    rp = await login(data: _loginData);
-    if (!rp.status) {
-      Map _registerData = {
-        "name": userData.user!.displayName,
-        "email": userData.user!.email,
-        "password": userData.user!.uid,
-        "phone": userData.user!.phoneNumber,
-      };
-      rp = await register(data: _registerData);
+    return socialLog(data: _data);
+  }
+
+  static Future<WsResponse> socialLog({data}) async {
+    WsResponse rp = new WsResponse();
+
+    Response reponse =
+        await WsCore.post(data: jsonEncode(data), endpoint: "/social/login");
+    if (reponse.statusCode == 200) {
+      Map rpReponse = jsonDecode(utf8.decode(reponse.bodyBytes));
+      if (rpReponse["user"]["type"] == "client") {
+        await _storage.setItem("token", rpReponse["access_token"]);
+        await _storage.setItem("userData", rpReponse["user"]);
+        await _storage.setItem("userLogin", data);
+        await _storage.setItem("socialLogin", true);
+        rp.status = true;
+      } else {
+        rp.message =
+            "Cette application ne gère pas les comptes partenaires. Veuillez créer un nouveau compte client pour utiliser l'application";
+      }
     }
 
     return rp;
