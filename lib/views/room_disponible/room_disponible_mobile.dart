@@ -132,7 +132,7 @@ class _RoomDisponibleMobile extends StatelessWidget {
                   property: viewModel.property,
                   context: context,
                   onPressed: () =>
-                      Navigator.pushNamed(context, "/room-reservation"),
+                      viewModel.reserver(context: context, bedroom: bed),
                   route: "/room-reservation"))
               .toList()
           : [_box404(context, "Aucune disponibilité")];
@@ -151,7 +151,7 @@ class _RoomDisponibleMobile extends StatelessWidget {
                   property: viewModel.property,
                   context: context,
                   onPressed: () =>
-                      Navigator.pushNamed(context, "/room-reservation"),
+                      viewModel.reserver(context: context),
                   route: "/room-reservation")
             ]
           : [_box404(context, "Aucune disponibilité")];

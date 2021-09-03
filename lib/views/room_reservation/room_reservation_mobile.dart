@@ -41,55 +41,167 @@ class _RoomReservationMobile extends StatelessWidget {
               ],
             ),
             SizedBox(
+              height: 10,
+            ),
+            ShareWidget.input(
+              name: "sejour",
+              labelText: "Nombre de chambre",
+              hintText: "",
+              enabled: false,
+              suffixIcon: GestureDetector(
+                  onTap: () => null,
+                  child: Image.asset("assets/icons/dropdown2.png")),
+              backgroundColors: Colors.white,
+              borderColor: Color(0xffC4C4C4),
+              validators: [
+                FormBuilderValidators.required(context,
+                    errorText: "Ce champs est requis")
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            ShareWidget.input(
+              name: "name",
+              labelText: "Contact client",
+              prefixIcon: GestureDetector(
+                onTap: () => viewModel.countryFlag(context),
+                child: Container(
+                  width: 70,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 10,
+                      ),
+                      SvgPicture.network(
+                        viewModel.country.flag,
+                        width: 30,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Image.asset("assets/icons/dropdown3.png")
+                    ],
+                  ),
+                ),
+              ),
+              backgroundColors: Colors.white,
+              borderColor: Color(0xffC4C4C4),
+              validators: [
+                FormBuilderValidators.required(context,
+                    errorText: "Ce champs est requis")
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            ShareWidget.input(
+              name: "sejour",
+              labelText: "Adresse client",
+              maxLines: 5,
+              hintText: "",
+              enabled: true,
+              backgroundColors: Colors.white,
+              borderColor: Color(0xffC4C4C4),
+              validators: [
+                FormBuilderValidators.required(context,
+                    errorText: "Ce champs est requis")
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            _modeBuy(context),
+            SizedBox(
+              height: 20,
+            ),
+            ShareWidget.boxReservationn1(
+                labelText:
+                    'Politique d’arrivée et de départ                          de l’Hotel',
+                context: context,
+                backgroundColor: Color(0xffFFF1F1),
+                body: Container(
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AutoSizeText(
+                        "Heure d'arrivée : de 14h à 17h",
+                        maxLines: 1,
+                        maxFontSize: 12,
+                        minFontSize: 12,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTheme.globalFont(
+                            TextStyle(fontWeight: FontWeight.w700, fontSize: 12)),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      AutoSizeText(
+                        "Heure de départ : de 14h à 17h",
+                        maxLines: 1,
+                        maxFontSize: 12,
+                        minFontSize: 12,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTheme.globalFont(
+                            TextStyle(fontWeight: FontWeight.w700, fontSize: 12)),
+                      ),
+                    ],
+                  ),
+                )),
+            SizedBox(
               height: 20,
             ),
             ShareWidget.boxReservationn1(
               labelText: 'Duree du séjour',
               context: context,
-              body: ShareWidget.box2(
-                  width: AppTheme.fullWidth(context),
-                  labelText: "A partir de",
-                  backgroundColors: Colors.white,
-                  borderColors: Color(0xffC4C4C4),
-                  labelStyle: TextStyle(
-                    fontSize: 14,
-                  ),
-                  borderRadius: 11,
-                  padding: EdgeInsets.all(16),
-                  body: Container(
-                    child: Row(
-                      children: [
-                        Image.asset("assets/icons/calendar.png"),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        AutoSizeText(
-                          "Dim, 6 Mars, 2021 - Mar, 8 Mars, 2021",
-                          maxLines: 1,
-                          maxFontSize: 13,
-                          minFontSize: 13,
-                          overflow: TextOverflow.ellipsis,
-                          style: AppTheme.globalFont(TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 13,
-                              color: Color(0xff5787A4))),
-                        ),
-                      ],
+              body: GestureDetector(
+                onTap: () => viewModel.onRangeDate(context),
+                child: ShareWidget.box2(
+                    width: AppTheme.fullWidth(context),
+                    labelText: "Choisissez la période",
+                    backgroundColors: Colors.white,
+                    borderColors: Color(0xffC4C4C4),
+                    labelStyle: TextStyle(
+                      fontSize: 14,
                     ),
-                  )),
+                    borderRadius: 11,
+                    padding: EdgeInsets.all(16),
+                    body: Container(
+                      child: Row(
+                        children: [
+                          Image.asset("assets/icons/calendar.png"),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          AutoSizeText(
+                            "${viewModel.sPropParam.sejourValue}",
+                            maxLines: 1,
+                            maxFontSize: 13,
+                            minFontSize: 13,
+                            overflow: TextOverflow.ellipsis,
+                            style: AppTheme.globalFont(TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 13,
+                                color: Color(0xff5787A4))),
+                          ),
+                        ],
+                      ),
+                    )),
+              ),
             ),
             SizedBox(
               height: 20,
             ),
             ShareWidget.boxReservationn1(
-                labelText: 'Duree du séjour',
+                labelText: 'Heures',
                 context: context,
                 body: Row(
                   children: [
                     Expanded(
                       child: ShareWidget.input(
                         name: "sejour",
-                        labelText: "A partir de",
+                        labelText: "Arrivée",
                         labelStyle: TextStyle(
                           fontSize: 14,
                         ),
@@ -106,11 +218,13 @@ class _RoomReservationMobile extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(width: 35,),
+                    SizedBox(
+                      width: 35,
+                    ),
                     Expanded(
                       child: ShareWidget.input(
                         name: "sejour",
-                        labelText: "Jusqu’a",
+                        labelText: "Départ",
                         labelStyle: TextStyle(
                           fontSize: 14,
                         ),
@@ -133,66 +247,191 @@ class _RoomReservationMobile extends StatelessWidget {
         ));
   }
 
+  Widget _modeBuy(context) {
+    return Container(
+      padding: EdgeInsets.only(left: 0, right: 0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            flex: 1,
+            child: GestureDetector(
+              onTap: () => viewModel.choseModeBuy(true),
+              child: ShareWidget.buttonIcone(
+                context: context,
+                height: 50,
+                body: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Stack(children: [
+                      Align(
+                          alignment: Alignment.center,
+                          child:
+                              Image.asset("assets/icons/select-inactif.png")),
+                      if (viewModel.isAccount)
+                        Positioned(
+                            bottom: 16,
+                            left: 5,
+                            child:
+                                Image.asset("assets/icons/select-actif.png")),
+                    ]),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(
+                      child: AutoSizeText(
+                        "Payer un acompte de 25%",
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTheme.globalFont(TextStyle(
+                          fontSize: 12,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w400,
+                        )),
+                        textAlign: TextAlign.start,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                  ],
+                ),
+                textColor: Colors.black,
+                borderColor: Color(0xffA3A3A3),
+                borderWidth: 1.0,
+              ),
+            ),
+          ),
+          Container(
+            width: 10,
+          ),
+          Expanded(
+            flex: 1,
+            child: GestureDetector(
+              onTap: () => viewModel.choseModeBuy(false),
+              child: ShareWidget.buttonIcone(
+                context: context,
+                height: 50,
+                body: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Stack(children: [
+                      Align(
+                          alignment: Alignment.center,
+                          child:
+                              Image.asset("assets/icons/select-inactif.png")),
+                      if (!viewModel.isAccount)
+                        Positioned(
+                            bottom: 16,
+                            left: 5,
+                            child:
+                                Image.asset("assets/icons/select-actif.png")),
+                    ]),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(
+                      child: AutoSizeText(
+                        "Payer la totalité",
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTheme.globalFont(TextStyle(
+                          fontSize: 12,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w400,
+                        )),
+                        textAlign: TextAlign.start,
+                      ),
+                    ),
+                  ],
+                ),
+                textColor: Colors.black,
+                borderColor: Color(0xffA3A3A3),
+                borderWidth: 1.0,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 20,
-              ),
-              ShareWidget.headerStyle3(context: context),
-              SizedBox(
-                height: 15,
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 20),
-                child: AutoSizeText(
-                  "Détails réservation",
-                  maxLines: 1,
-                  maxFontSize: 18,
-                  minFontSize: 18,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppTheme.globalFont(
-                      TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
+        body: SingleChildScrollView(
+          child: Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 20,
                 ),
-              ),
-              Container(
-                child: ShareWidget.boxRoom(
-                  //padding: EdgeInsets.all(10),
-                  margin: EdgeInsets.all(20),
-                  data: null,
-                  context: context,
-                  //route: "/room-reservation"
+                ShareWidget.headerStyle3(context: context),
+                SizedBox(
+                  height: 15,
                 ),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Container(
+                Container(
                   margin: EdgeInsets.symmetric(horizontal: 20),
-                  child: _formBox(context)),
-
-              Container(
-              margin: EdgeInsets.only(top: 20, right: 15, left: 15,bottom: 20),
-              child: TextButton(
-                onPressed: () => viewModel.createReservation(context),
-                child: ShareWidget.button(
-                  context: context,
-                  backgoundColor: LightColor.primary,
-                  title: "Creer une réservation",
-                  margin: 0,
+                  child: AutoSizeText(
+                    "Détails réservation",
+                    maxLines: 1,
+                    maxFontSize: 18,
+                    minFontSize: 18,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTheme.globalFont(
+                        TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
+                  ),
                 ),
-              ),
-            )
-            ],
+                (viewModel.isHotel)
+                    ? Container(
+                        child: ShareWidget.boxRoom(
+                          //padding: EdgeInsets.all(10),
+                          margin: EdgeInsets.all(20),
+                          bedRoom: viewModel.bedRoom,
+                          property: viewModel.property,
+                          context: context,
+                        ),
+                      )
+                    : Container(
+                        child: ShareWidget.boxRoom1(
+                          //padding: EdgeInsets.all(10),
+                          margin: EdgeInsets.all(20),
+                          property: viewModel.property,
+                          context: context,
+                        ),
+                      ),
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    child: _formBox(context)),
+                Container(
+                  margin:
+                      EdgeInsets.only(top: 20, right: 15, left: 15, bottom: 20),
+                  child: TextButton(
+                    onPressed: () => viewModel.createReservation(context),
+                    child: ShareWidget.button(
+                      context: context,
+                      backgoundColor: LightColor.primary,
+                      title: "Creer une réservation",
+                      margin: 0,
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
-      ),
-      bottomNavigationBar: BottomMenuWidget.home(context:context,)
-    );
+        bottomNavigationBar: BottomMenuWidget.home(
+          context: context,
+        ));
   }
 }

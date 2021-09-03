@@ -104,62 +104,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/intro1.png
-    - assets/images/intro2.png
-    - assets/images/intro3.png
-    - assets/images/home1.png
-    - assets/images/home2.png
-    - assets/images/home3.png
-    - assets/images/home4.png
-    - assets/images/home5.png
-    - assets/images/room.png
-    - assets/images/visa.png
-    - assets/images/moov-money.png
-    - assets/images/mtn-money.png
-    - assets/images/orange-money.png
-    - assets/images/logo-book-medial.png
-    - assets/icons/facebook.png
-    - assets/icons/google.png
-    - assets/icons/right-arrow.png
-    - assets/icons/select-actif.png
-    - assets/icons/select-inactif.png
-    - assets/icons/eye.png
-    - assets/icons/user.png
-    - assets/icons/user2.png
-    - assets/icons/user-baground.png
-    - assets/icons/arrow-right.png
-    - assets/icons/location.png
-    - assets/icons/map.png
-    - assets/icons/loupe.png
-    - assets/icons/dropdown.png
-    - assets/icons/dropdown2.png
-    - assets/icons/star.png
-    - assets/icons/call.png
-    - assets/icons/heart.png
-    - assets/icons/line1.png
-    - assets/icons/line2.png
-    - assets/icons/arrow-right1.png
-    - assets/icons/arrow-right2.png
-    - assets/icons/arrow-right3.png
-    - assets/icons/arrow-left1.png
-    - assets/icons/filtre.png
-    - assets/icons/bed.png
-    - assets/icons/personnes.png
-    - assets/icons/calendar.png
-    - assets/icons/heure.png
-    - assets/icons/close.png
-    - assets/icons/valide.png
-    - assets/icons/home.png
-    - assets/icons/home-active.png
-    - assets/icons/notification.png
-    - assets/icons/notification-active.png
-    - assets/icons/profile.png
-    - assets/icons/info.png
-    - assets/icons/404.png
-    - assets/icons/data-not-found.png
-    - assets/icons/resev.png
-    - assets/icons/succes-pay.png
-    - assets/icons/profile-active.png
+    - assets/images/
+    - assets/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -241,6 +241,7 @@ class HomeViewModel extends BaseViewModel {
         this.sPropParam.locationValue = "${place.subAdministrativeArea}";
         this.sPropParam.location = "${place.locality}";
         notifyListeners();
+        await this.storage.setItem("currentPlace", place);
       }
     }
     await this.storage.setItem("searchData", this.sPropParam.toJson());
@@ -342,27 +343,39 @@ class HomeViewModel extends BaseViewModel {
   }
 
   onDate(context) async {
-    final DateTimeRange? picked = await showDateRangePicker(
-      context: context,
-      firstDate: initialDate,
-      helpText: 'Sélectionnez une plage de dates',
-      fieldStartHintText: 'Date de début du Séjour',
-      fieldEndHintText: 'Date de fin du séjour',
-      currentDate: initialDate,
-      initialDateRange: DateTimeRange(
-          start: DateTime.parse(this.sPropParam.sejourStart as String),
-          end: DateTime.parse(this.sPropParam.sejourEnd as String)),
-      locale: Locale('fr'),
-      lastDate:
-          DateTime(initialDate.year, initialDate.month + 1, initialDate.day),
-    );
+    try {
+      final DateTimeRange? picked = await showDateRangePicker(
+        context: context,
+        firstDate: initialDate,
+        helpText: 'Sélectionnez une plage de dates',
+        fieldStartHintText: 'Date de début du Séjour',
+        fieldEndHintText: 'Date de fin du séjour',
+        currentDate: initialDate,
+        initialDateRange: DateTimeRange(
+            start: DateTime.parse(this.sPropParam.sejourStart as String),
+            end: DateTime.parse(this.sPropParam.sejourEnd as String)),
+        locale: Locale('fr'),
+        lastDate:
+            DateTime(initialDate.year, initialDate.month + 1, initialDate.day),
+      );
 
-    if (picked != null) {
-      this.sPropParam.sejourStart = picked.start.toIso8601String();
-      this.sPropParam.sejourEnd = picked.end.toIso8601String();
+      if (picked != null) {
+        this.sPropParam.sejourStart = picked.start.toIso8601String();
+        this.sPropParam.sejourEnd = picked.end.toIso8601String();
+        this.sPropParam.sejourValue =
+            "${DateFormat('dd MMM', 'fr').format(picked.start)} - ${DateFormat('dd MMM', 'fr').format(picked.end)}";
+        notifyListeners();
+      }
+    } catch (e) {
+      print(e);
+      DateTime _start = this.initialDate;
+      DateTime _end = DateTime(_start.year, _start.month, _start.day + 1);
+
+      this.sPropParam.sejourStart = _start.toIso8601String();
+      this.sPropParam.sejourEnd = _end.toIso8601String();
       this.sPropParam.sejourValue =
-          "${DateFormat('dd MMM', 'fr').format(picked.start)} - ${DateFormat('dd MMM', 'fr').format(picked.end)}";
-      notifyListeners();
+          "${DateFormat('dd MMM', 'fr').format(_start)} - ${DateFormat('dd MMM', 'fr').format(_end)}";
+      this.onDate(context);
     }
   }
 
