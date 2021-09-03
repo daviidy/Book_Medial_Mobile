@@ -59,7 +59,9 @@ class WsProperty {
     return rp;
   }
 
-  static Future<WsResponse> search({required SearchPropertyParam data,Map<String, dynamic>? queryParameters}) async {
+  static Future<WsResponse> search(
+      {required SearchPropertyParam data,
+      Map<String, dynamic>? queryParameters}) async {
     WsResponse rp = new WsResponse();
     SearchPropertyParam searchData =
         new SearchPropertyParam.fromJson(data.toJson());
@@ -77,8 +79,47 @@ class WsProperty {
         data: jsonEncode(searchData.toJson()),
         endpoint: "/properties/search",
         token: await _storage.getItem("token"),
-        queryParameters:queryParameters);
-        
+        queryParameters: queryParameters);
+
+    if (reponse.statusCode == 200) {
+      Map reponseData = jsonDecode(utf8.decode(reponse.bodyBytes));
+      rp.reponse = reponseData;
+      rp.status = true;
+    } else {
+      print(reponse.statusCode);
+    }
+
+    return rp;
+  }
+
+  static Future<WsResponse> disponibility(
+      {required SearchPropertyParam searchData,
+      required Property property}) async {
+    WsResponse rp = new WsResponse();
+    SearchPropertyParam _search =
+        new SearchPropertyParam.fromJson(searchData.toJson());
+    if (_search.sejourStart != null)
+      _search.sejourStart = DateFormat('dd/MM/yyyy')
+          .format(DateTime.parse(_search.sejourStart as String));
+
+    if (_search.sejourEnd != null)
+      _search.sejourEnd = DateFormat('dd/MM/yyyy')
+          .format(DateTime.parse(_search.sejourEnd as String));
+
+    print(_search.toJson());
+
+    var data = {
+      "property": property.id,
+      "guestNumber": _search.totalPersons,
+      "startDate": _search.sejourStart,
+      "endDate": _search.sejourEnd,
+    };
+
+    Response reponse = await WsCore.post(
+        data: jsonEncode(data),
+        endpoint: "/property/disponibility",
+        token: await _storage.getItem("token"));
+
     if (reponse.statusCode == 200) {
       Map reponseData = jsonDecode(utf8.decode(reponse.bodyBytes));
       rp.reponse = reponseData;

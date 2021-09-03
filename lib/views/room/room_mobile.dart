@@ -118,8 +118,8 @@ class _RoomMobile extends StatelessWidget {
                           height: 5,
                         ),
                         AutoSizeText(
-                          "${viewModel.property.city}       ${viewModel.property.address}",
-                          maxLines: 1,
+                          "${viewModel.property.address}",
+                          maxLines: 2,
                           maxFontSize: 12,
                           minFontSize: 12,
                           overflow: TextOverflow.ellipsis,
@@ -131,6 +131,7 @@ class _RoomMobile extends StatelessWidget {
                         SizedBox(
                           height: 15,
                         ),
+                        if(!viewModel.isHotel)
                         AutoSizeText.rich(TextSpan(
                             style: AppTheme.globalFont(null),
                             children: [
@@ -148,29 +149,48 @@ class _RoomMobile extends StatelessWidget {
                                       fontWeight: FontWeight.w400,
                                       fontSize: 12)))
                             ])),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                                width: 20,
-                                height: 20,
-                                margin: EdgeInsets.only(right: 5, bottom: 2),
-                                child: Image.asset("assets/icons/star.png")),
-                            AutoSizeText(
-                              "4.9",
-                              maxLines: 1,
-                              maxFontSize: 16,
-                              minFontSize: 16,
-                              overflow: TextOverflow.ellipsis,
-                              style: AppTheme.globalFont(TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                              )),
-                            ),
-                          ],
-                        )
+                            
+                        if(!viewModel.isHotel)
+                        AutoSizeText.rich(TextSpan(
+                            style: AppTheme.globalFont(null),
+                            children: [
+                              TextSpan(
+                                  text:
+                                      "${viewModel.property.price_per_day!.round()} Fcfa ",
+                                  style: AppTheme.globalFont(TextStyle(
+                                      color: LightColor.primary,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 20))),
+                              TextSpan(
+                                  text: "/  Par jour",
+                                  style: AppTheme.globalFont(TextStyle(
+                                      color: LightColor.textGrey,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12)))
+                            ])),
+                        // SizedBox(
+                        //   height: 15,
+                        // ),
+                        // Row(
+                        //   children: [
+                        //     Container(
+                        //         width: 20,
+                        //         height: 20,
+                        //         margin: EdgeInsets.only(right: 5, bottom: 2),
+                        //         child: Image.asset("assets/icons/star.png")),
+                        //     AutoSizeText(
+                        //       "4.9",
+                        //       maxLines: 1,
+                        //       maxFontSize: 16,
+                        //       minFontSize: 16,
+                        //       overflow: TextOverflow.ellipsis,
+                        //       style: AppTheme.globalFont(TextStyle(
+                        //         fontWeight: FontWeight.w400,
+                        //         fontSize: 16,
+                        //       )),
+                        //     ),
+                        //   ],
+                        // )
                       ],
                     ),
                   ),
@@ -184,36 +204,42 @@ class _RoomMobile extends StatelessWidget {
                         children: [
                           Positioned(
                             top: 0,
-                            child: ShareWidget.buttonIcone(
-                                context: context,
-                                backgoundColor: LightColor.primary,
-                                height: 44,
-                                width: 44,
-                                borderRadius: 30,
-                                borderColor: LightColor.primary,
-                                padding: EdgeInsets.all(10),
-                                body: Center(
-                                    child:
-                                        Image.asset("assets/icons/call.png")),
-                                shadowColors: Color(0x52F46600),
-                                blurRadius: 5,
-                                offset: Offset(0, 5)),
+                            child: GestureDetector(
+                              onTap: () => viewModel.callNumber(),
+                              child: ShareWidget.buttonIcone(
+                                  context: context,
+                                  backgoundColor: LightColor.primary,
+                                  height: 44,
+                                  width: 44,
+                                  borderRadius: 30,
+                                  borderColor: LightColor.primary,
+                                  padding: EdgeInsets.all(10),
+                                  body: Center(
+                                      child:
+                                          Image.asset("assets/icons/call.png")),
+                                  shadowColors: Color(0x52F46600),
+                                  blurRadius: 5,
+                                  offset: Offset(0, 5)),
+                            ),
                           ),
                           Positioned(
                             bottom: 0,
-                            child: ShareWidget.buttonIcone(
-                                context: context,
-                                backgoundColor: LightColor.primary,
-                                height: 44,
-                                width: 44,
-                                borderRadius: 30,
-                                borderColor: LightColor.primary,
-                                padding: EdgeInsets.all(10),
-                                body: Center(
-                                    child: Image.asset("assets/icons/map.png")),
-                                shadowColors: Color(0x52F46600),
-                                blurRadius: 5,
-                                offset: Offset(0, 5)),
+                            child: GestureDetector(
+                              onTap: () => viewModel.openMap(),
+                              child: ShareWidget.buttonIcone(
+                                  context: context,
+                                  backgoundColor: LightColor.primary,
+                                  height: 44,
+                                  width: 44,
+                                  borderRadius: 30,
+                                  borderColor: LightColor.primary,
+                                  padding: EdgeInsets.all(10),
+                                  body: Center(
+                                      child: Image.asset("assets/icons/map.png")),
+                                  shadowColors: Color(0x52F46600),
+                                  blurRadius: 5,
+                                  offset: Offset(0, 5)),
+                            ),
                           )
                         ],
                       ),
@@ -456,7 +482,7 @@ class _RoomMobile extends StatelessWidget {
                       ),
                       TextButton(
                         onPressed: () =>
-                            Navigator.pushNamed(context, '/room-disponible'),
+                            Navigator.pushNamed(context, '/room-disponible', arguments: viewModel.property),
                         child: ShareWidget.button(
                             context: context,
                             title: "Voir les disponibilités",

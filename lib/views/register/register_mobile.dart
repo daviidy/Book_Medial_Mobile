@@ -147,11 +147,11 @@ class _RegisterMobile extends StatelessWidget {
                   ),
                 ),
                 Container(
-                   padding: EdgeInsets.only(left: 14),
-                          child: Image.asset(
-                        "assets/images/logo-book-medial.png",
-                        height: 50,
-                      )),
+                    padding: EdgeInsets.only(left: 14),
+                    child: Image.asset(
+                      "assets/images/logo-book-medial.png",
+                      height: 50,
+                    )),
                 // Container(
                 //   padding: EdgeInsets.only(left: 20),
                 //   child: AutoSizeText.rich(TextSpan(
@@ -311,7 +311,7 @@ class _RegisterMobile extends StatelessWidget {
                                   width: 5,
                                 ),
                                 AutoSizeText(
-                                  "Inscrivez-vous avec Gooogle",
+                                  "Inscrivez-vous avec Google",
                                   style: AppTheme.globalFont(TextStyle(
                                     fontSize: 14,
                                     color: Colors.black,

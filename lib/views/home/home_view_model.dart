@@ -40,7 +40,8 @@ class HomeViewModel extends BaseViewModel {
 
   Position? _currentPosition;
 
-  SearchPropertyParam sPropParam = SearchPropertyParam();
+  SearchPropertyParam sPropParam =
+      SearchPropertyParam(locationValue: '', personsValue: '', sejourValue: '');
   DateTime initialDate = DateTime.now();
 
   ScrollController scrollController = new ScrollController(
@@ -132,6 +133,9 @@ class HomeViewModel extends BaseViewModel {
         Property property = Property.fromJson(item);
         //if(property.name != null)
         this._lastDataAll.add(property);
+        print(property.property_type!.name);
+        print(property.property_type!.id);
+        print(property.property_type!.description);
       }
       this.lastData = this._lastDataAll.take(4).toList();
     } else {
@@ -193,11 +197,11 @@ class HomeViewModel extends BaseViewModel {
       if (place != null) {
         _searche.locationValue = "${place.subAdministrativeArea}";
         _searche.location = "${place.locality}";
-        
+
         VpParam param = VpParam(
             label: "Autour de moi",
             type: VpParamType.autourDeMoi,
-            data: {"seacheData" : _searche, "position" : this._currentPosition});
+            data: {"seacheData": _searche, "position": this._currentPosition});
         Navigator.pushNamed(context, "/voir-plus", arguments: param);
       }
     }

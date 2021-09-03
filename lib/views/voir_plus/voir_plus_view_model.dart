@@ -13,7 +13,7 @@ import 'package:geolocator/geolocator.dart';
 class VoirPlusViewModel extends BaseViewModel {
   VoirPlusViewModel();
 
-  late VpParam _param;
+   VpParam _param = new VpParam(label: "", type: VpParamType.category);
 
   ScrollController scrollController = new ScrollController(
     initialScrollOffset: 0.0,
@@ -29,7 +29,7 @@ class VoirPlusViewModel extends BaseViewModel {
   List<PopularProperty> _categoryList = [];
 
   final DatabaseService storage = new DatabaseService();
-  SearchPropertyParam _sPropParam = SearchPropertyParam();
+  SearchPropertyParam _sPropParam = SearchPropertyParam(locationValue: '',personsValue: '',sejourValue: '');
 
   SearchPropertyParam get sPropParam => this._sPropParam;
   set sPropParam(SearchPropertyParam value) {
@@ -110,10 +110,13 @@ class VoirPlusViewModel extends BaseViewModel {
             await this.calculeDistance(_property, currentPosition);
         if (isValide) {
           this._propertyList.add(_property);
+          this.param.type = VpParamType.property;
+          this.isLoad = false;
+          this.isBackgroundLoad = true;
         }
       }
 
-      this.param.type = VpParamType.property;
+      this.isBackgroundLoad = false;
     } else {
       // String? ms = "Email invalide";
       // if (rp.message != null) ms = rp.message;

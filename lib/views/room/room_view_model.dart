@@ -1,15 +1,23 @@
 import 'package:book_medial/core/base/base_view_model.dart';
 import 'package:book_medial/core/models/propertie_models.dart';
+import 'package:book_medial/utils/shared.dart';
 import 'package:book_medial/widgets/photo_full/photo_full_view.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:map_launcher/map_launcher.dart';
 
 class RoomViewModel extends BaseViewModel {
   RoomViewModel();
 
   int _menuIndex = 0;
   late Property _property;
+
+  bool _isHotel = false;
 
   final List<String> imgList = [
     'assets/images/intro1.png',
@@ -23,6 +31,12 @@ class RoomViewModel extends BaseViewModel {
   Property get property => this._property;
   set property(Property value) {
     this._property = value;
+    notifyListeners();
+  }
+
+  bool get isHotel => this._isHotel;
+  set isHotel(bool value) {
+    this._isHotel = value;
     notifyListeners();
   }
 
@@ -43,6 +57,8 @@ class RoomViewModel extends BaseViewModel {
   init(context) {
     this.property = ModalRoute.of(context)?.settings.arguments as Property;
     print("${this.property.medias}");
+    print(this.property.property_type!.name!.contains('Hôtel'));
+    this.isHotel = this.property.property_type!.name!.contains('Hôtel');
   }
 
   swithMenu(index) {
@@ -50,10 +66,49 @@ class RoomViewModel extends BaseViewModel {
   }
 
   showPhoto(context, Media media) async {
-     await showDialog(
+    await showDialog(
         context: context,
         builder: (BuildContext context) {
-          return PhotoFullView(photoUrl: media.link, photoTag: media.id.toString(),);
+          return PhotoFullView(
+            photoUrl: media.link,
+            photoTag: media.id.toString(),
+          );
         });
+  }
+
+  callNumber() async {
+    print(this.property.contact_number);
+    try {
+      bool? res = await FlutterPhoneDirectCaller.callNumber(
+          "${this.property.contact_number}");
+      print(res);
+    } catch (e) {
+      print(e);
+      SharedFunc.toast(
+          msg: "Une erreur s'est produite lors de l'opération",
+          toastLength: Toast.LENGTH_LONG);
+    }
+  }
+
+  openMap() async {
+    final availableMaps = await MapLauncher.installedMaps;
+    print(
+        availableMaps); // [AvailableMap { mapName: Google Maps, mapType: google }, ...]
+
+    try {
+      List<Location> propertyLocation =
+          await locationFromAddress("${this.property.address}");
+
+      await availableMaps.first.showDirections(
+        destination:
+            Coords(propertyLocation[0].latitude, propertyLocation[0].longitude),
+        destinationTitle: "${this.property.name}",
+      );
+    } catch (e) {
+      print(e);
+      SharedFunc.toast(
+          msg: "Une erreur s'est produite lors de l'opération",
+          toastLength: Toast.LENGTH_LONG);
+    }
   }
 }

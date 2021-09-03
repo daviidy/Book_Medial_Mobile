@@ -27,7 +27,8 @@ class _LoginMobile extends StatelessWidget {
                 name: "password",
                 labelText: "Mot de passe",
                 rightLabel: GestureDetector(
-                  onTap: () => Navigator.pushNamed(context, "/forget-password/step1"),
+                  onTap: () =>
+                      Navigator.pushNamed(context, "/forget-password/step1"),
                   child: AutoSizeText(
                     "Mot de passe oublié ?",
                     style: AppTheme.globalFont(
@@ -46,10 +47,10 @@ class _LoginMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:LoadingOverlay(
-          color: Colors.black38,
-          progressIndicator: spinkit10,
-          isLoading: viewModel.loader,
+      body: LoadingOverlay(
+        color: Colors.black38,
+        progressIndicator: spinkit10,
+        isLoading: viewModel.loader,
         child: SingleChildScrollView(
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 10),
@@ -79,11 +80,11 @@ class _LoginMobile extends StatelessWidget {
                   ),
                 ),
                 Container(
-                   padding: EdgeInsets.only(left: 14),
-                          child: Image.asset(
-                        "assets/images/logo-book-medial.png",
-                        height: 50,
-                      )),
+                    padding: EdgeInsets.only(left: 14),
+                    child: Image.asset(
+                      "assets/images/logo-book-medial.png",
+                      height: 50,
+                    )),
                 // Container(
                 //   padding: EdgeInsets.only(left: 20),
                 //   child: AutoSizeText.rich(TextSpan(
@@ -125,7 +126,7 @@ class _LoginMobile extends StatelessWidget {
                                   width: 5,
                                 ),
                                 AutoSizeText(
-                                  "Inscrivez-vous avec Gooogle",
+                                  "Inscrivez-vous avec Google",
                                   style: AppTheme.globalFont(TextStyle(
                                     fontSize: 14,
                                     color: Colors.black,

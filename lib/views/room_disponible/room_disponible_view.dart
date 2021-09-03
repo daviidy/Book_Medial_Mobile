@@ -9,6 +9,7 @@ import 'package:book_medial/widgets/bottom_menu.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:flutter/material.dart';
+import 'package:skeleton_loader/skeleton_loader.dart';
 import 'room_disponible_view_model.dart';
 
 part 'room_disponible_mobile.dart';
@@ -20,17 +21,17 @@ class RoomDisponibleView extends StatelessWidget {
   Widget build(BuildContext context) {
     RoomDisponibleViewModel viewModel = RoomDisponibleViewModel();
     return ViewModelProvider<RoomDisponibleViewModel>.withConsumer(
-      viewModel: viewModel,
-      onModelReady: (viewModel) {
-        // Do something once your viewModel is initialized
-      },
-      builder: (context, viewModel, child) {
-        return ScreenTypeLayout(
-          mobile: _RoomDisponibleMobile(viewModel),
-          desktop: _RoomDisponibleDesktop(viewModel),
-          tablet: _RoomDisponibleTablet(viewModel),  
-        );
-      }
-    );
+        viewModel: viewModel,
+        onModelReady: (viewModel) {
+          // Do something once your viewModel is initialized
+          viewModel.init(context);
+        },
+        builder: (context, viewModel, child) {
+          return ScreenTypeLayout(
+            mobile: _RoomDisponibleMobile(viewModel),
+            desktop: _RoomDisponibleDesktop(viewModel),
+            tablet: _RoomDisponibleTablet(viewModel),
+          );
+        });
   }
 }

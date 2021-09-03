@@ -6,8 +6,6 @@ import 'package:book_medial/core/models/session_models.dart';
 import 'package:book_medial/theme/theme.dart';
 import 'package:book_medial/widgets/_share.dart';
 import 'package:book_medial/widgets/bottom_menu.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:path/path.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:skeleton_loader/skeleton_loader.dart';
