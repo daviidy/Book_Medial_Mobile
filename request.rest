@@ -111,7 +111,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "property": 77, 
+    "property": 95, 
     "guestNumber": 2, 
     "startDate": "28/08/2021", 
     "endDate": "28/08/2021"
