@@ -240,8 +240,9 @@ class HomeViewModel extends BaseViewModel {
       if (place != null) {
         this.sPropParam.locationValue = "${place.subAdministrativeArea}";
         this.sPropParam.location = "${place.locality}";
+        await this.storage.setItem("currentPlace", place.toJson());
+        print(place.toJson());
         notifyListeners();
-        await this.storage.setItem("currentPlace", place);
       }
     }
     await this.storage.setItem("searchData", this.sPropParam.toJson());

@@ -199,6 +199,7 @@ class ShareWidget {
       Widget rightLabel = const Text(""),
       Widget? suffixIcon,
       Widget? prefixIcon,
+      double fontSize = 14,
       bool obscureText = false,
       bool showPassword = false,
       bool enabled = true,
@@ -234,7 +235,7 @@ class ShareWidget {
                   obscureText: obscureText,
                   maxLines: maxLines,
                   style: AppTheme.globalFont(TextStyle(
-                    fontSize: 14,
+                    fontSize: fontSize,
                   )),
                   decoration: InputDecoration(
                       suffixIcon: suffixIcon,

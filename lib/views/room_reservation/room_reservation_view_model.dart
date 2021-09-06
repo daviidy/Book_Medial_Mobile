@@ -3,12 +3,13 @@ import 'package:book_medial/core/base/base_view_model.dart';
 import 'package:book_medial/core/models/country_models.dart';
 import 'package:book_medial/core/models/propertie_models.dart';
 import 'package:book_medial/core/models/session_models.dart';
+import 'package:book_medial/core/models/user_medels.dart';
 import 'package:book_medial/core/services/database_service.dart';
 import 'package:book_medial/widgets/country_box/country_box_view.dart';
+import 'package:book_medial/widgets/nbre_chambre_box/nbre_chambre_box_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:intl/intl.dart';
 
@@ -27,10 +28,43 @@ class RoomReservationViewModel extends BaseViewModel {
 
   late Property _property;
   late BedRoom _bedRoom;
-  late CountryList _countryList;
-  late Country _country;
+  CountryList _countryList = CountryList.fromJson(COUNTRY_DATA_BASE);
+  Country? _country;
+
+  UserModel? _userData;
 
   DateTime initialDate = DateTime.now();
+
+  String _typeSejour = "long";
+  int _nbreChambre = 1;
+  TimeOfDay _hArrive = TimeOfDay.now();
+  TimeOfDay _hDepart = TimeOfDay.now();
+
+  bool _loader = false;
+
+  bool get loader => this._loader;
+  set loader(bool value) {
+    this._loader = value;
+    notifyListeners();
+  }
+
+  String get typeSejour => this._typeSejour;
+  set typeSejour(String value) {
+    this._typeSejour = value;
+    notifyListeners();
+  }
+
+  TimeOfDay get hArrive => this._hArrive;
+  set hArrive(TimeOfDay value) {
+    this._hArrive = value;
+    notifyListeners();
+  }
+
+  TimeOfDay get hDepart => this._hDepart;
+  set hDepart(TimeOfDay value) {
+    this._hDepart = value;
+    notifyListeners();
+  }
 
   SearchPropertyParam get sPropParam => this._sPropParam;
   set sPropParam(SearchPropertyParam value) {
@@ -38,9 +72,21 @@ class RoomReservationViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  UserModel? get userData => this._userData;
+  set userData(UserModel? value) {
+    this._userData = value;
+    notifyListeners();
+  }
+
   bool get isLoad => this._isLoad;
   set isLoad(bool value) {
     this._isLoad = value;
+    notifyListeners();
+  }
+
+  int get nbreChambre => this._nbreChambre;
+  set nbreChambre(int value) {
+    this._nbreChambre = value;
     notifyListeners();
   }
 
@@ -56,8 +102,8 @@ class RoomReservationViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  Country get country => this._country;
-  set country(Country value) {
+  Country? get country => this._country;
+  set country(Country? value) {
     this._country = value;
     notifyListeners();
   }
@@ -96,23 +142,38 @@ class RoomReservationViewModel extends BaseViewModel {
         .countryList
         .countries
         .firstWhere((count) => count.alpha2Code == 'CI');
-
-    Placemark? place = await this.storage.getItem("currentPlace");
-    if (place != null) {
+    var placeData = await this.storage.getItem("currentPlace");
+    if (placeData != null) {
+      Placemark? place = Placemark.fromMap(placeData);
       this.country = this
           .countryList
           .countries
-          .firstWhere((count) => count.alpha2Code == 'CI');
+          .firstWhere((count) => count.alpha2Code == place.isoCountryCode);
     }
 
     if (_param.type == VpParamType.bedroom) {
       this.bedRoom = _param.data["bed_rom"] as BedRoom;
       this.isHotel = true;
     }
+
+    this.userData = UserModel.fromJson(await this.storage.getItem("userData"));
   }
 
   createReservation(context) {
-    Navigator.pushNamed(context, "/room-paiement");
+    //Navigator.pushNamed(context, "/room-paiement");
+    var formatData = {
+      "rooms": [],
+      "property": this.property.id,
+      "type_sejour": this.typeSejour,
+      "startDate": DateFormat('dd/MM/yyyy')
+          .format(DateTime.parse(this.sPropParam.sejourStart as String)),
+      "endDate": (this.typeSejour == 'long') ? DateFormat('dd/MM/yyyy')
+          .format(DateTime.parse(this.sPropParam.sejourEnd as String)) : null,
+      "startTime": "${this.hArrive.hour}:${this.hArrive.minute}",
+      "endTime": "${this.hDepart.hour}:${this.hDepart.minute}",
+    };
+
+    print(formatData);
   }
 
   choseModeBuy(bool isAccouny) {
@@ -169,5 +230,126 @@ class RoomReservationViewModel extends BaseViewModel {
           "${DateFormat('EEE, d MMM, yyyy', 'fr').format(_start)} - ${DateFormat('EEE, d MMM, yyyy', 'fr').format(_end)}";
       this.onRangeDate(context);
     }
+  }
+
+  onDate(context) async {
+    try {
+      final DateTime? picked = await showDatePicker(
+        context: context,
+        firstDate: this.initialDate,
+        helpText: 'Sélectionnez une date',
+        currentDate: this.initialDate,
+        initialDate: DateTime.parse(this.sPropParam.sejourStart as String),
+        locale: Locale('fr'),
+        lastDate: DateTime(this.initialDate.year, this.initialDate.month + 1,
+            this.initialDate.day),
+      );
+
+      if (picked != null) {
+        this.sPropParam.sejourStart = picked.toIso8601String();
+        this.sPropParam.sejourValue =
+            "${DateFormat('EEE, d MMM, yyyy', 'fr').format(picked)}";
+        notifyListeners();
+      }
+    } catch (e) {
+      print(e);
+      DateTime _start = this.initialDate;
+      DateTime _end = DateTime(_start.year, _start.month, _start.day + 1);
+
+      this.sPropParam.sejourStart = _start.toIso8601String();
+      this.sPropParam.sejourEnd = _end.toIso8601String();
+      this.sPropParam.sejourValue =
+          "${DateFormat('EEE, d MMM, yyyy', 'fr').format(_start)}";
+      this.onRangeDate(context);
+    }
+  }
+
+  onChoiseDate(context) {
+    if (this.typeSejour == 'long') {
+      this.onRangeDate(context);
+    } else {
+      this.onDate(context);
+    }
+  }
+
+  onTime(context, timeFor) async {
+    final TimeOfDay? picked = await showTimePicker(
+      initialTime: this.hArrive,
+      context: context,
+    );
+
+    if (picked != null) {
+      if (timeFor == 'start') {
+        this.hArrive = picked;
+      } else {
+        this.hDepart = picked;
+      }
+      print(picked.toString());
+    }
+  }
+
+  onNbrChambre(context) async {
+    var res = await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return NbreChambreBoxView();
+        });
+
+    if (res != null) {
+      this.nbreChambre = res;
+    }
+  }
+
+  onTypeSejour(context) async {
+    var res = await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            title: const Text('Type de séjour'),
+            children: <Widget>[
+              SimpleDialogOption(
+                onPressed: () {
+                  Navigator.pop(context, 'long');
+                },
+                padding:
+                    EdgeInsets.only(top: 0, bottom: 0, left: 30, right: 30),
+                child: ListTile(
+                  contentPadding: EdgeInsets.all(0),
+                  title: const Text('Long'),
+                  trailing: Icon(Icons.event_available),
+                ),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  Navigator.pop(context, 'court');
+                },
+                padding:
+                    EdgeInsets.only(top: 0, bottom: 0, left: 30, right: 30),
+                child: ListTile(
+                  contentPadding: EdgeInsets.all(0),
+                  title: const Text('Court'),
+                  trailing: Icon(Icons.event_available),
+                ),
+              ),
+            ],
+          );
+        });
+
+    if (res != null) {
+      this.typeSejour = res;
+
+      DateTime _start = DateTime.parse(this.sPropParam.sejourStart as String);
+      DateTime _end = DateTime.parse(this.sPropParam.sejourEnd as String);
+
+      if (res == 'long') {
+        this.sPropParam.sejourValue =
+            "${DateFormat('EEE, d MMM, yyyy', 'fr').format(_start)} - ${DateFormat('EEE, d MMM, yyyy', 'fr').format(_end)}";
+      } else {
+        this.sPropParam.sejourValue =
+            "${DateFormat('EEE, d MMM, yyyy', 'fr').format(_start)}";
+      }
+      notifyListeners();
+    }
+    print(res);
   }
 }

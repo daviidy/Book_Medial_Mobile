@@ -159,7 +159,9 @@ class RoomDisponibleViewModel extends BaseViewModel {
       if (rp.reponse!["success"] == true) {
         if (this.isHotel) {
           this.property = Property.fromJson(rp.reponse!["property"]);
-          this.bedroom = rp.reponse!["free_rooms"];
+          for (var freeRoom in rp.reponse!["free_rooms"]) {
+            this.bedroom!.add(BedRoom.fromJson(freeRoom));
+          }
           print(this.bedroom);
         }
         this.isPropDispo = true;
