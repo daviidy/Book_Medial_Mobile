@@ -194,8 +194,11 @@ class ShareWidget {
       TextStyle? labelStyle =
           const TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
       String? hintText = "",
+      String? initialValue,
+      int maxLines = 1,
       Widget rightLabel = const Text(""),
       Widget? suffixIcon,
+      Widget? prefixIcon,
       bool obscureText = false,
       bool showPassword = false,
       bool enabled = true,
@@ -225,15 +228,17 @@ class ShareWidget {
             child: Column(
               children: [
                 FormBuilderTextField(
+                  initialValue: initialValue,
                   name: name,
                   enabled: enabled,
                   obscureText: obscureText,
-                  maxLines: 1,
+                  maxLines: maxLines,
                   style: AppTheme.globalFont(TextStyle(
                     fontSize: 14,
                   )),
                   decoration: InputDecoration(
                       suffixIcon: suffixIcon,
+                      prefixIcon: prefixIcon,
                       contentPadding:
                           EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
                       hintText: hintText,
@@ -1060,10 +1065,11 @@ class ShareWidget {
   static Widget boxReservationn1(
       {required BuildContext context,
       required Widget body,
+      Color backgroundColor = const Color(0xFFF6F6F6),
       required String labelText}) {
     return ShareWidget.boxMain(
         borderRadius: 11,
-        backgroundColor: Color(0xFFF6F6F6),
+        backgroundColor: backgroundColor ,
         padding: EdgeInsets.all(20),
         shadowOfset: Offset(0, 0),
         blurRadius: 0,
@@ -1074,7 +1080,7 @@ class ShareWidget {
             children: [
               AutoSizeText(
                 "$labelText",
-                maxLines: 1,
+                maxLines: 2,
                 maxFontSize: 18,
                 minFontSize: 18,
                 overflow: TextOverflow.ellipsis,
