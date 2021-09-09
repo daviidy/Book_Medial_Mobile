@@ -413,7 +413,7 @@ class _RoomReservationMobile extends StatelessWidget {
                           child: ShareWidget.boxRoom(
                             //padding: EdgeInsets.all(10),
                             margin: EdgeInsets.all(20),
-                            bedRoom: viewModel.bedRoom,
+                            freeRoom: viewModel.freeRoom,
                             property: viewModel.property,
                             context: context,
                           ),

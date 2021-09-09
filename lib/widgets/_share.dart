@@ -301,7 +301,7 @@ class ShareWidget {
   static Widget boxRoom({
     required BuildContext context,
     data,
-    BedRoom? bedRoom,
+    FreeRoom? freeRoom,
     Property? property,
     String? route,
     onPressed,
@@ -343,7 +343,7 @@ class ShareWidget {
               Expanded(
                 flex: 3,
                 child: AutoSizeText(
-                  "${(bedRoom?.name != null) ? bedRoom?.name : ''}",
+                  "${(freeRoom?.name != null) ? freeRoom?.name : ''}",
                   maxLines: 1,
                   maxFontSize: 20,
                   minFontSize: 20,
@@ -406,7 +406,7 @@ class ShareWidget {
                 child: Container(
                   margin: EdgeInsets.only(left: 5),
                   child: AutoSizeText(
-                    "${(bedRoom?.beds?.first.type != null) ? bedRoom?.beds?.first.type : ''}",
+                    "${(freeRoom?.beds?.first.type != null) ? freeRoom?.beds?.first.type : ''}",
                     maxLines: 1,
                     maxFontSize: 10,
                     minFontSize: 10,
@@ -430,7 +430,7 @@ class ShareWidget {
               Container(
                 margin: EdgeInsets.only(left: 5),
                 child: AutoSizeText(
-                  "${(bedRoom?.guests_number != null) ? bedRoom?.guests_number : '---'} personnes",
+                  "${(freeRoom?.guests_number != null) ? freeRoom?.guests_number : '---'} personnes",
                   maxLines: 1,
                   maxFontSize: 10,
                   minFontSize: 10,
@@ -483,7 +483,7 @@ class ShareWidget {
                       height: 5,
                     ),
                     AutoSizeText(
-                      "${(bedRoom?.price_per_night != null) ? bedRoom?.price_per_night : 0} Fcfa",
+                      "${(freeRoom?.price_per_night != null) ? freeRoom?.price_per_night : 0} Fcfa",
                       maxLines: 1,
                       maxFontSize: 18,
                       minFontSize: 18,
@@ -531,7 +531,7 @@ class ShareWidget {
                       height: 5,
                     ),
                     AutoSizeText(
-                      "${(bedRoom?.price_per_day != null) ? bedRoom?.price_per_day : 0} Fcfa",
+                      "${(freeRoom?.price_per_day != null) ? freeRoom?.price_per_day : 0} Fcfa",
                       maxLines: 1,
                       maxFontSize: 18,
                       minFontSize: 18,

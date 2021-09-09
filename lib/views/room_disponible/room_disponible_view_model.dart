@@ -17,7 +17,7 @@ class RoomDisponibleViewModel extends BaseViewModel {
   bool _isActiveSearch = false;
   late Property _property;
 
-  List<BedRoom>? _bedroom = [];
+  List<FreeRoom>? _freeRoom = [];
 
   SearchPropertyParam _sPropParam =
       SearchPropertyParam(locationValue: '', personsValue: '', sejourValue: '');
@@ -48,9 +48,9 @@ class RoomDisponibleViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  List<BedRoom>? get bedroom => this._bedroom;
-  set bedroom(List<BedRoom>? value) {
-    this._bedroom = value;
+  List<FreeRoom>? get freeRoom => this._freeRoom;
+  set freeRoom(List<FreeRoom>? value) {
+    this._freeRoom = value;
     notifyListeners();
   }
 
@@ -77,18 +77,18 @@ class RoomDisponibleViewModel extends BaseViewModel {
     this.onSearch(context);
   }
 
-  reserver({required BuildContext context, BedRoom? bedroom}) {
+  reserver({required BuildContext context, FreeRoom? freeRoom}) {
     VpParam param = VpParam(label: "", type: VpParamType.property);
     if (this.isHotel) {
-      param.type = VpParamType.bedroom;
+      param.type = VpParamType.freeRoom;
       param.data = {
-        "bed_rom": bedroom,
+        "free_room": freeRoom,
         "property": this.property,
         "sPropParam": this.sPropParam
       };
     } else {
       param.data = {
-        "bed_rom": bedroom,
+        "free_room": freeRoom,
         "property": this.property,
         "sPropParam": this.sPropParam
       };
@@ -159,10 +159,11 @@ class RoomDisponibleViewModel extends BaseViewModel {
       if (rp.reponse!["success"] == true) {
         if (this.isHotel) {
           this.property = Property.fromJson(rp.reponse!["property"]);
+          // this.freeRoom = this.property.bed_room;
           for (var freeRoom in rp.reponse!["free_rooms"]) {
-            this.bedroom!.add(BedRoom.fromJson(freeRoom));
+            this.freeRoom!.add(FreeRoom.fromJson(freeRoom));
           }
-          print(this.bedroom);
+          print(this.freeRoom);
         }
         this.isPropDispo = true;
       } else {

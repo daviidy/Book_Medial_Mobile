@@ -85,7 +85,7 @@ Authorization: Bearer {{token}}
 
 GET {{baseUrl}}/properties/city/Abidjan
 Content-Type: application/json
-Authorization: Bearer ###{{token}}
+Authorization: Bearer {{token}}
 
 ###
 

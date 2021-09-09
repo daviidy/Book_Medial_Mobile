@@ -27,7 +27,7 @@ class RoomReservationViewModel extends BaseViewModel {
       SearchPropertyParam(locationValue: '', personsValue: '', sejourValue: '');
 
   late Property _property;
-  late BedRoom _bedRoom;
+  late FreeRoom _freeRoom;
   CountryList _countryList = CountryList.fromJson(COUNTRY_DATA_BASE);
   Country? _country;
 
@@ -120,9 +120,9 @@ class RoomReservationViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  BedRoom get bedRoom => this._bedRoom;
-  set bedRoom(BedRoom value) {
-    this._bedRoom = value;
+  FreeRoom get freeRoom => this._freeRoom;
+  set freeRoom(FreeRoom value) {
+    this._freeRoom = value;
     notifyListeners();
   }
 
@@ -151,8 +151,8 @@ class RoomReservationViewModel extends BaseViewModel {
           .firstWhere((count) => count.alpha2Code == place.isoCountryCode);
     }
 
-    if (_param.type == VpParamType.bedroom) {
-      this.bedRoom = _param.data["bed_rom"] as BedRoom;
+    if (_param.type == VpParamType.freeRoom) {
+      this.freeRoom = _param.data["free_room"] as FreeRoom;
       this.isHotel = true;
     }
 

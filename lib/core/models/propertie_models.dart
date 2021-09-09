@@ -183,6 +183,66 @@ class BedRoom {
 }
 
 @JsonSerializable()
+class FreeRoom {
+  int id;
+  String? type;
+  String? guests_number;
+  String? sofa_number;
+  int? property_id;
+  DateTime? created_at;
+  DateTime? updated_at;
+  double? price_per_day;
+  double? price_per_night;
+  String? name;
+  int? bathroom;
+  RoomType? room_type;
+  int? room_type_id;
+  int? total_record;
+  List<Bed>? beds;
+
+  FreeRoom({
+    required this.id,
+    this.beds,
+    this.type,
+    this.guests_number,
+    this.sofa_number,
+    this.property_id,
+    this.created_at,
+    this.updated_at,
+    this.price_per_day,
+    this.price_per_night,
+    this.name,
+    this.bathroom,
+    this.room_type,
+    this.room_type_id,
+    this.total_record,
+  });
+
+  factory FreeRoom.fromJson(Map<String, dynamic> json) =>
+      _$FreeRoomFromJson(json);
+  Map<String, dynamic> toJson() => _$FreeRoomToJson(this);
+}
+
+@JsonSerializable()
+class RoomType {
+  int id;
+  String? name;
+  DateTime? created_at;
+  DateTime? updated_at;
+
+  RoomType({
+    required this.id,
+    this.name,
+    this.created_at,
+    this.updated_at,
+  });
+
+  factory RoomType.fromJson(Map<String, dynamic> json) =>
+      _$RoomTypeFromJson(json);
+  Map<String, dynamic> toJson() => _$RoomTypeToJson(this);
+}
+
+@JsonSerializable()
 class Media {
   int id;
   String? name;

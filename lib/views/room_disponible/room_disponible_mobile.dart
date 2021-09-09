@@ -123,16 +123,16 @@ class _RoomDisponibleMobile extends StatelessWidget {
     if ((viewModel.isLoad)) {
       return _loaderBox(context);
     } else {
-      return (viewModel.bedroom!.length > 0)
-          ? viewModel.bedroom!
-              .map((bed) => ShareWidget.boxRoom(
+      return (viewModel.freeRoom!.length > 0)
+          ? viewModel.freeRoom!
+              .map((free) => ShareWidget.boxRoom(
                   //padding: EdgeInsets.all(10),
                   margin: EdgeInsets.all(10),
-                  bedRoom: bed,
+                  freeRoom: free,
                   property: viewModel.property,
                   context: context,
                   onPressed: () =>
-                      viewModel.reserver(context: context, bedroom: bed),
+                      viewModel.reserver(context: context, freeRoom: free),
                   route: "/room-reservation"))
               .toList()
           : [_box404(context, "Aucune disponibilité")];
@@ -150,12 +150,39 @@ class _RoomDisponibleMobile extends StatelessWidget {
                   margin: EdgeInsets.all(10),
                   property: viewModel.property,
                   context: context,
-                  onPressed: () =>
-                      viewModel.reserver(context: context),
+                  onPressed: () => viewModel.reserver(context: context),
                   route: "/room-reservation")
             ]
           : [_box404(context, "Aucune disponibilité")];
     }
+  }
+
+  Widget _title(context) {
+    return (viewModel.isHotel)
+        ? Container(
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            child: AutoSizeText(
+              "Voici les chambres disponibles pour cette période",
+              maxLines: 2,
+              maxFontSize: 18,
+              minFontSize: 18,
+              overflow: TextOverflow.ellipsis,
+              style: AppTheme.globalFont(
+                  TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
+            ),
+          )
+        : Container(
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            child: AutoSizeText(
+              "La propriété est disponible à cette période",
+              maxLines: 2,
+              maxFontSize: 18,
+              minFontSize: 18,
+              overflow: TextOverflow.ellipsis,
+              style: AppTheme.globalFont(
+                  TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
+            ),
+          );
   }
 
   List<Widget> _loaderBox(context) {
@@ -173,27 +200,36 @@ class _RoomDisponibleMobile extends StatelessWidget {
 
   Widget _box404(context, label) {
     return Container(
-      width: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: 20,
-          ),
-          Image.asset("assets/icons/data-not-found.png"),
-          SizedBox(
-            height: 20,
-          ),
-          AutoSizeText(
-            "$label",
-            style: AppTheme.globalFont(TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: Color(0xffC4C4C4))),
-          ),
-        ],
+      margin: EdgeInsets.all(10),
+      child: ShareWidget.boxReservationn1(
+        labelText: 'Désolé il n’y pas de disponibilité pour la période choisie',
+        context: context,
+        backgroundColor: Color(0xffFFF1F1),
+        body: Container(),
       ),
     );
+    // Container(
+    //   width: double.infinity,
+    //   child: Column(
+    //     mainAxisAlignment: MainAxisAlignment.center,
+    //     children: [
+    //       SizedBox(
+    //         height: 20,
+    //       ),
+    //       Image.asset("assets/icons/data-not-found.png"),
+    //       SizedBox(
+    //         height: 20,
+    //       ),
+    //       AutoSizeText(
+    //         "$label",
+    //         style: AppTheme.globalFont(TextStyle(
+    //             fontSize: 18,
+    //             fontWeight: FontWeight.w600,
+    //             color: Color(0xffC4C4C4))),
+    //       ),
+    //     ],
+    //   ),
+    // );
   }
 
   @override
@@ -217,30 +253,9 @@ class _RoomDisponibleMobile extends StatelessWidget {
               SizedBox(
                 height: 15,
               ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 20),
-                child: AutoSizeText(
-                  "Disponibilité selon la période",
-                  maxLines: 1,
-                  maxFontSize: 18,
-                  minFontSize: 18,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppTheme.globalFont(
-                      TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 20),
-                child: AutoSizeText(
-                  "choisie",
-                  maxLines: 1,
-                  maxFontSize: 18,
-                  minFontSize: 18,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppTheme.globalFont(
-                      TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
-                ),
-              ),
+              if(viewModel.isPropDispo || viewModel.freeRoom!.length > 0)
+              _title(context),
+              if(viewModel.isPropDispo || viewModel.freeRoom!.length > 0)
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 0),
                 child: Row(
