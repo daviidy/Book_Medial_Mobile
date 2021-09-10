@@ -2,6 +2,8 @@ import 'package:book_medial/core/base/base_view_model.dart';
 import 'package:book_medial/core/models/booking_models.dart';
 import 'package:book_medial/core/models/propertie_models.dart';
 import 'package:book_medial/core/models/session_models.dart';
+import 'package:book_medial/widgets/buy_echec_box/buy_echec_box_view.dart';
+import 'package:book_medial/widgets/paiement_web/paiement_web_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
@@ -129,13 +131,24 @@ class RoomPaiementViewModel extends BaseViewModel {
   openWebView(context) async {
     //this.buyDone = true;
 
-    await this.flutterWebviewPlugin.launch(
-          this.webView,
-        );
+    var res = await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return new PaiementWebView(url: this.webView);
+        });
 
-    this.flutterWebviewPlugin.onUrlChanged.listen((String url) {
-      print(url);
-    });
+    if (res != null) {
+      print(res);
+      if (res == "success") {
+        this.buyDone = true;
+      } else {
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return new BuyEchecBoxView();
+            });
+      }
+    }
   }
 
   // Add ViewModel specific code here

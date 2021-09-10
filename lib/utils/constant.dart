@@ -11,4 +11,8 @@ class Constant {
   static final String kGoogleApiKey = "AIzaSyAMbjx_FKQ9eKb1KKwXIDA1g_UefF0fArI";
 
   static final int limitRayon = 10; // en km
+
+
+  static final String buySuccessUrl = "";
+  static final String buyEchecUrl = "https://secure.cinetpay.com/";
 }
