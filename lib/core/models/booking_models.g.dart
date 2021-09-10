@@ -69,10 +69,10 @@ Purchase _$PurchaseFromJson(Map<String, dynamic> json) {
     updated_at: json['updated_at'] == null
         ? null
         : DateTime.parse(json['updated_at'] as String),
-    state: json['state'] as String?,
+    state: json['state'] as int?,
     offer_id: json['offer_id'] as int?,
     user_id: json['user_id'] as int?,
-    reste: json['reste'] as String?,
+    reste: json['reste'] as int?,
   );
 }
 

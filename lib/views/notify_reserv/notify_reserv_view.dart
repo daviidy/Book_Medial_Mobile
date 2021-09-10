@@ -20,17 +20,17 @@ class NotifyReservView extends StatelessWidget {
   Widget build(BuildContext context) {
     NotifyReservViewModel viewModel = NotifyReservViewModel();
     return ViewModelProvider<NotifyReservViewModel>.withConsumer(
-      viewModel: viewModel,
-      onModelReady: (viewModel) {
-        // Do something once your viewModel is initialized
-      },
-      builder: (context, viewModel, child) {
-        return ScreenTypeLayout(
-          mobile: _NotifyReservMobile(viewModel),
-          desktop: _NotifyReservDesktop(viewModel),
-          tablet: _NotifyReservTablet(viewModel),  
-        );
-      }
-    );
+        viewModel: viewModel,
+        onModelReady: (viewModel) {
+          // Do something once your viewModel is initialized
+          viewModel.init(context);
+        },
+        builder: (context, viewModel, child) {
+          return ScreenTypeLayout(
+            mobile: _NotifyReservMobile(viewModel),
+            desktop: _NotifyReservDesktop(viewModel),
+            tablet: _NotifyReservTablet(viewModel),
+          );
+        });
   }
 }

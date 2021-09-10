@@ -56,10 +56,10 @@ class Purchase {
   String? status;
   DateTime? created_at;
   DateTime? updated_at;
-  String? state;
+  int? state;
   int? offer_id;
   int? user_id;
-  String? reste;
+  int? reste;
 
   Purchase({
     this.id,

@@ -33,7 +33,7 @@ class _NotifyReservMobile extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.only(left: 20, top: 30, right: 20),
                   child: AutoSizeText(
-                    "Tissi Jean-Armel",
+                    "${viewModel.userData?.name}",
                     maxLines: 1,
                     maxFontSize: 20,
                     minFontSize: 20,
@@ -55,7 +55,8 @@ class _NotifyReservMobile extends StatelessWidget {
                             text: "Type de séjour : ",
                           ),
                           TextSpan(
-                              text: "Long séjour",
+                              text:
+                                  "${(viewModel.booking.type_sejour == 'long') ? 'Long' : 'Court'} séjour",
                               style: TextStyle(
                                 color: LightColor.primary,
                               ))
@@ -86,7 +87,7 @@ class _NotifyReservMobile extends StatelessWidget {
                                     text: "Durée du séjour : ",
                                   ),
                                   TextSpan(
-                                      text: "24 Juin - 25 Juin",
+                                      text: "${viewModel.duree}",
                                       style: TextStyle(
                                         color: LightColor.primary,
                                       ))
@@ -104,7 +105,7 @@ class _NotifyReservMobile extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.only(left: 47, top: 5, right: 20),
                   child: AutoSizeText(
-                    "(6 jours)",
+                    "(${viewModel.nbrJr} ${viewModel.booking.type_sejour == 'court' ? 'heures' : 'nuit'})",
                     maxLines: 1,
                     maxFontSize: 12,
                     minFontSize: 12,
@@ -135,7 +136,8 @@ class _NotifyReservMobile extends StatelessWidget {
                                     text: "Heure d’arrivée : ",
                                   ),
                                   TextSpan(
-                                      text: "11H00",
+                                      text:
+                                          "${viewModel.booking.startTime![0]}${viewModel.booking.startTime![1]}H${viewModel.booking.startTime![3]}${viewModel.booking.startTime![4]}",
                                       style: TextStyle(
                                         color: LightColor.primary,
                                       ))
@@ -169,7 +171,8 @@ class _NotifyReservMobile extends StatelessWidget {
                                     text: "Heure de départ : ",
                                   ),
                                   TextSpan(
-                                      text: "20H00",
+                                      text:
+                                          "${viewModel.booking.endTime![0]}${viewModel.booking.endTime![1]}H${viewModel.booking.endTime![3]}${viewModel.booking.endTime![4]}",
                                       style: TextStyle(
                                         color: LightColor.primary,
                                       ))
@@ -184,22 +187,22 @@ class _NotifyReservMobile extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
-                  child: ShareWidget.boxRoom2(
-                    //padding: EdgeInsets.all(10),
-                    margin: EdgeInsets.all(20),
-                    data: null,
-                    context: context,
-                    //route: "/room-reservation"
-                  ),
-                ),
+                // Container(
+                //   child: ShareWidget.boxRoom2(
+                //     //padding: EdgeInsets.all(10),
+                //     margin: EdgeInsets.all(20),
+                //     data: null,
+                //     context: context,
+                //     //route: "/room-reservation"
+                //   ),
+                // ),
                 SizedBox(
                   height: 30,
                 ),
                 Center(
                   child: Container(
                     child: QrImage(
-                      data: "1234567890",
+                      data: "${viewModel.booking.qrcodeLink}",
                       version: QrVersions.auto,
                       size: AppTheme.fullWidth(context) / 2.5,
                     ),
@@ -223,38 +226,37 @@ class _NotifyReservMobile extends StatelessWidget {
                       child: Row(
                     children: [
                       Expanded(
-                        flex: 1,
-                        child: Image.asset("assets/icons/info.png")),
+                          flex: 1, child: Image.asset("assets/icons/info.png")),
                       Expanded(
-                        flex: 10,
+                          flex: 10,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AutoSizeText(
-                            "Veuillez présenter ce code QR à la",
-                            maxLines: 1,
-                            maxFontSize: 12,
-                            minFontSize: 12,
-                            overflow: TextOverflow.ellipsis,
-                            style: AppTheme.globalFont(TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                            )),
-                          ),
-                          AutoSizeText(
-                            "réception de votre hébergement",
-                            maxLines: 1,
-                            maxFontSize: 12,
-                            minFontSize: 12,
-                            overflow: TextOverflow.ellipsis,
-                            style: AppTheme.globalFont(TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                            )),
-                          ),
-                        ],
-                      ))
+                            children: [
+                              AutoSizeText(
+                                "Veuillez présenter ce code QR à la",
+                                maxLines: 1,
+                                maxFontSize: 12,
+                                minFontSize: 12,
+                                overflow: TextOverflow.ellipsis,
+                                style: AppTheme.globalFont(TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                )),
+                              ),
+                              AutoSizeText(
+                                "réception de votre hébergement",
+                                maxLines: 1,
+                                maxFontSize: 12,
+                                minFontSize: 12,
+                                overflow: TextOverflow.ellipsis,
+                                style: AppTheme.globalFont(TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                )),
+                              ),
+                            ],
+                          ))
                     ],
                   )),
                 ),
