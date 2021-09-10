@@ -106,7 +106,7 @@ class _RoomReservationMobile extends StatelessWidget {
             ),
             ShareWidget.boxReservationn1(
                 labelText:
-                    'Politique d’arrivée et de départ                          de l’Hotel',
+                    'Politique d’arrivée et de départ de l’Hotel',
                 context: context,
                 backgroundColor: Color(0xffFFF1F1),
                 body: Container(
@@ -163,16 +163,18 @@ class _RoomReservationMobile extends StatelessWidget {
                           SizedBox(
                             width: 10,
                           ),
-                          AutoSizeText(
-                            "${viewModel.sPropParam.sejourValue}",
-                            maxLines: 1,
-                            maxFontSize: 13,
-                            minFontSize: 13,
-                            overflow: TextOverflow.ellipsis,
-                            style: AppTheme.globalFont(TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13,
-                                color: Color(0xff5787A4))),
+                          Expanded(
+                            child: AutoSizeText(
+                              "${viewModel.sPropParam.sejourValue}",
+                              maxLines: 1,
+                              maxFontSize: 13,
+                              minFontSize: 13,
+                              overflow: TextOverflow.ellipsis,
+                              style: AppTheme.globalFont(TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13,
+                                  color: Color(0xff5787A4))),
+                            ),
                           ),
                         ],
                       ),

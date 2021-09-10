@@ -1,5 +1,6 @@
 import 'package:book_medial/core/base/base_view_model.dart';
 import 'package:book_medial/core/models/propertie_models.dart';
+import 'package:book_medial/core/services/database_service.dart';
 import 'package:book_medial/utils/shared.dart';
 import 'package:book_medial/widgets/photo_full/photo_full_view.dart';
 import 'package:carousel_slider/carousel_controller.dart';
@@ -8,7 +9,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:map_launcher/map_launcher.dart';
 
 class RoomViewModel extends BaseViewModel {
@@ -19,14 +19,11 @@ class RoomViewModel extends BaseViewModel {
 
   bool _isHotel = false;
 
-  final List<String> imgList = [
-    'assets/images/intro1.png',
-    'assets/images/intro2.png',
-    'assets/images/intro3.png',
-  ];
+  bool _isFavory = false;
 
   int _current = 0;
   final CarouselController controller = CarouselController();
+  final DatabaseService storage = new DatabaseService();
 
   Property get property => this._property;
   set property(Property value) {
@@ -37,6 +34,12 @@ class RoomViewModel extends BaseViewModel {
   bool get isHotel => this._isHotel;
   set isHotel(bool value) {
     this._isHotel = value;
+    notifyListeners();
+  }
+
+  bool get isFavory => this._isFavory;
+  set isFavory(bool value) {
+    this._isFavory = value;
     notifyListeners();
   }
 
@@ -59,6 +62,7 @@ class RoomViewModel extends BaseViewModel {
     print("${this.property.medias}");
     print(this.property.property_type!.name!.contains('Hôtel'));
     this.isHotel = this.property.property_type!.name!.contains('Hôtel');
+    this.initFavory();
   }
 
   swithMenu(index) {
@@ -109,6 +113,37 @@ class RoomViewModel extends BaseViewModel {
       SharedFunc.toast(
           msg: "Une erreur s'est produite lors de l'opération",
           toastLength: Toast.LENGTH_LONG);
+    }
+  }
+
+  addFavory() async {
+    FavoryProperty _favoryData = FavoryProperty.fromJson(await this.storage.getItem("favoryData")) ;
+    if (this.isFavory) {
+      _favoryData.list.removeWhere((p) => p.id == this.property.id);
+      await this.storage.setItem("favoryData", _favoryData.toJson());
+      this.isFavory = !this.isFavory;
+      SharedFunc.toast(msg: "Retirer des favoris");
+    } else {
+      _favoryData.list.add(this.property);
+      await this.storage.setItem("favoryData", _favoryData.toJson());
+      this.isFavory = !this.isFavory;
+      SharedFunc.toast(msg: "Ajouter aux favoris");
+    }
+  }
+
+  initFavory() async {
+    var favory = await this.storage.getItem("favoryData");
+    if (favory != null) {
+      FavoryProperty _favoryData = FavoryProperty.fromJson(favory);
+      if (_favoryData.list
+          .where((p) => p.id == this.property.id)
+          .toList()
+          .isNotEmpty) {
+        this.isFavory = true;
+      }
+    } else {
+      FavoryProperty _favoryData = FavoryProperty(list: []);
+      await this.storage.setItem("favoryData", _favoryData.toJson());
     }
   }
 }

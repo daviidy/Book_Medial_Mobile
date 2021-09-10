@@ -156,7 +156,41 @@ class _NotifyMobile extends StatelessWidget {
   }
 
   Widget _favoryBox(context) {
-    return _box404(context, "Aucun favoris");
+    return (viewModel.favoryList.list.length > 0)
+        ? _favoryContent(context)
+        : _box404(context, "Aucun réservation");
+  }
+
+  Widget _favoryContent(context) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      child: Column(
+        children: [
+          _filterBox(context),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: viewModel.favoryList.list
+                    .map((property) => ShareWidget.boxHotel1(
+                          onTap: () => viewModel.detailProperty(context, property),
+                          context: context,
+                          height: 160,
+                          width: AppTheme.fullWidth(context),
+                          name: "${property.name}",
+                          margin:
+                              EdgeInsets.only(right: 10, bottom: 20, left: 10),
+                          image: (property.medias!.length > 0)
+                              ? property.medias![0].link
+                              : null,
+                          location: "${property.city}, ${property.country}",
+                        ))
+                    .toList(),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   Widget _reservContent(context) {
@@ -172,7 +206,8 @@ class _NotifyMobile extends StatelessWidget {
                     .map((b) => Container(
                           child: GestureDetector(
                             onTap: () => Navigator.pushNamed(
-                                context, "/notification-reservation", arguments: b),
+                                context, "/notification-reservation",
+                                arguments: b),
                             child: ShareWidget.boxMain(
                               backgroundColor: Color(0xffF6F6F6),
                               shadowColor: Color(0x38000000),

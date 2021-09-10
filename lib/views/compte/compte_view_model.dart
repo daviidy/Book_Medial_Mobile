@@ -34,7 +34,12 @@ class CompteViewModel extends BaseViewModel {
   }
 
   logout(context) async {
-    await this.storage.clear();
+    // await this.storage.clear();
+    // await this.storage.deleteItem("favoryData");
+    await this.storage.deleteItem("token");
+    await this.storage.deleteItem("userData");
+    await this.storage.deleteItem("userLogin");
+    await this.storage.deleteItem("socialLogin");
     await FirebaseAuth.instance.signOut();
     await FacebookAuth.instance.logOut();
     Navigator.pushAndRemoveUntil(

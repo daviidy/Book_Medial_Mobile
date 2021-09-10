@@ -82,6 +82,19 @@ class Property {
 }
 
 @JsonSerializable()
+class FavoryProperty {
+  List<Property> list;
+
+  FavoryProperty({
+    required this.list,
+  });
+
+  factory FavoryProperty.fromJson(Map<String, dynamic> json) =>
+      _$FavoryPropertyFromJson(json);
+  Map<String, dynamic> toJson() => _$FavoryPropertyToJson(this);
+}
+
+@JsonSerializable()
 class PropertyType {
   int id;
   String? name;

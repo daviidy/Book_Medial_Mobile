@@ -1,8 +1,11 @@
 import 'package:book_medial/core/base/base_view_model.dart';
 import 'package:book_medial/core/models/booking_models.dart';
+import 'package:book_medial/core/models/propertie_models.dart';
 import 'package:book_medial/core/models/session_models.dart';
+import 'package:book_medial/core/services/database_service.dart';
 import 'package:book_medial/core/services/ws/ws_booking.dart';
 import 'package:book_medial/utils/shared.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class NotifyViewModel extends BaseViewModel {
@@ -13,7 +16,9 @@ class NotifyViewModel extends BaseViewModel {
   List<Booking> _confirmed = [];
   List<Booking> _inprogres = [];
   List<Booking> _cancelled = [];
-  List favoryList = [];
+  FavoryProperty favoryList = FavoryProperty(list: []);
+
+  final DatabaseService storage = new DatabaseService();
 
   bool get isLogin => this._isLogin;
   set isLogin(bool value) {
@@ -48,7 +53,23 @@ class NotifyViewModel extends BaseViewModel {
   // Add ViewModel specific code here
 
   init(context) {
+    this.initFavory();
     this.loadBooking();
+  }
+
+  detailProperty(context, Property property) {
+    Navigator.pushNamed(context, "/room", arguments: property);
+  }
+
+  initFavory() async {
+    var favory = await this.storage.getItem("favoryData");
+    print(favory);
+    if (favory != null) {
+      this.favoryList = FavoryProperty.fromJson(favory);
+    } else {
+      FavoryProperty _favoryData = FavoryProperty(list: []);
+      await this.storage.setItem("favoryData", _favoryData.toJson());
+    }
   }
 
   loadBooking() async {

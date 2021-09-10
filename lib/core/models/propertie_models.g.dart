@@ -94,6 +94,19 @@ Map<String, dynamic> _$PropertyToJson(Property instance) => <String, dynamic>{
       'medias': instance.medias,
     };
 
+FavoryProperty _$FavoryPropertyFromJson(Map<String, dynamic> json) {
+  return FavoryProperty(
+    list: (json['list'] as List<dynamic>)
+        .map((e) => Property.fromJson(e as Map<String, dynamic>))
+        .toList(),
+  );
+}
+
+Map<String, dynamic> _$FavoryPropertyToJson(FavoryProperty instance) =>
+    <String, dynamic>{
+      'list': instance.list,
+    };
+
 PropertyType _$PropertyTypeFromJson(Map<String, dynamic> json) {
   return PropertyType(
     id: json['id'] as int,
