@@ -1,20 +1,85 @@
 import 'package:book_medial/core/base/base_view_model.dart';
+import 'package:book_medial/core/models/booking_models.dart';
+import 'package:book_medial/core/models/propertie_models.dart';
+import 'package:book_medial/core/models/session_models.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 enum BuyMode { orangeM, mtnM, moovM, visaC }
 
 class RoomPaiementViewModel extends BaseViewModel {
   RoomPaiementViewModel();
 
+  final flutterWebviewPlugin = new FlutterWebviewPlugin();
+
   int _tabIndex = 1;
   double _price = 36.000;
   double _priceBase = 36.000;
   BuyMode _buyMode = BuyMode.orangeM;
 
+  int _amount = 0;
+  String _webView = "";
+  String _qrcodeLink = "";
+  int _nbreChambre = 1;
+  FreeRoom _room = FreeRoom(id: 0);
+  Property _property = Property(id: 0);
+  Booking _booking = Booking();
+
   bool _buyDone = false;
+
+  VpParam? _param;
 
   bool get buyDone => this._buyDone;
   set buyDone(bool value) {
     this._buyDone = value;
+    notifyListeners();
+  }
+
+  VpParam? get param => this._param;
+  set param(VpParam? value) {
+    this._param = value;
+    notifyListeners();
+  }
+
+  int get nbreChambre => this._nbreChambre;
+  set nbreChambre(int value) {
+    this._nbreChambre = value;
+    notifyListeners();
+  }
+
+  int get amount => this._amount;
+  set amount(int value) {
+    this._amount = value;
+    notifyListeners();
+  }
+
+  String get webView => this._webView;
+  set webView(String value) {
+    this._webView = value;
+    notifyListeners();
+  }
+
+  String get qrcodeLink => this._qrcodeLink;
+  set qrcodeLink(String value) {
+    this._qrcodeLink = value;
+    notifyListeners();
+  }
+
+  FreeRoom get room => this._room;
+  set room(FreeRoom value) {
+    this._room = value;
+    notifyListeners();
+  }
+
+  Property get property => this._property;
+  set property(Property value) {
+    this._property = value;
+    notifyListeners();
+  }
+
+  Booking get booking => this._booking;
+  set booking(Booking value) {
+    this._booking = value;
     notifyListeners();
   }
 
@@ -50,12 +115,27 @@ class RoomPaiementViewModel extends BaseViewModel {
     this.buyMode = mode;
   }
 
-  buyAcompte(context) {
-    this.buyDone = true;
+  init(context) {
+    this.param = ModalRoute.of(context)?.settings.arguments as VpParam;
+    this.amount = _param?.data["amount"];
+    this.webView = _param?.data["webView"];
+    this.qrcodeLink = _param?.data["qrcodeLink"];
+    this.room = _param?.data["room"] as FreeRoom;
+    this.property = _param?.data["property"] as Property;
+    this.booking = _param?.data["booking"] as Booking;
+    this.nbreChambre = _param?.data["nbreChambre"];
   }
 
-  buyTotal(context) {
-    this.buyDone = true;
+  openWebView(context) async {
+    //this.buyDone = true;
+
+    await this.flutterWebviewPlugin.launch(
+          this.webView,
+        );
+
+    this.flutterWebviewPlugin.onUrlChanged.listen((String url) {
+      print(url);
+    });
   }
 
   // Add ViewModel specific code here

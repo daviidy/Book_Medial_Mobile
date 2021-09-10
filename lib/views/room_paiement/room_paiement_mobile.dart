@@ -6,148 +6,46 @@ class _RoomPaiementMobile extends StatelessWidget {
   _RoomPaiementMobile(this.viewModel);
 
   Widget _tabMenu({
-    required bool isActive,
     required String label,
   }) {
-    if ((isActive)) {
-      return ShareWidget.box2(
-          labelText: "",
-          borderRadius: 5,
-          backgroundColors: Color(0xffF0F0F0),
-          borderColors: Color(0xffF0F0F0),
-          padding: EdgeInsets.only(top: 20, bottom: 30),
-          body: Center(
-            child: AutoSizeText(
-              "$label",
-              maxLines: 1,
-              maxFontSize: 14,
-              minFontSize: 10,
-              overflow: TextOverflow.ellipsis,
-              style: AppTheme.globalFont(TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
-              )),
-            ),
-          ));
-    } else {
-      return ShareWidget.box2(
-          labelText: "",
-          borderRadius: 5,
-          backgroundColors: Colors.white,
-          borderColors: Color(0xFFC4C4C4),
-          padding: EdgeInsets.only(top: 20, bottom: 30),
-          body: Center(
-            child: AutoSizeText(
-              "$label",
-              maxLines: 1,
-              maxFontSize: 14,
-              minFontSize: 10,
-              overflow: TextOverflow.ellipsis,
-              style: AppTheme.globalFont(TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
-              )),
-            ),
-          ));
-    }
+    return ShareWidget.box2(
+        labelText: "",
+        borderRadius: 5,
+        backgroundColors: Colors.white,
+        borderColors: Color(0xFFC4C4C4),
+        padding: EdgeInsets.only(top: 20, bottom: 30),
+        body: Center(
+          child: Row(
+            children: [
+              SizedBox(
+                width: 20,
+              ),
+              AutoSizeText(
+                "$label",
+                maxLines: 1,
+                maxFontSize: 14,
+                minFontSize: 10,
+                textAlign: TextAlign.start,
+                overflow: TextOverflow.ellipsis,
+                style: AppTheme.globalFont(TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                )),
+              ),
+            ],
+          ),
+        ));
   }
 
   Widget _tabHeader() {
     return Row(
       children: [
         Expanded(
-            child: GestureDetector(
-                onTap: () => viewModel.switchTab(0),
-                child: _tabMenu(
-                    isActive: (viewModel.tabIndex == 0),
-                    label: "Payer un acompte"))),
-        SizedBox(
-          width: 20,
-        ),
-        Expanded(
-            child: GestureDetector(
-                onTap: () => viewModel.switchTab(1),
-                child: _tabMenu(
-                    isActive: (viewModel.tabIndex == 1),
-                    label: "Payer la totalité")))
+            child: _tabMenu(
+                label: viewModel.booking.type_paiement == "deposit"
+                    ? "Payer un acompte"
+                    : "Payer la totalité")), //"Payer la totalité"
       ],
-    );
-  }
-
-  Widget _tabAcompte(context) {
-    return Container(
-      child: Column(
-        children: [
-          SizedBox(
-            height: 20,
-          ),
-          ShareWidget.boxMain(
-            backgroundColor: Color(0xFFC7F5D1),
-            shadowColor: Colors.transparent,
-            shadowOfset: Offset(0.0, 0),
-            blurRadius: 0,
-            margin: EdgeInsets.symmetric(horizontal: 10),
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-            borderRadius: 10,
-            body: Container(
-                width: double.infinity,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    AutoSizeText.rich(TextSpan(
-                        style: AppTheme.globalFont(TextStyle(fontSize: 12)),
-                        children: [
-                          TextSpan(
-                            text: "Vous aller payer ",
-                          ),
-                          TextSpan(
-                              text: "50% ",
-                              style: TextStyle(fontWeight: FontWeight.w700)),
-                          TextSpan(
-                            text: "de votre",
-                          ),
-                        ])),
-                    AutoSizeText(
-                      "réservation.",
-                      maxLines: 1,
-                      maxFontSize: 12,
-                      minFontSize: 12,
-                      overflow: TextOverflow.ellipsis,
-                      style: AppTheme.globalFont(TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                      )),
-                    ),
-                    AutoSizeText(
-                      "Le reste sur place",
-                      maxLines: 1,
-                      maxFontSize: 12,
-                      minFontSize: 12,
-                      overflow: TextOverflow.ellipsis,
-                      style: AppTheme.globalFont(TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                      )),
-                    ),
-                  ],
-                )),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 10),
-            child: TextButton(
-              onPressed: () => viewModel.buyAcompte(context),
-              child: ShareWidget.button(
-                  context: context,
-                  backgoundColor: LightColor.primary,
-                  title: "Payer ${viewModel.price}00",
-                  fontSize: 18,
-                  margin: 0,
-                  height: 50),
-            ),
-          )
-        ],
-      ),
     );
   }
 
@@ -175,7 +73,7 @@ class _RoomPaiementMobile extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(
-                            width: AppTheme.fullWidth(context)/55,
+                            width: AppTheme.fullWidth(context) / 55,
                           ),
                           Stack(children: [
                             Align(
@@ -192,7 +90,8 @@ class _RoomPaiementMobile extends StatelessWidget {
                           SizedBox(
                             width: 6,
                           ),
-                          Image.asset("assets/images/orange-money.png",width: AppTheme.fullWidth(context)/8)
+                          Image.asset("assets/images/orange-money.png",
+                              width: AppTheme.fullWidth(context) / 8)
                         ],
                       ),
                       textColor: Colors.black,
@@ -202,7 +101,7 @@ class _RoomPaiementMobile extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  width: AppTheme.fullWidth(context)/55,
+                  width: AppTheme.fullWidth(context) / 55,
                 ),
                 Expanded(
                   flex: 1,
@@ -216,7 +115,7 @@ class _RoomPaiementMobile extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(
-                            width: AppTheme.fullWidth(context)/55,
+                            width: AppTheme.fullWidth(context) / 55,
                           ),
                           Stack(children: [
                             Align(
@@ -233,7 +132,8 @@ class _RoomPaiementMobile extends StatelessWidget {
                           SizedBox(
                             width: 10,
                           ),
-                          Image.asset("assets/images/mtn-money.png",width: AppTheme.fullWidth(context)/10)
+                          Image.asset("assets/images/mtn-money.png",
+                              width: AppTheme.fullWidth(context) / 10)
                         ],
                       ),
                       textColor: Colors.black,
@@ -243,7 +143,7 @@ class _RoomPaiementMobile extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  width: AppTheme.fullWidth(context)/55,
+                  width: AppTheme.fullWidth(context) / 55,
                 ),
                 Expanded(
                   flex: 1,
@@ -257,7 +157,7 @@ class _RoomPaiementMobile extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(
-                            width: AppTheme.fullWidth(context)/55,
+                            width: AppTheme.fullWidth(context) / 55,
                           ),
                           Stack(children: [
                             Align(
@@ -272,9 +172,12 @@ class _RoomPaiementMobile extends StatelessWidget {
                                       "assets/icons/select-actif.png")),
                           ]),
                           SizedBox(
-                            width: AppTheme.fullWidth(context)/55,
+                            width: AppTheme.fullWidth(context) / 55,
                           ),
-                          Image.asset("assets/images/moov-money.png", width: AppTheme.fullWidth(context)/8,)
+                          Image.asset(
+                            "assets/images/moov-money.png",
+                            width: AppTheme.fullWidth(context) / 8,
+                          )
                         ],
                       ),
                       textColor: Colors.black,
@@ -364,39 +267,38 @@ class _RoomPaiementMobile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    AutoSizeText(
-                      "Vous serai rediriger vers l'interface",
-                      maxLines: 1,
-                      maxFontSize: 12,
-                      minFontSize: 12,
-                      overflow: TextOverflow.ellipsis,
-                      style: AppTheme.globalFont(TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                      )),
-                    ),
-                    AutoSizeText(
-                      "de l'opérateur",
-                      maxLines: 1,
-                      maxFontSize: 12,
-                      minFontSize: 12,
-                      overflow: TextOverflow.ellipsis,
-                      style: AppTheme.globalFont(TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                      )),
-                    ),
+                    AutoSizeText.rich(TextSpan(
+                        style: AppTheme.globalFont(TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                        )),
+                        children: [
+                          TextSpan(
+                              text:
+                                  "Vous serez redirigé vers l’interface de l’opérateur. Cliquez sur "),
+                          TextSpan(
+                              text: "RETOURNER SUR LE SITE MARCHAND ",
+                              style: AppTheme.globalFont(TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                              ))),
+                          TextSpan(
+                              text:
+                                  "après l’achat"),
+                        ])),
+
+                    
                   ],
                 )),
           ),
           Container(
             margin: EdgeInsets.only(top: 0),
             child: TextButton(
-              onPressed: () => viewModel.buyTotal(context),
+              onPressed: () => viewModel.openWebView(context),
               child: ShareWidget.button(
                   context: context,
                   backgoundColor: LightColor.primary,
-                  title: "Payer ${viewModel.price}00",
+                  title: "Payer ${SharedFunc.numberFormat(viewModel.amount)}",
                   fontSize: 18,
                   margin: 0,
                   height: 50),
@@ -408,70 +310,139 @@ class _RoomPaiementMobile extends StatelessWidget {
   }
 
   Widget _roomItem(context) {
-    return Container(
-        child: Row(
-      children: [
-        Expanded(
-          flex: 7,
-          child: ShareWidget.boxMain(
-            backgroundColor: Color(0xFFFFFCE2),
-            shadowColor: Colors.transparent,
-            shadowOfset: Offset(0.0, 0),
-            blurRadius: 0,
-            margin: EdgeInsets.symmetric(vertical: 5),
-            padding: EdgeInsets.all(10),
-            borderRadius: 10,
-            body: Container(
-                padding: EdgeInsets.only(left: 10),
-                width: double.infinity,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AutoSizeText(
-                      "Sexy Room",
-                      maxLines: 1,
-                      maxFontSize: 12,
-                      minFontSize: 10,
-                      style: AppTheme.globalFont(TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                      )),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    AutoSizeText.rich(TextSpan(
+    if ((viewModel.param?.type == VpParamType.property)) {
+      return Container(
+          child: Row(
+        children: [
+          Expanded(
+            flex: 7,
+            child: ShareWidget.boxMain(
+              backgroundColor: Color(0xFFFFFCE2),
+              shadowColor: Colors.transparent,
+              shadowOfset: Offset(0.0, 0),
+              blurRadius: 0,
+              margin: EdgeInsets.symmetric(vertical: 5),
+              padding: EdgeInsets.all(10),
+              borderRadius: 10,
+              body: Container(
+                  padding: EdgeInsets.only(left: 10),
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AutoSizeText(
+                        "${viewModel.property.name}",
+                        maxLines: 1,
+                        maxFontSize: 12,
+                        minFontSize: 10,
                         style: AppTheme.globalFont(TextStyle(
-                            fontSize: 10, fontWeight: FontWeight.w700)),
-                        children: [
-                          TextSpan(
-                            text: "Tarif : ",
-                          ),
-                          TextSpan(
-                              text: "16 000 Fcfa ",
-                              style: TextStyle(color: Color(0xffFBBB00))),
-                        ])),
-                  ],
-                )),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                        )),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      AutoSizeText.rich(TextSpan(
+                          style: AppTheme.globalFont(TextStyle(
+                              fontSize: 10, fontWeight: FontWeight.w700)),
+                          children: [
+                            TextSpan(
+                              text: "Tarif : ",
+                            ),
+                            TextSpan(
+                                text:
+                                    "${SharedFunc.numberFormat(viewModel.amount / viewModel.nbreChambre)} Fcfa ",
+                                style: TextStyle(color: Color(0xffFBBB00))),
+                          ])),
+                    ],
+                  )),
+            ),
           ),
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        Expanded(
-          child: AutoSizeText(
-            "x1",
-            maxLines: 1,
-            maxFontSize: 14,
-            minFontSize: 10,
-            style: AppTheme.globalFont(TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-            )),
+          SizedBox(
+            width: 10,
           ),
-        )
-      ],
-    ));
+          Expanded(
+            child: AutoSizeText(
+              "x${viewModel.nbreChambre}",
+              maxLines: 1,
+              maxFontSize: 14,
+              minFontSize: 10,
+              style: AppTheme.globalFont(TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w700,
+              )),
+            ),
+          )
+        ],
+      ));
+    } else {
+      return Container(
+          child: Row(
+        children: [
+          Expanded(
+            flex: 7,
+            child: ShareWidget.boxMain(
+              backgroundColor: Color(0xFFFFFCE2),
+              shadowColor: Colors.transparent,
+              shadowOfset: Offset(0.0, 0),
+              blurRadius: 0,
+              margin: EdgeInsets.symmetric(vertical: 5),
+              padding: EdgeInsets.all(10),
+              borderRadius: 10,
+              body: Container(
+                  padding: EdgeInsets.only(left: 10),
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AutoSizeText(
+                        "${viewModel.room.room_type?.name}",
+                        maxLines: 1,
+                        maxFontSize: 12,
+                        minFontSize: 10,
+                        style: AppTheme.globalFont(TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                        )),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      AutoSizeText.rich(TextSpan(
+                          style: AppTheme.globalFont(TextStyle(
+                              fontSize: 10, fontWeight: FontWeight.w700)),
+                          children: [
+                            TextSpan(
+                              text: "Tarif : ",
+                            ),
+                            TextSpan(
+                                text:
+                                    "${SharedFunc.numberFormat(viewModel.amount / viewModel.nbreChambre)} Fcfa ",
+                                style: TextStyle(color: Color(0xffFBBB00))),
+                          ])),
+                    ],
+                  )),
+            ),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: AutoSizeText(
+              "x${viewModel.nbreChambre}",
+              maxLines: 1,
+              maxFontSize: 14,
+              minFontSize: 10,
+              style: AppTheme.globalFont(TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w700,
+              )),
+            ),
+          )
+        ],
+      ));
+    }
   }
 
   Widget _buySuccessBox(context) {
@@ -520,7 +491,7 @@ class _RoomPaiementMobile extends StatelessWidget {
             Center(
               child: Container(
                 child: QrImage(
-                  data: "1234567890",
+                  data: viewModel.qrcodeLink,
                   version: QrVersions.auto,
                   size: AppTheme.fullWidth(context) / 2.5,
                 ),
@@ -650,9 +621,7 @@ class _RoomPaiementMobile extends StatelessWidget {
                               width: double.infinity,
                               color: Color(0xffF0F0F0),
                               padding: EdgeInsets.all(10),
-                              child: (viewModel.tabIndex == 0)
-                                  ? _tabAcompte(context)
-                                  : _tabTotal(context)),
+                              child: _tabTotal(context)),
                         ],
                       ),
                     ),
@@ -677,10 +646,7 @@ class _RoomPaiementMobile extends StatelessWidget {
                     ),
                     Container(
                         padding: EdgeInsets.only(left: 20),
-                        child: Column(
-                          children:
-                              [1, 2].map((e) => _roomItem(context)).toList(),
-                        )),
+                        child: _roomItem(context)),
                     SizedBox(
                       height: 30,
                     ),
@@ -704,7 +670,8 @@ class _RoomPaiementMobile extends StatelessWidget {
                                     text: "Vous devez payer ",
                                   ),
                                   TextSpan(
-                                      text: "36.000 Fcfa ",
+                                      text:
+                                          "${SharedFunc.numberFormat(viewModel.amount)} Fcfa ",
                                       style: TextStyle(
                                           fontWeight: FontWeight.w700,
                                           color: LightColor.primary)),

@@ -183,6 +183,25 @@ class BedRoom {
 }
 
 @JsonSerializable()
+class RoomType {
+  int id;
+  String? name;
+  DateTime? created_at;
+  DateTime? updated_at;
+
+  RoomType({
+    required this.id,
+    this.name,
+    this.created_at,
+    this.updated_at,
+  });
+
+  factory RoomType.fromJson(Map<String, dynamic> json) =>
+      _$RoomTypeFromJson(json);
+  Map<String, dynamic> toJson() => _$RoomTypeToJson(this);
+}
+
+@JsonSerializable()
 class FreeRoom {
   int id;
   String? type;
@@ -221,25 +240,6 @@ class FreeRoom {
   factory FreeRoom.fromJson(Map<String, dynamic> json) =>
       _$FreeRoomFromJson(json);
   Map<String, dynamic> toJson() => _$FreeRoomToJson(this);
-}
-
-@JsonSerializable()
-class RoomType {
-  int id;
-  String? name;
-  DateTime? created_at;
-  DateTime? updated_at;
-
-  RoomType({
-    required this.id,
-    this.name,
-    this.created_at,
-    this.updated_at,
-  });
-
-  factory RoomType.fromJson(Map<String, dynamic> json) =>
-      _$RoomTypeFromJson(json);
-  Map<String, dynamic> toJson() => _$RoomTypeToJson(this);
 }
 
 @JsonSerializable()

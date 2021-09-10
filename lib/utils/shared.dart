@@ -1,4 +1,5 @@
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 
 class SharedFunc {
   String msg;
@@ -26,5 +27,15 @@ class SharedFunc {
     }
 
     return rp;
+  }
+
+  static String numberFormat(data) {
+    return NumberFormat.currency(
+            locale: 'fr',
+            symbol: '',
+            decimalDigits: 0,
+            customPattern: '#,###,###')
+        .format(data)
+        .toString();
   }
 }

@@ -18,10 +18,6 @@ class _RoomReservationMobile extends StatelessWidget {
               hintText: "${viewModel.userData?.name}",
               backgroundColors: Colors.white,
               borderColor: Color(0xffC4C4C4),
-              validators: [
-                FormBuilderValidators.required(context,
-                    errorText: "Ce champs est requis")
-              ],
             ),
             SizedBox(
               height: 10,
@@ -31,17 +27,11 @@ class _RoomReservationMobile extends StatelessWidget {
               child: ShareWidget.input(
                 name: "type_sejour",
                 labelText: "Type de séjour",
-                hintText: viewModel.typeSejour,
+                hintText: "${viewModel.typeSejour}",
                 enabled: false,
-                suffixIcon: GestureDetector(
-                    onTap: () => null,
-                    child: Image.asset("assets/icons/dropdown2.png")),
+                suffixIcon: Image.asset("assets/icons/dropdown2.png"),
                 backgroundColors: Colors.white,
                 borderColor: Color(0xffC4C4C4),
-                validators: [
-                  FormBuilderValidators.required(context,
-                      errorText: "Ce champs est requis")
-                ],
               ),
             ),
             SizedBox(
@@ -57,10 +47,7 @@ class _RoomReservationMobile extends StatelessWidget {
                 suffixIcon: Image.asset("assets/icons/dropdown2.png"),
                 backgroundColors: Colors.white,
                 borderColor: Color(0xffC4C4C4),
-                validators: [
-                  FormBuilderValidators.required(context,
-                      errorText: "Ce champs est requis")
-                ],
+                
               ),
             ),
             SizedBox(
@@ -94,16 +81,13 @@ class _RoomReservationMobile extends StatelessWidget {
               ),
               backgroundColors: Colors.white,
               borderColor: Color(0xffC4C4C4),
-              validators: [
-                FormBuilderValidators.required(context,
-                    errorText: "Ce champs est requis")
-              ],
+              
             ),
             SizedBox(
               height: 10,
             ),
             ShareWidget.input(
-              name: "adress",
+              name: "address",
               labelText: "Adresse client",
               maxLines: 5,
               hintText:
@@ -111,10 +95,7 @@ class _RoomReservationMobile extends StatelessWidget {
               enabled: true,
               backgroundColors: Colors.white,
               borderColor: Color(0xffC4C4C4),
-              validators: [
-                FormBuilderValidators.required(context,
-                    errorText: "Ce champs est requis")
-              ],
+              
             ),
             SizedBox(
               height: 20,
@@ -217,15 +198,10 @@ class _RoomReservationMobile extends StatelessWidget {
                           ),
                           hintText: "${viewModel.hArrive.hour}:${viewModel.hArrive.minute}",
                           enabled: false,
-                          suffixIcon: GestureDetector(
-                              onTap: () => null,
-                              child: Image.asset("assets/icons/dropdown2.png")),
+                          suffixIcon: Image.asset("assets/icons/dropdown2.png"),
                           backgroundColors: Colors.white,
                           borderColor: Color(0xffC4C4C4),
-                          validators: [
-                            FormBuilderValidators.required(context,
-                                errorText: "Ce champs est requis")
-                          ],
+                          
                         ),
                       ),
                     ),
@@ -244,15 +220,10 @@ class _RoomReservationMobile extends StatelessWidget {
                           fontSize: 9,
                           hintText: "${viewModel.hDepart.hour}:${viewModel.hDepart.minute}",
                           enabled: false,
-                          suffixIcon: GestureDetector(
-                              onTap: () => null,
-                              child: Image.asset("assets/icons/dropdown2.png")),
+                          suffixIcon: Image.asset("assets/icons/dropdown2.png"),
                           backgroundColors: Colors.white,
                           borderColor: Color(0xffC4C4C4),
-                          validators: [
-                            FormBuilderValidators.required(context,
-                                errorText: "Ce champs est requis")
-                          ],
+                         
                         ),
                       ),
                     ),

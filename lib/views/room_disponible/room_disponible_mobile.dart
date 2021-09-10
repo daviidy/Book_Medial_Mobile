@@ -125,7 +125,7 @@ class _RoomDisponibleMobile extends StatelessWidget {
     } else {
       return (viewModel.freeRoom!.length > 0)
           ? viewModel.freeRoom!
-              .map((free) => ShareWidget.boxRoom(
+              .map((free) => ShareWidget.boxRoom3(
                   //padding: EdgeInsets.all(10),
                   margin: EdgeInsets.all(10),
                   freeRoom: free,

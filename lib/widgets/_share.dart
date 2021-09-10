@@ -343,7 +343,7 @@ class ShareWidget {
               Expanded(
                 flex: 3,
                 child: AutoSizeText(
-                  "${(freeRoom?.name != null) ? freeRoom?.name : ''}",
+                  "${(freeRoom?.room_type?.name != null) ? freeRoom?.room_type?.name : ''}",
                   maxLines: 1,
                   maxFontSize: 20,
                   minFontSize: 20,
@@ -503,7 +503,7 @@ class ShareWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AutoSizeText(
-                      "Tarifs jour",
+                      "Tarifs heure",
                       maxLines: 1,
                       maxFontSize: 14,
                       minFontSize: 14,
@@ -737,7 +737,7 @@ class ShareWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AutoSizeText(
-                      "Tarifs jour",
+                      "Tarifs heure",
                       maxLines: 1,
                       maxFontSize: 14,
                       minFontSize: 14,
@@ -933,6 +933,304 @@ class ShareWidget {
     );
   }
 
+  static Widget boxRoom3({
+    required BuildContext context,
+    data,
+    FreeRoom? freeRoom,
+    Property? property,
+    String? route,
+    onPressed,
+    //Widget? body,
+    EdgeInsets? margin = const EdgeInsets.only(top: 10),
+    EdgeInsets? padding = const EdgeInsets.all(15),
+  }) {
+    String facilities = '';
+    if (property?.facilities != null) {
+      List<Facility> fac = property?.facilities as List<Facility>;
+      for (var i = 0; i < fac.length; i++) {
+        facilities += "${fac[i].name}";
+        if (i + 1 < fac.length) {
+          facilities += " - ";
+        }
+      }
+    }
+
+    String nbrChambre = "00";
+    if (freeRoom?.total_record != null) {
+      nbrChambre = "${freeRoom?.total_record}";
+      nbrChambre = (nbrChambre.length == 1) ? "0$nbrChambre" : nbrChambre;
+    }
+
+    return Container(
+      // width: width,
+      // height: height,
+      margin: margin,
+      padding: padding,
+      //height: 456.0,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(18.0),
+          color: const Color(0xffffffff),
+          border: Border.all(color: Color(0xffE1E1E1))
+          // boxShadow: [
+          //   BoxShadow(
+          //       color: const Color(0x38000000),
+          //       offset: Offset(0, 6),
+          //       blurRadius: 5)
+          // ],
+          ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AutoSizeText(
+            "${(freeRoom?.room_type?.name != null) ? freeRoom?.room_type?.name : ''}",
+            maxLines: 1,
+            maxFontSize: 20,
+            minFontSize: 20,
+            overflow: TextOverflow.ellipsis,
+            style: AppTheme.globalFont(
+                TextStyle(fontWeight: FontWeight.w700, fontSize: 20)),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            children: [
+              Container(
+                width: 30,
+                height: 20,
+                child: Image.asset("assets/icons/valide.png"),
+              ),
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.only(left: 5),
+                  child: AutoSizeText(
+                    "$facilities",
+                    maxLines: 2,
+                    maxFontSize: 10,
+                    minFontSize: 10,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTheme.globalFont(TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 10,
+                        color: Color(0xffFBBB00))),
+                  ),
+                ),
+              )
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Divider(
+                  color: Color(0xffE0E0E0),
+                  height: 20,
+                  thickness: 1,
+                  indent: 0,
+                  endIndent: 0,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Container(
+                child: AutoSizeText(
+                  "Capacité :",
+                  maxLines: 1,
+                  maxFontSize: 10,
+                  minFontSize: 10,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTheme.globalFont(TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 10,
+                  )),
+                ),
+              ),
+              Container(
+                width: 30,
+                height: 15,
+                child: Image.asset("assets/icons/personnes.png"),
+              ),
+              Container(
+                child: AutoSizeText(
+                  "${(freeRoom?.guests_number != null) ? freeRoom?.guests_number : '---'} personnes",
+                  maxLines: 1,
+                  maxFontSize: 10,
+                  minFontSize: 10,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTheme.globalFont(TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 10,
+                      color: Color(0xffFBBB00))),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 5),
+                width: 30,
+                height: 15,
+                child: Image.asset("assets/icons/bed.png"),
+              ),
+              Expanded(
+                child: Container(
+                  child: AutoSizeText(
+                    "${(freeRoom?.beds?.first.type != null) ? freeRoom?.beds?.first.type : ''}",
+                    maxLines: 1,
+                    maxFontSize: 10,
+                    minFontSize: 10,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTheme.globalFont(TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 10,
+                        color: Color(0xffFBBB00))),
+                  ),
+                ),
+              )
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Divider(
+                  color: Color(0xffE0E0E0),
+                  height: 15,
+                  thickness: 1,
+                  indent: 0,
+                  endIndent: 0,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Container(
+                child: AutoSizeText(
+                  "Tarif :",
+                  maxLines: 1,
+                  maxFontSize: 10,
+                  minFontSize: 10,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTheme.globalFont(TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 10,
+                  )),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                child: AutoSizeText(
+                  "${(freeRoom?.price_per_day != null) ? freeRoom?.price_per_day : 0} Fcfa/heure",
+                  maxLines: 1,
+                  maxFontSize: 10,
+                  minFontSize: 10,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTheme.globalFont(TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 10,
+                      color: Color(0xffFBBB00))),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  child: AutoSizeText(
+                    "${(freeRoom?.price_per_night != null) ? freeRoom?.price_per_night : 0} Fcfa/nuit",
+                    maxLines: 1,
+                    maxFontSize: 10,
+                    minFontSize: 10,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTheme.globalFont(TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 10,
+                        color: Color(0xffFBBB00))),
+                  ),
+                ),
+              )
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Divider(
+                  color: Color(0xffE0E0E0),
+                  height: 15,
+                  thickness: 1,
+                  indent: 0,
+                  endIndent: 0,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Container(
+                child: AutoSizeText(
+                  "Nombre de chambre :",
+                  maxLines: 1,
+                  maxFontSize: 10,
+                  minFontSize: 10,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTheme.globalFont(TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 10,
+                  )),
+                ),
+              ),
+              Container(
+                // width: 20,
+                // height: 20,
+                padding: EdgeInsets.all(3),
+                margin: EdgeInsets.only(left: 5),
+                color: Color(0xffECECEC),
+                child: Center(
+                  child: AutoSizeText(
+                    "$nbrChambre",
+                    maxLines: 1,
+                    maxFontSize: 10,
+                    minFontSize: 10,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTheme.globalFont(TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 10,
+                    )),
+                  ),
+                ),
+              ),
+              Container(
+                width: 15,
+                child: Image.asset("assets/icons/next.png"),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Divider(
+                  color: Color(0xffE0E0E0),
+                  height: 10,
+                  thickness: 1,
+                  indent: 0,
+                  endIndent: 0,
+                ),
+              ),
+            ],
+          ),
+          if (route != null)
+            Container(
+              margin: EdgeInsets.only(top: 10),
+              child: GestureDetector(
+                onTap: onPressed,
+                child: ShareWidget.button(
+                  context: context,
+                  backgoundColor: LightColor.primary,
+                  title: "Je Reserve",
+                  margin: 0,
+                ),
+              ),
+            )
+        ],
+      ),
+    );
+  }
+
   static Widget box1(
       {String? value = "",
       String? labelText,
@@ -1070,7 +1368,7 @@ class ShareWidget {
       required String labelText}) {
     return ShareWidget.boxMain(
         borderRadius: 11,
-        backgroundColor: backgroundColor ,
+        backgroundColor: backgroundColor,
         padding: EdgeInsets.all(20),
         shadowOfset: Offset(0, 0),
         blurRadius: 0,

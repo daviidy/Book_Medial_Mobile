@@ -1,15 +1,20 @@
 import 'package:book_medial/core/base/base_country.dart';
 import 'package:book_medial/core/base/base_view_model.dart';
+import 'package:book_medial/core/models/booking_models.dart';
 import 'package:book_medial/core/models/country_models.dart';
 import 'package:book_medial/core/models/propertie_models.dart';
 import 'package:book_medial/core/models/session_models.dart';
 import 'package:book_medial/core/models/user_medels.dart';
 import 'package:book_medial/core/services/database_service.dart';
+import 'package:book_medial/core/services/ws/ws_auth.dart';
+import 'package:book_medial/core/services/ws/ws_booking.dart';
+import 'package:book_medial/utils/shared.dart';
 import 'package:book_medial/widgets/country_box/country_box_view.dart';
 import 'package:book_medial/widgets/nbre_chambre_box/nbre_chambre_box_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:intl/intl.dart';
 
@@ -159,21 +164,102 @@ class RoomReservationViewModel extends BaseViewModel {
     this.userData = UserModel.fromJson(await this.storage.getItem("userData"));
   }
 
-  createReservation(context) {
-    //Navigator.pushNamed(context, "/room-paiement");
-    var formatData = {
-      "rooms": [],
+  createReservation(context) async {
+    
+
+    if (this.typeSejour == 'court' && this.hArrive.hour >= this.hDepart.hour) {
+      SharedFunc.toast(msg: "Veillez renseigner une plage d'heure correct", toastLength: Toast.LENGTH_LONG);
+      return;
+    }
+
+    this.loader = true;
+
+    String _hd = ("${this.hDepart.hour}".length == 1)
+        ? "0${this.hDepart.hour}"
+        : "${this.hDepart.hour}";
+
+    String _ha = ("${this.hArrive.hour}".length == 1)
+        ? "0${this.hArrive.hour}"
+        : "${this.hArrive.hour}";
+
+    String _md = ("${this.hDepart.minute}".length == 1)
+        ? "0${this.hDepart.minute}"
+        : "${this.hDepart.minute}";
+
+    String _ma = ("${this.hArrive.minute}".length == 1)
+        ? "0${this.hArrive.minute}"
+        : "${this.hArrive.minute}";
+
+    var queryData = {
+      "roomType": (this.isHotel) ? this.freeRoom.room_type_id : null,
       "property": this.property.id,
-      "type_sejour": this.typeSejour,
+      "typeSejour": this.typeSejour,
+      "totalRooms": this.nbreChambre,
+      "typePaiement": (this.isAccount) ? "deposit" : "total",
       "startDate": DateFormat('dd/MM/yyyy')
           .format(DateTime.parse(this.sPropParam.sejourStart as String)),
-      "endDate": (this.typeSejour == 'long') ? DateFormat('dd/MM/yyyy')
-          .format(DateTime.parse(this.sPropParam.sejourEnd as String)) : null,
-      "startTime": "${this.hArrive.hour}:${this.hArrive.minute}",
-      "endTime": "${this.hDepart.hour}:${this.hDepart.minute}",
+      "endDate": (this.typeSejour == 'long')
+          ? DateFormat('dd/MM/yyyy')
+              .format(DateTime.parse(this.sPropParam.sejourEnd as String))
+          : DateFormat('dd/MM/yyyy')
+              .format(DateTime.parse(this.sPropParam.sejourStart as String)),
+      "startTime": "$_ha:$_ma",
+      "endTime": "$_hd:$_md",
     };
 
-    print(formatData);
+    // user update info
+    this.updateUserData();
+
+    print(queryData);
+    WsResponse rp = await WsBooking.create(data: queryData);
+    print(rp.status);
+    print(rp.reponse);
+    if (rp.status) {
+      if (rp.reponse!["success"] == true) {
+        Booking _booking = Booking.fromJson(rp.reponse!["booking"]);
+        VpParam param = VpParam(label: "", type: VpParamType.property);
+        param.type =
+            (this.isHotel) ? VpParamType.freeRoom : VpParamType.property;
+        param.data = {
+          "amount": rp.reponse!["amount"],
+          "webView": rp.reponse!["webView"],
+          "qrcodeLink": rp.reponse!["qrcodeLink"],
+          "room": this.freeRoom,
+          "property": this.property,
+          "booking": _booking,
+          "nbreChambre": this.nbreChambre
+        };
+
+        Navigator.pushNamed(context, "/room-paiement", arguments: param);
+      } else {
+        SharedFunc.toast(
+            msg: "${rp.reponse!["message"]}", toastLength: Toast.LENGTH_LONG);
+        Navigator.pop(context);
+        Navigator.pop(context);
+      }
+    } else {
+      String? ms = "une erreur s'est produite lors de l'enregistrement";
+      if (rp.message != null) ms = rp.message;
+      SharedFunc.toast(msg: "$ms", toastLength: Toast.LENGTH_LONG);
+    }
+
+    this.loader = false;
+
+    print(queryData);
+  }
+
+  updateUserData() async {
+    if (this.formKey.currentState!.saveAndValidate()) {
+      Map form = new Map.from(formKey.currentState!.value);
+      this.userData?.phone = form["contact"] as String?;
+      this.userData?.address = form["address"] as String?;
+      print(this.userData?.toJson());
+
+      WsResponse rp = await WsAuth.update(
+          data: {"user_id": this.userData?.id, ...?this.userData?.toJson()});
+      print(rp.status);
+      print(rp.reponse);
+    }
   }
 
   choseModeBuy(bool isAccouny) {
@@ -265,10 +351,11 @@ class RoomReservationViewModel extends BaseViewModel {
   }
 
   onChoiseDate(context) {
-    if (this.typeSejour == 'long') {
-      this.onRangeDate(context);
-    } else {
+    print(this.typeSejour);
+    if (this.typeSejour == 'court') {
       this.onDate(context);
+    } else {
+      this.onRangeDate(context);
     }
   }
 
@@ -292,7 +379,7 @@ class RoomReservationViewModel extends BaseViewModel {
     var res = await showDialog(
         context: context,
         builder: (BuildContext context) {
-          return NbreChambreBoxView();
+          return NbreChambreBoxView(nbrMax: this.freeRoom.total_record ?? 0);
         });
 
     if (res != null) {
@@ -336,8 +423,6 @@ class RoomReservationViewModel extends BaseViewModel {
         });
 
     if (res != null) {
-      this.typeSejour = res;
-
       DateTime _start = DateTime.parse(this.sPropParam.sejourStart as String);
       DateTime _end = DateTime.parse(this.sPropParam.sejourEnd as String);
 
@@ -348,7 +433,7 @@ class RoomReservationViewModel extends BaseViewModel {
         this.sPropParam.sejourValue =
             "${DateFormat('EEE, d MMM, yyyy', 'fr').format(_start)}";
       }
-      notifyListeners();
+      this.typeSejour = res;
     }
     print(res);
   }

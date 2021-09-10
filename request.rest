@@ -118,3 +118,45 @@ Authorization: Bearer {{token}}
 }
 
 ###
+POST {{baseUrl}}/booking
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "roomType": 1, 
+    "property": 95, 
+    "typeSejour": "court", 
+    "totalRooms": 1, 
+    "typePaiement": "deposit", 
+    "startDate": "11/09/2021", 
+    "endDate": "11/09/2021", 
+    "startTime": "02:25", 
+    "endTime": "02:25"
+}
+
+###
+GET {{baseUrl}}/user/booking/37
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+# {
+#   "success": true,
+#   "message": "R\u00e9servation enregistr\u00e9e avec succ\u00e8s",
+#   "amount": 200,
+#   "webView": "https:\/\/api.book-medial.rikudo.ci\/mobile\/confirmation\/37",
+#   "qrcodeLink": "https:\/\/api.book-medial.rikudo.ci\/booking\/37\/detail",
+#   "booking": {
+#     "start_date": "10\/09\/2021",
+#     "end_date": "11\/09\/2021",
+#     "user_id": 29,
+#     "type_sejour": "long",
+#     "startTime": "02:25",
+#     "endTime": "02:25",
+#     "status": "CONFIRMED",
+#     "type_paiement": "total",
+#     "updated_at": "2021-09-10T02:46:32.000000Z",
+#     "created_at": "2021-09-10T02:46:32.000000Z",
+#     "id": 37
+#   }
+# }

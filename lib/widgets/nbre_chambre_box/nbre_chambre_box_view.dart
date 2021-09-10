@@ -14,21 +14,24 @@ part 'nbre_chambre_box_tablet.dart';
 part 'nbre_chambre_box_desktop.dart';
 
 class NbreChambreBoxView extends StatelessWidget {
+  int nbrMax;
+  NbreChambreBoxView({required this.nbrMax});
+
   @override
   Widget build(BuildContext context) {
     NbreChambreBoxViewModel viewModel = NbreChambreBoxViewModel();
     return ViewModelProvider<NbreChambreBoxViewModel>.withConsumer(
-      viewModel: viewModel,
-      onModelReady: (viewModel) {
-        // Do something once your viewModel is initialized
-      },
-      builder: (context, viewModel, child) {
-        return ScreenTypeLayout(
-          mobile: _NbreChambreBoxMobile(viewModel),
-          desktop: _NbreChambreBoxDesktop(viewModel),
-          tablet: _NbreChambreBoxTablet(viewModel),  
-        );
-      }
-    );
+        viewModel: viewModel,
+        onModelReady: (viewModel) {
+          viewModel.nbrMax = this.nbrMax;
+          // Do something once your viewModel is initialized
+        },
+        builder: (context, viewModel, child) {
+          return ScreenTypeLayout(
+            mobile: _NbreChambreBoxMobile(viewModel),
+            desktop: _NbreChambreBoxDesktop(viewModel),
+            tablet: _NbreChambreBoxTablet(viewModel),
+          );
+        });
   }
 }

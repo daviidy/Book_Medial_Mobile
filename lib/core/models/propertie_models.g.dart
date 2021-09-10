@@ -203,6 +203,26 @@ Map<String, dynamic> _$BedRoomToJson(BedRoom instance) => <String, dynamic>{
       'beds': instance.beds,
     };
 
+RoomType _$RoomTypeFromJson(Map<String, dynamic> json) {
+  return RoomType(
+    id: json['id'] as int,
+    name: json['name'] as String?,
+    created_at: json['created_at'] == null
+        ? null
+        : DateTime.parse(json['created_at'] as String),
+    updated_at: json['updated_at'] == null
+        ? null
+        : DateTime.parse(json['updated_at'] as String),
+  );
+}
+
+Map<String, dynamic> _$RoomTypeToJson(RoomType instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'created_at': instance.created_at?.toIso8601String(),
+      'updated_at': instance.updated_at?.toIso8601String(),
+    };
+
 FreeRoom _$FreeRoomFromJson(Map<String, dynamic> json) {
   return FreeRoom(
     id: json['id'] as int,
@@ -247,26 +267,6 @@ Map<String, dynamic> _$FreeRoomToJson(FreeRoom instance) => <String, dynamic>{
       'room_type_id': instance.room_type_id,
       'total_record': instance.total_record,
       'beds': instance.beds,
-    };
-
-RoomType _$RoomTypeFromJson(Map<String, dynamic> json) {
-  return RoomType(
-    id: json['id'] as int,
-    name: json['name'] as String?,
-    created_at: json['created_at'] == null
-        ? null
-        : DateTime.parse(json['created_at'] as String),
-    updated_at: json['updated_at'] == null
-        ? null
-        : DateTime.parse(json['updated_at'] as String),
-  );
-}
-
-Map<String, dynamic> _$RoomTypeToJson(RoomType instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'created_at': instance.created_at?.toIso8601String(),
-      'updated_at': instance.updated_at?.toIso8601String(),
     };
 
 Media _$MediaFromJson(Map<String, dynamic> json) {

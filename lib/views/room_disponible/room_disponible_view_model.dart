@@ -158,14 +158,18 @@ class RoomDisponibleViewModel extends BaseViewModel {
     if (rp.status) {
       if (rp.reponse!["success"] == true) {
         if (this.isHotel) {
+          rp.reponse!["property"].remove("bed_room");
           this.property = Property.fromJson(rp.reponse!["property"]);
-          // this.freeRoom = this.property.bed_room;
           for (var freeRoom in rp.reponse!["free_rooms"]) {
-            this.freeRoom!.add(FreeRoom.fromJson(freeRoom));
+            FreeRoom _free = new FreeRoom.fromJson(freeRoom);
+            if (_free.room_type != null) {
+              this.freeRoom!.add(_free);
+            }
           }
           print(this.freeRoom);
+        } else {
+          this.isPropDispo = true;
         }
-        this.isPropDispo = true;
       } else {
         SharedFunc.toast(
             msg: rp.reponse!["message"], toastLength: Toast.LENGTH_LONG);

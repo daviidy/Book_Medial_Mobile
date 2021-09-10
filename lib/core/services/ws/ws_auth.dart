@@ -107,6 +107,29 @@ class WsAuth {
     return rp;
   }
 
+  static Future<WsResponse> update({data}) async {
+    WsResponse rp = new WsResponse();
+
+    Response reponse = await WsCore.post(
+        data: jsonEncode(data),
+        endpoint: "/profile/update",
+        token: await _storage.getItem("token"));
+        
+    if (reponse.statusCode == 200) {
+      Map rpReponse = jsonDecode(utf8.decode(reponse.bodyBytes));
+      if (rpReponse["user"]["type"] == "client") {
+        await _storage.setItem("token", rpReponse["access_token"]);
+        await _storage.setItem("userData", rpReponse["user"]);
+        rp.status = true;
+      }
+    } else {
+      Map rpReponse = jsonDecode(utf8.decode(reponse.bodyBytes));
+      print(rpReponse);
+    }
+
+    return rp;
+  }
+
   /// ***  Auth helper fonction END  ****
 
   static Future<WsResponse> googleSignIn() async {

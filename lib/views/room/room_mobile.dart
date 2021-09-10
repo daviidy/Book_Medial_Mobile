@@ -162,7 +162,7 @@ class _RoomMobile extends StatelessWidget {
                                       fontWeight: FontWeight.w700,
                                       fontSize: 20))),
                               TextSpan(
-                                  text: "/  Par jour",
+                                  text: "/  Par heure",
                                   style: AppTheme.globalFont(TextStyle(
                                       color: LightColor.textGrey,
                                       fontWeight: FontWeight.w400,
