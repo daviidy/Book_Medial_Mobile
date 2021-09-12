@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class NbreChambreBoxViewModel extends BaseViewModel {
   NbreChambreBoxViewModel();
   int _nbrChambre = 1;
-  late int nbrMax;
+  int nbrMax = 10;
 
   int get nbrChambre => this._nbrChambre;
   set nbrChambre(int value) {

@@ -91,7 +91,7 @@ class _RoomPaiementMobile extends StatelessWidget {
                             width: 6,
                           ),
                           Image.asset("assets/images/orange-money.png",
-                              width: AppTheme.fullWidth(context) / 8)
+                              width: AppTheme.fullWidth(context) / 10)
                         ],
                       ),
                       textColor: Colors.black,
@@ -176,7 +176,7 @@ class _RoomPaiementMobile extends StatelessWidget {
                           ),
                           Image.asset(
                             "assets/images/moov-money.png",
-                            width: AppTheme.fullWidth(context) / 8,
+                            width: AppTheme.fullWidth(context) / 10,
                           )
                         ],
                       ),
@@ -285,7 +285,7 @@ class _RoomPaiementMobile extends StatelessWidget {
                           TextSpan(
                               text:
                                   "après l’achat"),
-                        ])),
+                        ]), textAlign: TextAlign.center,),
 
                     
                   ],

@@ -6,6 +6,7 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 class PaiementWebViewModel extends BaseViewModel {
   PaiementWebViewModel();
   String _url = "";
+  String successUrl = "";
 
   String get url => this._url;
   set url(String value) {
@@ -23,11 +24,11 @@ class PaiementWebViewModel extends BaseViewModel {
       print("url");
       print(url);
 
-      if (url == Constant.buySuccessUrl) {
+      if (url.contains(this.successUrl)) {
         Navigator.pop(context, "success");
       }
 
-      if (url == Constant.buyEchecUrl) {
+      if (url.contains(Constant.buyEchecUrl)) {
         Navigator.pop(context, "echec");
       }
     });

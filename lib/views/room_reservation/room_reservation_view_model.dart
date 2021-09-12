@@ -32,7 +32,7 @@ class RoomReservationViewModel extends BaseViewModel {
       SearchPropertyParam(locationValue: '', personsValue: '', sejourValue: '');
 
   late Property _property;
-  late FreeRoom _freeRoom;
+  FreeRoom _freeRoom = FreeRoom(id: 0);
   CountryList _countryList = CountryList.fromJson(COUNTRY_DATA_BASE);
   Country? _country;
 
@@ -165,10 +165,10 @@ class RoomReservationViewModel extends BaseViewModel {
   }
 
   createReservation(context) async {
-    
-
     if (this.typeSejour == 'court' && this.hArrive.hour >= this.hDepart.hour) {
-      SharedFunc.toast(msg: "Veillez renseigner une plage d'heure correct", toastLength: Toast.LENGTH_LONG);
+      SharedFunc.toast(
+          msg: "Veillez renseigner une plage d'heure correct",
+          toastLength: Toast.LENGTH_LONG);
       return;
     }
 
@@ -191,7 +191,6 @@ class RoomReservationViewModel extends BaseViewModel {
         : "${this.hArrive.minute}";
 
     var queryData = {
-      "roomType": (this.isHotel) ? this.freeRoom.room_type_id : null,
       "property": this.property.id,
       "typeSejour": this.typeSejour,
       "totalRooms": this.nbreChambre,
@@ -206,6 +205,8 @@ class RoomReservationViewModel extends BaseViewModel {
       "startTime": "$_ha:$_ma",
       "endTime": "$_hd:$_md",
     };
+
+    if(this.isHotel) queryData["roomType"] = this.freeRoom.room_type_id as int;
 
     // user update info
     this.updateUserData();
@@ -251,8 +252,10 @@ class RoomReservationViewModel extends BaseViewModel {
   updateUserData() async {
     if (this.formKey.currentState!.saveAndValidate()) {
       Map form = new Map.from(formKey.currentState!.value);
-      this.userData?.phone = form["contact"] as String?;
-      this.userData?.address = form["address"] as String?;
+      if (form["contact"] != null)
+        this.userData?.phone = form["contact"] as String?;
+      if (form["address"] != null)
+        this.userData?.address = form["address"] as String?;
       print(this.userData?.toJson());
 
       WsResponse rp = await WsAuth.update(
@@ -379,7 +382,7 @@ class RoomReservationViewModel extends BaseViewModel {
     var res = await showDialog(
         context: context,
         builder: (BuildContext context) {
-          return NbreChambreBoxView(nbrMax: this.freeRoom.total_record ?? 0);
+          return NbreChambreBoxView(nbrMax: this.freeRoom.total_record ?? 20);
         });
 
     if (res != null) {

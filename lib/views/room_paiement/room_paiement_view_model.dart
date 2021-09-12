@@ -134,7 +134,7 @@ class RoomPaiementViewModel extends BaseViewModel {
     var res = await showDialog(
         context: context,
         builder: (BuildContext context) {
-          return new PaiementWebView(url: this.webView);
+          return new PaiementWebView(url: this.webView, succesUrl: this.qrcodeLink);
         });
 
     if (res != null) {
