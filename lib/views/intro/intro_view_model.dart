@@ -17,6 +17,10 @@ class IntroViewModel extends BaseViewModel {
   ];
 
   int _current = 0;
+  String _headerText = "Vous recherchez un endroit où vous évader?";
+  String _bottomText =
+      "Avec Book Medial, parcourez des centaines de destinations autour de vous ou partout dans le monde";
+
   final CarouselController controller = CarouselController();
 
   final DatabaseService storage = new DatabaseService();
@@ -24,6 +28,18 @@ class IntroViewModel extends BaseViewModel {
   int get current => this._current;
   set current(int value) {
     this._current = value;
+    notifyListeners();
+  }
+
+  String get headerText => this._headerText;
+  set headerText(String value) {
+    this._headerText = value;
+    notifyListeners();
+  }
+
+  String get bottomText => this._bottomText;
+  set bottomText(String value) {
+    this._bottomText = value;
     notifyListeners();
   }
   // Add ViewModel specific code here
@@ -43,6 +59,25 @@ class IntroViewModel extends BaseViewModel {
         PageTransition(type: PageTransitionType.fade, child: HomeView()),
         (route) => false,
       );
+    }
+  }
+
+  onPageChanged(index, reason) {
+    this.current = index;
+    switch (index) {
+      case 0:
+        this.headerText = "Vous recherchez un endroit où vous évader?";
+        this.bottomText = "Avec Book Medial, parcourez des centaines de destinations autour de vous ou partout dans le monde";
+        break;
+      case 1:
+        this.headerText = "Vous recherchez un séjour à la fois confortable et abordable?";
+        this.bottomText = "Book Medial vous garantit les meilleurs tarifs disponibles avec une qualité de service satisfaisante";
+        break;
+      case 2:
+        this.headerText = "Vos voulez réserver des séjours sans vous casser la tête?";
+        this.bottomText = "Avec Book Medial, chaque réservation se fait instantanément et en quelques clics";
+        break;
+      default:
     }
   }
 }

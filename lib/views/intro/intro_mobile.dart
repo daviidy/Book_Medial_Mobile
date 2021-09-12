@@ -6,24 +6,34 @@ class _IntroMobile extends StatelessWidget {
   _IntroMobile(this.viewModel);
 
   Widget _topText(String text) {
-    return AutoSizeText(
-      "$text",
-      maxLines: 1,
-      maxFontSize: 20,
-      minFontSize: 10,
-      style: AppTheme.globalFont(
-          TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
-    );
+    return Container(
+        margin: EdgeInsets.symmetric(horizontal: 30),
+        child: AutoSizeText(
+          "$text",
+          maxLines: 2,
+          maxFontSize: 20,
+          minFontSize: 10,
+          overflow: TextOverflow.clip,
+          textAlign: TextAlign.center,
+          style: AppTheme.globalFont(
+            TextStyle(fontSize: 20, fontWeight: FontWeight.w700, height: 1.5),
+          ),
+        ));
   }
 
   Widget _bottomText(String text) {
-    return AutoSizeText(
-      "$text",
-      maxLines: 1,
-      maxFontSize: 16,
-      minFontSize: 10,
-      style: AppTheme.globalFont(
-          TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 30),
+      child: AutoSizeText(
+        "$text",
+        maxLines: 3,
+        maxFontSize: 16,
+        minFontSize: 10,
+        overflow: TextOverflow.clip,
+        textAlign: TextAlign.center,
+        style: AppTheme.globalFont(
+            TextStyle(fontSize: 16, fontWeight: FontWeight.w400, height: 1.5)),
+      ),
     );
   }
 
@@ -74,10 +84,13 @@ class _IntroMobile extends StatelessWidget {
                                 end: Alignment.topCenter,
                               ),
                             ),
-                            padding: EdgeInsets.only(top: (AppTheme.fullHeight(context) / 1.9)/3, bottom: 10),
+                            padding: EdgeInsets.only(
+                                top: (AppTheme.fullHeight(context) / 1.9) / 3,
+                                bottom: 10),
                             child: TextButton(
                               //padding: EdgeInsets.all(0),
-                              onPressed: () => Navigator.pushNamed(context, '/login'),
+                              onPressed: () =>
+                                  Navigator.pushNamed(context, '/login'),
                               child: ShareWidget.button(
                                   context: context,
                                   title: 'Démarrez',
@@ -101,15 +114,11 @@ class _IntroMobile extends StatelessWidget {
       body: Stack(
         children: [
           Container(
-            margin: EdgeInsets.only(top: AppTheme.fullHeight(context) / 10),
+            margin: EdgeInsets.only(top: AppTheme.fullHeight(context) / 15),
             child: Center(
                 child: Column(
               children: [
-                _topText("Takes you to the"),
-                SizedBox(
-                  height: 5,
-                ),
-                _topText("best places"),
+                _topText(viewModel.headerText),
               ],
             )),
           ),
@@ -120,9 +129,7 @@ class _IntroMobile extends StatelessWidget {
                   autoPlay: false,
                   aspectRatio: 2.0,
                   enlargeCenterPage: true,
-                  onPageChanged: (index, reason) {
-                    viewModel.current = index;
-                  },
+                  onPageChanged: viewModel.onPageChanged,
                   height: AppTheme.fullHeight(context) / 1.9),
               items: imageSliders(context),
               carouselController: viewModel.controller,
@@ -133,15 +140,7 @@ class _IntroMobile extends StatelessWidget {
             child: Center(
                 child: Column(
               children: [
-                _bottomText("Lorem ipsum dolor sit amet,"),
-                SizedBox(
-                  height: 5,
-                ),
-                _bottomText("consectetur adipiscing elit, sed do"),
-                SizedBox(
-                  height: 5,
-                ),
-                _bottomText("eiusmod tempor incid"),
+                _bottomText(viewModel.bottomText),
               ],
             )),
           ),
