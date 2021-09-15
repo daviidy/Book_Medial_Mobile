@@ -103,7 +103,7 @@ class _CompteInfoMobile extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(left: 15),
                 child: TextButton(
-                  onPressed: () => Navigator.pushNamed(context, '/compte-info-update', arguments: viewModel.userData!.email),
+                  onPressed: () => viewModel.activeUpdate(context),
                   child: Row(
                     children: [
                       AutoSizeText(

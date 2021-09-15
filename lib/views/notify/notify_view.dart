@@ -16,7 +16,12 @@ part 'notify_mobile.dart';
 part 'notify_tablet.dart';
 part 'notify_desktop.dart';
 
-class NotifyView extends StatelessWidget {
+class NotifyView extends StatefulWidget {
+  @override
+  _NotifyViewState createState() => _NotifyViewState();
+}
+
+class _NotifyViewState extends State<NotifyView> with TickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     NotifyViewModel viewModel = NotifyViewModel();
@@ -24,6 +29,7 @@ class NotifyView extends StatelessWidget {
         viewModel: viewModel,
         onModelReady: (viewModel) {
           // Do something once your viewModel is initialized
+          viewModel.tabController = new TabController(length: 2, vsync: this);
           viewModel.init(context);
         },
         builder: (context, viewModel, child) {

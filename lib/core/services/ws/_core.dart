@@ -1,3 +1,4 @@
+import 'dart:io';
 
 import 'package:book_medial/core/services/database_service.dart';
 import 'package:book_medial/utils/constant.dart';
@@ -16,13 +17,16 @@ class WsCore {
     var _mode = await _storage.getItem("mode");
     print(_mode);
 
-    if (_mode == "DEV") {
-      return Constant.baseUrlPreProd;
+    if (_mode == "PROD") {
+      return Constant.baseUrlProd;
     }
-    return Constant.baseUrlProd;
+    return Constant.baseUrlPreProd;
   }
 
-  static Future get({required String endpoint, String? token, Map<String, dynamic>? queryParameters}) async {
+  static Future get(
+      {required String endpoint,
+      String? token,
+      Map<String, dynamic>? queryParameters}) async {
     var client = http.Client();
     Map<String, String> headers = {"Authorization": "Bearer $token"};
 
@@ -41,7 +45,11 @@ class WsCore {
     }
   }
 
-  static Future post({required String endpoint, data, String? token, Map<String, dynamic>? queryParameters}) async {
+  static Future post(
+      {required String endpoint,
+      data,
+      String? token,
+      Map<String, dynamic>? queryParameters}) async {
     var client = http.Client();
     Map<String, String> headers = {
       "Content-Type": "application/json",
@@ -62,6 +70,40 @@ class WsCore {
       return uriResponse;
     } finally {
       client.close();
+    }
+  }
+
+  static Future postFile(
+      {required String endpoint,
+      data,
+      String? token,
+      Map<String, dynamic>? queryParameters}) async {
+    // var client = http.Client();
+
+    // Map<String, String> headers = {
+    //   "Content-Type": "application/json",
+    //   "Accept": "application/json",
+    //   "Authorization": "Bearer $token",
+    // };
+
+    try {
+      var request = http.MultipartRequest('POST',
+          Uri.https(await baseUrl(), "/api" + endpoint, queryParameters));
+
+      request.files.add(http.MultipartFile(
+          'image',
+          File(data["image"]).readAsBytes().asStream(),
+          File(data["image"]).lengthSync(),
+          filename: data["image"].split("/").last));
+      
+      request.fields["name"] = data["name"];
+      request.headers["Authorization"] = "Bearer $token";
+
+      var uriResponse = await request.send();
+
+      return uriResponse;
+    } finally {
+      // client.close();
     }
   }
 
@@ -89,7 +131,4 @@ class WsCore {
       client.close();
     }
   }
-
-
-  
 }

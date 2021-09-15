@@ -134,7 +134,8 @@ class RoomPaiementViewModel extends BaseViewModel {
     var res = await showDialog(
         context: context,
         builder: (BuildContext context) {
-          return new PaiementWebView(url: this.webView, succesUrl: this.qrcodeLink);
+          return new PaiementWebView(
+              url: this.webView, succesUrl: this.qrcodeLink);
         });
 
     if (res != null) {
@@ -149,6 +150,12 @@ class RoomPaiementViewModel extends BaseViewModel {
             });
       }
     }
+  }
+
+  end(context) {
+    Navigator.pop(context);
+    Navigator.pop(context);
+    Navigator.pop(context);
   }
 
   // Add ViewModel specific code here

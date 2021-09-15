@@ -202,7 +202,8 @@ class _RoomDisponibleMobile extends StatelessWidget {
     return Container(
       margin: EdgeInsets.all(10),
       child: ShareWidget.boxReservationn1(
-        labelText: 'Désolé il n’y pas de disponibilité pour la période choisie',
+        maxLines: 3,
+        labelText: 'Désolé il n’y pas de disponibilité pour la période du ${viewModel.sPropParam.sejourValue}',
         context: context,
         backgroundColor: Color(0xffFFF1F1),
         body: Container(),
@@ -255,54 +256,57 @@ class _RoomDisponibleMobile extends StatelessWidget {
               ),
               if(viewModel.isPropDispo || viewModel.freeRoom!.length > 0)
               _title(context),
-              if(viewModel.isPropDispo || viewModel.freeRoom!.length > 0)
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 0),
-                child: Row(
-                  children: [
-                    Expanded(flex: 2, child: Container()),
-                    Expanded(
-                      flex: 1,
-                      child: TextButton(
-                        onPressed: () => null,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Expanded(
-                              flex: 4,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  AutoSizeText(
-                                    "Trier par",
-                                    maxLines: 1,
-                                    maxFontSize: 12,
-                                    minFontSize: 12,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: AppTheme.globalFont(TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12,
-                                        color: Colors.black)),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Image.asset("assets/icons/filtre.png"),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+              SizedBox(
+                height: 30,
               ),
+              // if(viewModel.isPropDispo || viewModel.freeRoom!.length > 0)
+              // Container(
+              //   margin: EdgeInsets.symmetric(horizontal: 0),
+              //   child: Row(
+              //     children: [
+              //       Expanded(flex: 2, child: Container()),
+              //       Expanded(
+              //         flex: 1,
+              //         child: TextButton(
+              //           onPressed: () => null,
+              //           child: Row(
+              //             mainAxisAlignment: MainAxisAlignment.end,
+              //             children: [
+              //               Expanded(
+              //                 flex: 4,
+              //                 child: Column(
+              //                   crossAxisAlignment: CrossAxisAlignment.end,
+              //                   children: [
+              //                     AutoSizeText(
+              //                       "Trier par",
+              //                       maxLines: 1,
+              //                       maxFontSize: 12,
+              //                       minFontSize: 12,
+              //                       overflow: TextOverflow.ellipsis,
+              //                       style: AppTheme.globalFont(TextStyle(
+              //                           fontWeight: FontWeight.w600,
+              //                           fontSize: 12,
+              //                           color: Colors.black)),
+              //                     ),
+              //                   ],
+              //                 ),
+              //               ),
+              //               Expanded(
+              //                 flex: 1,
+              //                 child: Column(
+              //                   crossAxisAlignment: CrossAxisAlignment.end,
+              //                   children: [
+              //                     Image.asset("assets/icons/filtre.png"),
+              //                   ],
+              //                 ),
+              //               )
+              //             ],
+              //           ),
+              //         ),
+              //       )
+              //     ],
+              //   ),
+              // ),
               Expanded(
                 child: SingleChildScrollView(
                   child: Container(
@@ -316,8 +320,8 @@ class _RoomDisponibleMobile extends StatelessWidget {
             ],
           ),
         ),
-        bottomNavigationBar: BottomMenuWidget.home(
+        bottomNavigationBar: (viewModel.isBottom) ? BottomMenuWidget.home(
           context: context,
-        ));
+        ):null);
   }
 }

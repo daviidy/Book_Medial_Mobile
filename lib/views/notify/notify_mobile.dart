@@ -166,7 +166,8 @@ class _NotifyMobile extends StatelessWidget {
       padding: EdgeInsets.all(10),
       child: Column(
         children: [
-          _filterBox(context),
+          //_filterBox(context),
+          SizedBox(height: 30,),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -198,7 +199,8 @@ class _NotifyMobile extends StatelessWidget {
       padding: EdgeInsets.all(10),
       child: Column(
         children: [
-          _filterBox(context),
+          //_filterBox(context),
+          SizedBox(height: 30,),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -295,6 +297,8 @@ class _NotifyMobile extends StatelessWidget {
                 child: Material(
                   color: Color(0xffFFFCE2),
                   child: TabBar(
+                    controller: viewModel.tabController,
+                    //onTap: (index) => viewModel.onTapTab(index, context),
                     indicatorColor: LightColor.primary,
                     indicator: BoxDecoration(
                         border: Border(
@@ -361,6 +365,7 @@ class _NotifyMobile extends StatelessWidget {
               ),
               Expanded(
                 child: TabBarView(
+                  controller: viewModel.tabController,
                   children: [_reservationBox(context), _favoryBox(context)],
                 ),
               ),

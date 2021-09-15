@@ -126,7 +126,8 @@ class _LoginMobile extends StatelessWidget {
                                   width: 5,
                                 ),
                                 AutoSizeText(
-                                  "Inscrivez-vous avec Google",
+                                  "Connectez-vous avec Google",
+                                  minFontSize: 9,
                                   style: AppTheme.globalFont(TextStyle(
                                     fontSize: 14,
                                     color: Colors.black,

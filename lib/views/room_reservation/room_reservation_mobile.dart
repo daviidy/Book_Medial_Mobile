@@ -423,8 +423,8 @@ class _RoomReservationMobile extends StatelessWidget {
             ),
           ),
         ),
-        bottomNavigationBar: BottomMenuWidget.home(
+        bottomNavigationBar: (viewModel.isBottom) ? BottomMenuWidget.home(
           context: context,
-        ));
+        ):null);
   }
 }

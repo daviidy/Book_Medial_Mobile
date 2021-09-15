@@ -509,6 +509,7 @@ class _HomeMobile extends StatelessWidget {
                             fontWeight: FontWeight.w600, fontSize: 18)),
                       ),
                     ),
+                    if (viewModel.isLogin)
                     ShareWidget.boxHotel2(
                         context: context,
                         width: AppTheme.fullWidth(context),
@@ -679,7 +680,7 @@ class _HomeMobile extends StatelessWidget {
                               height: 5,
                             ),
                             TextButton(
-                              onPressed: () => null,
+                              onPressed: () => viewModel.registerPropriety(),
                               child: ShareWidget.button(
                                   context: context,
                                   backgoundColor: Colors.white,

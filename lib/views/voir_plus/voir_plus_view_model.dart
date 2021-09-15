@@ -230,6 +230,10 @@ class VoirPlusViewModel extends BaseViewModel {
   }
 
   detailProperty(context, Property property) {
-    Navigator.pushNamed(context, "/room", arguments: property);
+    VpParam param = VpParam(
+        label: "",
+        type: VpParamType.property,
+        data: {"property": property, "isBottom": true});
+    Navigator.pushNamed(context, "/room", arguments: param);
   }
 }

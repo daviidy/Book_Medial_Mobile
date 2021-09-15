@@ -484,8 +484,7 @@ class _RoomMobile extends StatelessWidget {
                         height: 30,
                       ),
                       TextButton(
-                        onPressed: () =>
-                            Navigator.pushNamed(context, '/room-disponible', arguments: viewModel.property),
+                        onPressed: () => viewModel.disponibility(context),
                         child: ShareWidget.button(
                             context: context,
                             title: "Voir les disponibilités",
@@ -504,8 +503,8 @@ class _RoomMobile extends StatelessWidget {
             ),
           ),
         ),
-        bottomNavigationBar: BottomMenuWidget.home(
+        bottomNavigationBar: (viewModel.isBottom) ? BottomMenuWidget.home(
           context: context,
-        ));
+        ): null);
   }
 }

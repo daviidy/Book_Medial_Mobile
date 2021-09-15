@@ -188,6 +188,43 @@ class ShareWidget {
     );
   }
 
+
+static Widget headerStyle4({
+    required BuildContext context,
+    String? text1 = "",
+    onPressed
+  }) {
+    return Container(
+      padding: EdgeInsets.only(right: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          TextButton(
+            onPressed: onPressed,
+            child: Container(
+                padding: EdgeInsets.only(top: 5),
+                child: Image.asset("assets/icons/right-arrow.png")),
+          ),
+          Expanded(
+            child: AutoSizeText(
+              "$text1",
+              maxLines: 1,
+              maxFontSize: 18,
+              minFontSize: 18,
+              overflow: TextOverflow.ellipsis,
+              style: AppTheme.globalFont(TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: const Color(0xff313450),
+              )),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   static Widget input(
       {required String name,
       String? labelText,
@@ -1364,6 +1401,7 @@ class ShareWidget {
   static Widget boxReservationn1(
       {required BuildContext context,
       required Widget body,
+      int maxLines = 2,
       Color backgroundColor = const Color(0xFFF6F6F6),
       required String labelText}) {
     return ShareWidget.boxMain(
@@ -1379,7 +1417,7 @@ class ShareWidget {
             children: [
               AutoSizeText(
                 "$labelText",
-                maxLines: 2,
+                maxLines: maxLines,
                 maxFontSize: 18,
                 minFontSize: 18,
                 overflow: TextOverflow.ellipsis,

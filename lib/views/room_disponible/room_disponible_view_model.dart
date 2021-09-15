@@ -24,6 +24,13 @@ class RoomDisponibleViewModel extends BaseViewModel {
   DateTime initialDate = DateTime.now();
   final DatabaseService storage = new DatabaseService();
 
+  bool _isBottom = true;
+  bool get isBottom => this._isBottom;
+  set isBottom(bool value) {
+    this._isBottom = value;
+    notifyListeners();
+  }
+
   SearchPropertyParam get sPropParam => this._sPropParam;
   set sPropParam(SearchPropertyParam value) {
     this._sPropParam = value;
@@ -69,7 +76,10 @@ class RoomDisponibleViewModel extends BaseViewModel {
   // Add ViewModel specific code here
 
   init(context) async {
-    this.property = ModalRoute.of(context)?.settings.arguments as Property;
+    VpParam _param = ModalRoute.of(context)?.settings.arguments as VpParam;
+    this.property = _param.data["property"] as Property;
+    this.isBottom = _param.data["isBottom"] as bool;
+
     this.isHotel = this.property.property_type!.name!.contains('Hôtel');
     this.sPropParam =
         SearchPropertyParam.fromJson(await this.storage.getItem("searchData"));
@@ -84,13 +94,15 @@ class RoomDisponibleViewModel extends BaseViewModel {
       param.data = {
         "free_room": freeRoom,
         "property": this.property,
-        "sPropParam": this.sPropParam
+        "sPropParam": this.sPropParam,
+        "isBottom": this.isBottom
       };
     } else {
       param.data = {
         "free_room": freeRoom,
         "property": this.property,
-        "sPropParam": this.sPropParam
+        "sPropParam": this.sPropParam,
+        "isBottom": this.isBottom
       };
     }
     Navigator.pushNamed(context, "/room-reservation", arguments: param);
@@ -135,6 +147,8 @@ class RoomDisponibleViewModel extends BaseViewModel {
         this.sPropParam.sejourEnd = picked.end.toIso8601String();
         this.sPropParam.sejourValue =
             "${DateFormat('dd MMM', 'fr').format(picked.start)} - ${DateFormat('dd MMM', 'fr').format(picked.end)}";
+        SearchPropertyParam _sp = new SearchPropertyParam.fromJson(this.sPropParam.toJson());
+        await this.storage.setItem("searchData", _sp.toJson());
         notifyListeners();
       }
     } catch (e) {

@@ -32,7 +32,9 @@ class BottomMenuWidget {
           Expanded(
               child: Container(
                   child: TextButton(
-                      onPressed: () => Navigator.pushNamed(context, "/notification"),
+                      onPressed: () async => ((await storage.getItem("userData") != null))
+                      ? Navigator.pushNamed(context, "/notification")
+                      : Navigator.pushNamed(context, "/login"),
                       child: Image.asset("assets/icons/notification.png")))),
           Expanded(
               child: Container(
@@ -78,7 +80,9 @@ class BottomMenuWidget {
           Expanded(
               child: Container(
                   child: TextButton(
-                      onPressed: () => (disable) ? null : Navigator.pushNamed(context, "/notification"),
+                      onPressed: () async => ((await storage.getItem("userData") != null))
+                      ? Navigator.pushNamed(context, "/notification")
+                      : Navigator.pushNamed(context, "/login"),
                       child: Image.asset(
                           "assets/icons/notification-active.png")))),
           Expanded(
@@ -124,7 +128,9 @@ class BottomMenuWidget {
           Expanded(
               child: Container(
                   child: TextButton(
-                      onPressed: () => Navigator.pushNamed(context, "/notification"),
+                      onPressed: () async => ((await storage.getItem("userData") != null))
+                      ? Navigator.pushNamed(context, "/notification")
+                      : Navigator.pushNamed(context, "/login"),
                       child: Image.asset("assets/icons/notification.png")))),
           Expanded(
               child: Container(

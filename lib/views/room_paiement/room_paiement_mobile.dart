@@ -456,7 +456,8 @@ class _RoomPaiementMobile extends StatelessWidget {
             ),
             Container(
                 margin: EdgeInsets.symmetric(horizontal: 10),
-                child: ShareWidget.headerStyle2(
+                child: ShareWidget.headerStyle4(
+                  onPressed: () => viewModel.end(context),
                     context: context, text1: "Retour")),
             SizedBox(
               height: AppTheme.fullHeight(context) / 10,

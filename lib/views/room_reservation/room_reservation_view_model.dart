@@ -48,6 +48,13 @@ class RoomReservationViewModel extends BaseViewModel {
 
   bool _loader = false;
 
+  bool _isBottom = true;
+  bool get isBottom => this._isBottom;
+  set isBottom(bool value) {
+    this._isBottom = value;
+    notifyListeners();
+  }
+
   bool get loader => this._loader;
   set loader(bool value) {
     this._loader = value;
@@ -137,7 +144,9 @@ class RoomReservationViewModel extends BaseViewModel {
   init(context) async {
     VpParam _param = ModalRoute.of(context)?.settings.arguments as VpParam;
     this.property = _param.data["property"] as Property;
-    this.sPropParam = _param.data["sPropParam"] as SearchPropertyParam;
+    this.sPropParam = SearchPropertyParam.fromJson((_param.data["sPropParam"] as SearchPropertyParam).toJson());
+    this.isBottom = _param.data["isBottom"] as bool;
+
     DateTime _start = DateTime.parse(this.sPropParam.sejourStart as String);
     DateTime _end = DateTime.parse(this.sPropParam.sejourEnd as String);
     this.sPropParam.sejourValue =

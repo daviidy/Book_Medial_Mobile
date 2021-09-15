@@ -1,5 +1,6 @@
 import 'package:book_medial/core/base/base_view_model.dart';
 import 'package:book_medial/core/models/propertie_models.dart';
+import 'package:book_medial/core/models/session_models.dart';
 import 'package:book_medial/core/services/database_service.dart';
 import 'package:book_medial/utils/shared.dart';
 import 'package:book_medial/widgets/photo_full/photo_full_view.dart';
@@ -20,6 +21,7 @@ class RoomViewModel extends BaseViewModel {
   bool _isHotel = false;
 
   bool _isFavory = false;
+  bool _isBottom = true;
 
   int _current = 0;
   final CarouselController controller = CarouselController();
@@ -34,6 +36,12 @@ class RoomViewModel extends BaseViewModel {
   bool get isHotel => this._isHotel;
   set isHotel(bool value) {
     this._isHotel = value;
+    notifyListeners();
+  }
+
+  bool get isBottom => this._isBottom;
+  set isBottom(bool value) {
+    this._isBottom = value;
     notifyListeners();
   }
 
@@ -58,11 +66,22 @@ class RoomViewModel extends BaseViewModel {
   // Add ViewModel specific code here
 
   init(context) {
-    this.property = ModalRoute.of(context)?.settings.arguments as Property;
+    VpParam _param = ModalRoute.of(context)?.settings.arguments as VpParam;
+    this.property = _param.data["property"] as Property;
+    this.isBottom = _param.data["isBottom"] as bool;
+
     print("${this.property.medias}");
     print(this.property.property_type!.name!.contains('Hôtel'));
     this.isHotel = this.property.property_type!.name!.contains('Hôtel');
     this.initFavory();
+  }
+
+  disponibility(context) {
+    VpParam param = VpParam(
+        label: "",
+        type: VpParamType.property,
+        data: {"property": property, "isBottom": this.isBottom});
+    Navigator.pushNamed(context, '/room-disponible', arguments: param);
   }
 
   swithMenu(index) {
@@ -117,7 +136,8 @@ class RoomViewModel extends BaseViewModel {
   }
 
   addFavory() async {
-    FavoryProperty _favoryData = FavoryProperty.fromJson(await this.storage.getItem("favoryData")) ;
+    FavoryProperty _favoryData =
+        FavoryProperty.fromJson(await this.storage.getItem("favoryData"));
     if (this.isFavory) {
       _favoryData.list.removeWhere((p) => p.id == this.property.id);
       await this.storage.setItem("favoryData", _favoryData.toJson());

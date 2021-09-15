@@ -1,7 +1,5 @@
 class Constant {
-  static String copyRight = "Tous droits réservés | © 2020 - OLEA";
-  static final String loginVEOS = "APPMOB";
-  static final String passVEOS = "Password";
+  static final String env = "DEV"; // DEV - PROD
 
   static final String baseUrlProd = "api.bookmedial.com";
   static final String baseWebUrlProd = "bookmedial.com";
@@ -16,4 +14,5 @@ class Constant {
 
   static final String buySuccessUrl = "$baseWebUrlPreProd/thank-you";
   static final String buyEchecUrl = "$baseWebUrlPreProd/errorPurchase";
+  static final String registerHeberge = "https://$baseWebUrlPreProd/join";
 }

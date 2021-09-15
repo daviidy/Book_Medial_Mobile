@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:book_medial/core/models/session_models.dart';
 import 'package:book_medial/core/services/database_service.dart';
 import 'package:book_medial/core/services/ws/_core.dart';
+import 'package:book_medial/utils/constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -31,7 +32,7 @@ class WsAuth {
         await _storage.setItem("userData", rpReponse["user"]);
         await _storage.setItem("userLogin", data);
         await _storage.setItem("socialLogin", false);
-        await _storage.setItem("mode", "DEV");
+        await _storage.setItem("mode", Constant.env);
         rp.status = true;
       } else {
         rp.message =
@@ -115,7 +116,7 @@ class WsAuth {
         data: jsonEncode(data),
         endpoint: "/profile/update",
         token: await _storage.getItem("token"));
-        
+
     if (reponse.statusCode == 200) {
       Map rpReponse = jsonDecode(utf8.decode(reponse.bodyBytes));
       if (rpReponse["user"]["type"] == "client") {
@@ -126,6 +127,21 @@ class WsAuth {
     } else {
       Map rpReponse = jsonDecode(utf8.decode(reponse.bodyBytes));
       print(rpReponse);
+    }
+
+    return rp;
+  }
+
+  static Future<WsResponse> updateImage({data}) async {
+    WsResponse rp = new WsResponse();
+
+    StreamedResponse reponse = await WsCore.postFile(
+        data: data,
+        endpoint: "/profile/update",
+        token: await _storage.getItem("token"));
+    print(reponse);
+    if (reponse.statusCode == 200) {
+      rp = await refreshSession();
     }
 
     return rp;

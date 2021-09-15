@@ -17,6 +17,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_webservice/geocoding.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeViewModel extends BaseViewModel {
   final GlobalKey<FormBuilderState> searchFormKey =
@@ -180,7 +181,11 @@ class HomeViewModel extends BaseViewModel {
   }
 
   detailProperty(context, Property property) {
-    Navigator.pushNamed(context, "/room", arguments: property);
+    VpParam param = VpParam(
+        label: "",
+        type: VpParamType.property,
+        data: {"property": property, "isBottom": true});
+    Navigator.pushNamed(context, "/room", arguments: param);
   }
 
   moveToTop() {
@@ -411,6 +416,11 @@ class HomeViewModel extends BaseViewModel {
     Navigator.pushNamed(context, "/voir-plus", arguments: param);
   }
 
-  /******* Formulaire de recherche END *******************/
+  /******* Formulaire de recherche END ****++**************/
 
+  void registerPropriety() async => await canLaunch(Constant.registerHeberge)
+      ? await launch(Constant.registerHeberge)
+      : SharedFunc.toast(
+          msg: "Une erreur s'est produite lors de la rédirection",
+          toastLength: Toast.LENGTH_LONG);
 }

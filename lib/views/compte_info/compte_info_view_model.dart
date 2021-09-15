@@ -15,6 +15,7 @@ class CompteInfoViewModel extends BaseViewModel {
   bool _obscureMp = true;
   bool _onUpdate = false;
   UserModel? _userData;
+  bool? isSocial;
 
   bool get obscureMp => this._obscureMp;
   set obscureMp(bool value) {
@@ -38,14 +39,21 @@ class CompteInfoViewModel extends BaseViewModel {
 
   init() async {
     this.userData = UserModel.fromJson(await this.storage.getItem("userData"));
+    this.isSocial = await this.storage.getItem("socialLogin");
   }
+
   save(context) {
     Navigator.pop(context);
     SharedFunc.toast(msg: "Mise à jour effectuée avec succès");
   }
 
   activeUpdate(context) {
-    this.onUpdate = true;
-    SharedFunc.toast(msg: "Le champs Mot de passe est active");
+    if (this.isSocial == true) {
+      SharedFunc.toast(msg: "Action invalide car votre compte a été créé via social media");
+    } else {
+       Navigator.pushNamed(context, '/compte-info-update',
+        arguments: this.userData!.email);
+    }
+   
   }
 }
