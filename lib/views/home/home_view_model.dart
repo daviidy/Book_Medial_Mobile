@@ -99,7 +99,7 @@ class HomeViewModel extends BaseViewModel {
       this.isLogin = true;
       UserModel userData = UserModel.fromJson(session);
       print(userData.name);
-      this.loadPopular();
+      this.loadPopular(context);
       this.loadLast();
     }
 
@@ -115,9 +115,9 @@ class HomeViewModel extends BaseViewModel {
     this.initSearch();
   }
 
-  loadPopular() async {
+  loadPopular(context) async {
     this.isLoadPopular = true;
-    WsResponse rp = await WsProperty.popular();
+    WsResponse rp = await WsProperty.popular(context);
     if (rp.status) {
       for (var item in rp.reponse!["data"]) {
         this._popularDataAll.add(PopularProperty.fromJson(item));

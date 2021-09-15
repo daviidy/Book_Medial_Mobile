@@ -6,10 +6,13 @@ import 'package:book_medial/core/models/session_models.dart';
 import 'package:book_medial/core/services/database_service.dart';
 import 'package:book_medial/core/services/ws/_core.dart';
 import 'package:book_medial/utils/constant.dart';
+import 'package:book_medial/views/home/home_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart';
+import 'package:page_transition/page_transition.dart';
 
 class WsAuth {
   static final DatabaseService _storage = new DatabaseService();
@@ -32,7 +35,6 @@ class WsAuth {
         await _storage.setItem("userData", rpReponse["user"]);
         await _storage.setItem("userLogin", data);
         await _storage.setItem("socialLogin", false);
-        await _storage.setItem("mode", Constant.env);
         rp.status = true;
       } else {
         rp.message =
@@ -41,6 +43,21 @@ class WsAuth {
     }
 
     return rp;
+  }
+
+  static Future<void> logout(context) async {
+    await _storage.deleteItem("token");
+    await _storage.deleteItem("userData");
+    await _storage.deleteItem("userLogin");
+    await _storage.deleteItem("socialLogin");
+    await _storage.deleteItem("mode");
+    await FirebaseAuth.instance.signOut();
+    await FacebookAuth.instance.logOut();
+    Navigator.pushAndRemoveUntil(
+      context,
+      PageTransition(type: PageTransitionType.fade, child: HomeView()),
+      (route) => false,
+    );
   }
 
   static Future<WsResponse> register({data}) async {

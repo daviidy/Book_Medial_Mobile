@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:book_medial/core/base/base_view_model.dart';
 import 'package:book_medial/core/models/session_models.dart';
@@ -6,14 +5,10 @@ import 'package:book_medial/core/models/user_medels.dart';
 import 'package:book_medial/core/services/database_service.dart';
 import 'package:book_medial/core/services/ws/ws_auth.dart';
 import 'package:book_medial/utils/shared.dart';
-import 'package:book_medial/views/home/home_view.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:page_transition/page_transition.dart';
 
 class CompteViewModel extends BaseViewModel {
   CompteViewModel();
@@ -55,18 +50,7 @@ class CompteViewModel extends BaseViewModel {
   logout(context) async {
     // await this.storage.clear();
     // await this.storage.deleteItem("favoryData");
-    await this.storage.deleteItem("token");
-    await this.storage.deleteItem("userData");
-    await this.storage.deleteItem("userLogin");
-    await this.storage.deleteItem("socialLogin");
-    await this.storage.deleteItem("mode");
-    await FirebaseAuth.instance.signOut();
-    await FacebookAuth.instance.logOut();
-    Navigator.pushAndRemoveUntil(
-      context,
-      PageTransition(type: PageTransitionType.fade, child: HomeView()),
-      (route) => false,
-    );
+    WsAuth.logout(context);
   }
 
   Future<void> updatePhoto(context) async {
@@ -152,6 +136,8 @@ class CompteViewModel extends BaseViewModel {
 
   onErrorLoadPhoto(object, stark) {
     this.profilPhoto = null;
-    SharedFunc.toast(msg: "Une erreur s'est produite lors du chargement de la photo de profil");
+    SharedFunc.toast(
+        msg:
+            "Une erreur s'est produite lors du chargement de la photo de profil");
   }
 }

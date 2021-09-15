@@ -12,7 +12,7 @@ import 'package:intl/intl.dart';
 class WsProperty {
   static final DatabaseService _storage = new DatabaseService();
 
-  static Future<WsResponse> popular() async {
+  static Future<WsResponse> popular(context) async {
     WsResponse rp = new WsResponse();
     // refresh token
     await WsAuth.refreshSession();
@@ -24,6 +24,10 @@ class WsProperty {
       Map reponseData = jsonDecode(utf8.decode(reponse.bodyBytes));
       rp.reponse = reponseData;
       rp.status = true;
+    } else {
+      print(reponse.statusCode);
+      //if (reponse.statusCode == 401) 
+      WsAuth.logout(context);
     }
     return rp;
   }

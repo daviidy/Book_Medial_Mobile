@@ -44,8 +44,9 @@ class _CompteMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: LoadingOverlay(
-          isLoading: viewModel.loader,
+          color: Colors.black38,
           progressIndicator: spinkit10,
+          isLoading: viewModel.loader,
           child: SingleChildScrollView(
             child: Container(
               child: Column(
@@ -60,14 +61,15 @@ class _CompteMobile extends StatelessWidget {
                           onPressed: () => Navigator.pop(context),
                           child: Container(
                               padding: EdgeInsets.only(top: 5),
-                              child: Image.asset("assets/icons/right-arrow.png")),
+                              child:
+                                  Image.asset("assets/icons/right-arrow.png")),
                         ),
                         Container(
                             child: Image.asset(
                           "assets/images/logo-book-medial.png",
                           height: 50,
                         )),
-        
+
                         // AutoSizeText.rich(TextSpan(
                         //     style: AppTheme.globalFont(TextStyle(
                         //         fontSize: 36, fontWeight: FontWeight.w700)),
@@ -87,8 +89,8 @@ class _CompteMobile extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    padding:
-                        EdgeInsets.only(top: 30, right: 20, left: 20, bottom: 30),
+                    padding: EdgeInsets.only(
+                        top: 30, right: 20, left: 20, bottom: 30),
                     child: Row(
                       children: [
                         Expanded(
@@ -101,14 +103,16 @@ class _CompteMobile extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50.0),
                                     border: Border.all(
-                                        width: 1.0, color: LightColor.primary),
+                                        width: 1.0, color: Colors.black),
                                     //color: LightColor.primary,
                                     image: (viewModel.profilPhoto != null)
                                         ? DecorationImage(
-                                            image: NetworkImage("${viewModel.profilPhoto}"),
+                                            image: NetworkImage(
+                                                "${viewModel.profilPhoto}"),
                                             fit: BoxFit.cover,
-                                            onError: (object, stark) => viewModel.onErrorLoadPhoto(object, stark)
-                                          )
+                                            onError: (object, stark) =>
+                                                viewModel.onErrorLoadPhoto(
+                                                    object, stark))
                                         : null,
                                   ),
                                   child: (viewModel.profilPhoto != null)
@@ -224,7 +228,7 @@ class _CompteMobile extends StatelessWidget {
             ),
           ),
         ),
-        bottomNavigationBar:
+        bottomNavigationBar: (viewModel.loader) ? null :
             BottomMenuWidget.profil(context: context, disable: true));
   }
 }
