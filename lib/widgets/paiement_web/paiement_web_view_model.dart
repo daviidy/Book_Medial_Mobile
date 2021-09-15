@@ -24,7 +24,7 @@ class PaiementWebViewModel extends BaseViewModel {
       print("url");
       print(url);
 
-      if (url.contains(this.successUrl)) {
+      if (url.contains(Constant.buySuccessUrl)) {
         Navigator.pop(context, "success");
       }
 

@@ -8,6 +8,7 @@ import 'package:book_medial/core/models/user_medels.dart';
 import 'package:book_medial/core/services/database_service.dart';
 import 'package:book_medial/core/services/ws/ws_auth.dart';
 import 'package:book_medial/core/services/ws/ws_booking.dart';
+import 'package:book_medial/theme/light_color.dart';
 import 'package:book_medial/utils/shared.dart';
 import 'package:book_medial/widgets/country_box/country_box_view.dart';
 import 'package:book_medial/widgets/nbre_chambre_box/nbre_chambre_box_view.dart';
@@ -206,7 +207,7 @@ class RoomReservationViewModel extends BaseViewModel {
       "endTime": "$_hd:$_md",
     };
 
-    if(this.isHotel) queryData["roomType"] = this.freeRoom.room_type_id as int;
+    if (this.isHotel) queryData["roomType"] = this.freeRoom.room_type_id as int;
 
     // user update info
     this.updateUserData();
@@ -325,6 +326,21 @@ class RoomReservationViewModel extends BaseViewModel {
     try {
       final DateTime? picked = await showDatePicker(
         context: context,
+        builder: (BuildContext context, Widget? child) {
+          return Theme(
+            data: ThemeData.dark().copyWith(
+              colorScheme: ColorScheme.dark(
+                primary: LightColor.primary,
+                onPrimary: Colors.white,
+                surface: LightColor.primary,
+                onSurface: Colors.black,
+                brightness: Brightness.light
+              ),
+              dialogBackgroundColor: Colors.white,
+            ),
+            child: child as Widget,
+          );
+        },
         firstDate: this.initialDate,
         helpText: 'Sélectionnez une date',
         currentDate: this.initialDate,

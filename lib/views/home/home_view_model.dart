@@ -31,6 +31,7 @@ class HomeViewModel extends BaseViewModel {
   bool _chowSearchResume = false;
   bool _isLoadPopular = false;
   bool _isLoadLast = false;
+  bool _isLoadProxy = false;
 
   List<PopularProperty> _popularData = [];
   List<PopularProperty> _popularDataAll = [];
@@ -70,6 +71,12 @@ class HomeViewModel extends BaseViewModel {
   bool get isLoadLast => this._isLoadLast;
   set isLoadLast(bool value) {
     this._isLoadLast = value;
+    notifyListeners();
+  }
+
+  bool get isLoadProxy => this._isLoadProxy;
+  set isLoadProxy(bool value) {
+    this._isLoadProxy = value;
     notifyListeners();
   }
 
@@ -185,6 +192,7 @@ class HomeViewModel extends BaseViewModel {
   }
 
   proxiSearch(context) async {
+    this.isLoadProxy = true;
     SearchPropertyParam _searche = this.sPropParam;
     this._currentPosition = await this.getPosition();
     if (this._currentPosition != null) {
@@ -203,8 +211,20 @@ class HomeViewModel extends BaseViewModel {
             type: VpParamType.autourDeMoi,
             data: {"seacheData": _searche, "position": this._currentPosition});
         Navigator.pushNamed(context, "/voir-plus", arguments: param);
+      } else {
+        SharedFunc.toast(
+            msg:
+                "Une erreur s'est produite lors de la recuperation de votre coordonnée gps",
+            toastLength: Toast.LENGTH_LONG);
       }
+    } else {
+      SharedFunc.toast(
+          msg:
+              "Une erreur s'est produite lors de la recuperation de votre coordonnée gps",
+          toastLength: Toast.LENGTH_LONG);
     }
+
+    this.isLoadProxy = false;
   }
 
   /// ***** Formulaire de recherche ********************/

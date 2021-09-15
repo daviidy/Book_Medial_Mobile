@@ -512,69 +512,82 @@ class _HomeMobile extends StatelessWidget {
                     ShareWidget.boxHotel2(
                         context: context,
                         width: AppTheme.fullWidth(context),
-                        padding: EdgeInsets.only(
-                            right: 20, left: 20, top: 0, bottom: 10),
+                        // padding: EdgeInsets.only(
+                        //     right: 0, left: 0, top: 0, bottom: 0),
                         height: 132,
                         margin: EdgeInsets.only(top: 30),
-                        body: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Row(
+                        body: LoadingOverlay(
+                          //color: Colors.black38,
+                          progressIndicator: spinkit7,
+                          isLoading: viewModel.isLoadProxy,
+                          child: Container(
+                            padding: EdgeInsets.only(
+                                right: 20, left: 20, top: 0, bottom: 10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Expanded(
-                                    flex: 1,
-                                    child: Image.asset("assets/icons/map.png")),
-                                // SizedBox(
-                                //   width: 10,
-                                // ),
-                                Expanded(
-                                  flex: 4,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      AutoSizeText(
-                                        "Autour de moi",
-                                        maxLines: 1,
-                                        maxFontSize: 18,
-                                        minFontSize: 18,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: AppTheme.globalFont(TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 18,
-                                            color: Colors.white)),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                        flex: 1,
+                                        child: Image.asset(
+                                            "assets/icons/map.png")),
+                                    // SizedBox(
+                                    //   width: 10,
+                                    // ),
+                                    Expanded(
+                                      flex: 4,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          AutoSizeText(
+                                            "Autour de moi",
+                                            maxLines: 1,
+                                            maxFontSize: 18,
+                                            minFontSize: 18,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: AppTheme.globalFont(
+                                                TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 18,
+                                                    color: Colors.white)),
+                                          ),
+                                          AutoSizeText(
+                                            "${viewModel.sPropParam.sejourValue}       ${viewModel.sPropParam.personsValue}",
+                                            maxLines: 1,
+                                            maxFontSize: 12,
+                                            minFontSize: 12,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: AppTheme.globalFont(
+                                                TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 12,
+                                                    color: Colors.white)),
+                                          ),
+                                        ],
                                       ),
-                                      AutoSizeText(
-                                        "${viewModel.sPropParam.sejourValue}       ${viewModel.sPropParam.personsValue}",
-                                        maxLines: 1,
-                                        maxFontSize: 12,
-                                        minFontSize: 12,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: AppTheme.globalFont(TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 12,
-                                            color: Colors.white)),
-                                      ),
-                                    ],
-                                  ),
-                                )
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 0,
+                                ),
+                                TextButton(
+                                  onPressed: () =>
+                                      viewModel.proxiSearch(context),
+                                  child: ShareWidget.button(
+                                      context: context,
+                                      backgoundColor: Colors.white,
+                                      borderWidth: 0.0,
+                                      title: "Recherche à proximité",
+                                      textColor: LightColor.primary,
+                                      height: 32,
+                                      margin: 0),
+                                ),
                               ],
                             ),
-                            SizedBox(
-                              height: 0,
-                            ),
-                            TextButton(
-                              onPressed: () => viewModel.proxiSearch(context),
-                              child: ShareWidget.button(
-                                  context: context,
-                                  backgoundColor: Colors.white,
-                                  borderWidth: 0.0,
-                                  title: "Recherche à proximité",
-                                  textColor: LightColor.primary,
-                                  height: 32,
-                                  margin: 0),
-                            ),
-                          ],
+                          ),
                         )),
                     if (!viewModel.isLogin)
                       ShareWidget.boxHotel2(

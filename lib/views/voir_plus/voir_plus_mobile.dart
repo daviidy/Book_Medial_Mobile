@@ -83,7 +83,7 @@ class _VoirPlusMobile extends StatelessWidget {
       }
       return _propData;
     } else {
-      return [this._box404(context, "Aucun trouvé")];
+      return [this._box404(context, "Désolé il n'y aucune propriété trouvée")];
     }
   }
 
@@ -102,7 +102,7 @@ class _VoirPlusMobile extends StatelessWidget {
               ))
           .toList();
     } else {
-      return [this._box404(context, "Aucun trouvé")];
+      return [this._box404(context, "Désolé il n'y aucune destination populaire trouvée")];
     }
   }
 
@@ -123,26 +123,38 @@ class _VoirPlusMobile extends StatelessWidget {
         .toList();
   }
 
+  // Widget _box404(context, label) {
+  //   return Container(
+  //     child: Column(
+  //       mainAxisAlignment: MainAxisAlignment.center,
+  //       children: [
+  //         SizedBox(
+  //           height: 20,
+  //         ),
+  //         Image.asset("assets/icons/data-not-found.png"),
+  //         SizedBox(
+  //           height: 20,
+  //         ),
+  //         AutoSizeText(
+  //           "$label",
+  //           style: AppTheme.globalFont(TextStyle(
+  //               fontSize: 18,
+  //               fontWeight: FontWeight.w600,
+  //               color: Color(0xffC4C4C4))),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
   Widget _box404(context, label) {
     return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: 20,
-          ),
-          Image.asset("assets/icons/data-not-found.png"),
-          SizedBox(
-            height: 20,
-          ),
-          AutoSizeText(
-            "$label",
-            style: AppTheme.globalFont(TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: Color(0xffC4C4C4))),
-          ),
-        ],
+      margin: EdgeInsets.all(10),
+      child: ShareWidget.boxReservationn1(
+        labelText: "$label",
+        context: context,
+        backgroundColor: Color(0xffFFF1F1),
+        body: Container(),
       ),
     );
   }
@@ -194,7 +206,7 @@ class _VoirPlusMobile extends StatelessWidget {
                     )
                   : Expanded(
                       child: ListView(
-                        controller: viewModel.scrollController,
+                      controller: viewModel.scrollController,
                       children: (viewModel.param.type == VpParamType.category)
                           ? _category(context)
                           : _property(context),

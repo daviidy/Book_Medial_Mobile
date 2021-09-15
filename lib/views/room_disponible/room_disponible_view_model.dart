@@ -153,6 +153,7 @@ class RoomDisponibleViewModel extends BaseViewModel {
   onSearch(context) async {
     this.isActiveSearch = false;
     this.isLoad = true;
+    this.freeRoom!.clear();
     WsResponse rp = await WsProperty.disponibility(
         searchData: this.sPropParam, property: this.property);
     if (rp.status) {

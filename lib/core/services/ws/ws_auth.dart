@@ -31,6 +31,7 @@ class WsAuth {
         await _storage.setItem("userData", rpReponse["user"]);
         await _storage.setItem("userLogin", data);
         await _storage.setItem("socialLogin", false);
+        await _storage.setItem("mode", "DEV");
         rp.status = true;
       } else {
         rp.message =

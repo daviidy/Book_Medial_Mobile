@@ -40,6 +40,7 @@ class CompteViewModel extends BaseViewModel {
     await this.storage.deleteItem("userData");
     await this.storage.deleteItem("userLogin");
     await this.storage.deleteItem("socialLogin");
+    await this.storage.deleteItem("mode");
     await FirebaseAuth.instance.signOut();
     await FacebookAuth.instance.logOut();
     Navigator.pushAndRemoveUntil(
