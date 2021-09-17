@@ -9,6 +9,7 @@ import 'package:book_medial/widgets/bottom_menu.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:flutter/material.dart';
+import 'package:skeleton_loader/skeleton_loader.dart';
 import 'notify_reserv_view_model.dart';
 
 part 'notify_reserv_mobile.dart';

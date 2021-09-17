@@ -8,12 +8,13 @@ class _RoomReservationMobile extends StatelessWidget {
   Widget _formBox(context) {
     return FormBuilder(
         key: viewModel.formKey,
-        initialValue: {},
+        initialValue: viewModel.formInit,
         autovalidateMode: AutovalidateMode.disabled,
         child: Column(
           children: <Widget>[
             ShareWidget.input(
               name: "name",
+              enabled: false,
               labelText: "Nom & prénoms",
               hintText: "${viewModel.userData?.name}",
               backgroundColors: Colors.white,

@@ -23,6 +23,8 @@ class RoomReservationViewModel extends BaseViewModel {
   RoomReservationViewModel();
   final GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
 
+  Map<String, dynamic> _formInit = {};
+
   final DatabaseService storage = new DatabaseService();
 
   bool _isHotel = false;
@@ -52,6 +54,12 @@ class RoomReservationViewModel extends BaseViewModel {
   bool get isBottom => this._isBottom;
   set isBottom(bool value) {
     this._isBottom = value;
+    notifyListeners();
+  }
+
+  Map<String, dynamic> get formInit => this._formInit;
+  set formInit(Map<String, dynamic> value) {
+    this._formInit = value;
     notifyListeners();
   }
 
@@ -144,13 +152,23 @@ class RoomReservationViewModel extends BaseViewModel {
   init(context) async {
     VpParam _param = ModalRoute.of(context)?.settings.arguments as VpParam;
     this.property = _param.data["property"] as Property;
-    this.sPropParam = SearchPropertyParam.fromJson((_param.data["sPropParam"] as SearchPropertyParam).toJson());
+    this.sPropParam = SearchPropertyParam.fromJson(
+        (_param.data["sPropParam"] as SearchPropertyParam).toJson());
     this.isBottom = _param.data["isBottom"] as bool;
 
     DateTime _start = DateTime.parse(this.sPropParam.sejourStart as String);
     DateTime _end = DateTime.parse(this.sPropParam.sejourEnd as String);
     this.sPropParam.sejourValue =
         "${DateFormat('EEE, d MMM, yyyy', 'fr').format(_start)} - ${DateFormat('EEE, d MMM, yyyy', 'fr').format(_end)}";
+
+    this.userData = UserModel.fromJson(await this.storage.getItem("userData"));
+    print(this.userData?.address);
+    print(this.userData?.phone);
+    this.formInit = {
+      "contact": this.userData?.phone,
+      "address": this.userData?.address,
+      "name": this.userData?.name
+    };
 
     this.countryList = CountryList.fromJson(COUNTRY_DATA_BASE);
     this.country = this
@@ -170,8 +188,6 @@ class RoomReservationViewModel extends BaseViewModel {
       this.freeRoom = _param.data["free_room"] as FreeRoom;
       this.isHotel = true;
     }
-
-    this.userData = UserModel.fromJson(await this.storage.getItem("userData"));
   }
 
   createReservation(context) async {
@@ -219,7 +235,7 @@ class RoomReservationViewModel extends BaseViewModel {
     if (this.isHotel) queryData["roomType"] = this.freeRoom.room_type_id as int;
 
     // user update info
-    this.updateUserData();
+    await this.updateUserData();
 
     print(queryData);
     WsResponse rp = await WsBooking.create(data: queryData);
@@ -262,14 +278,18 @@ class RoomReservationViewModel extends BaseViewModel {
   updateUserData() async {
     if (this.formKey.currentState!.saveAndValidate()) {
       Map form = new Map.from(formKey.currentState!.value);
-      if (form["contact"] != null)
-        this.userData?.phone = form["contact"] as String?;
-      if (form["address"] != null)
-        this.userData?.address = form["address"] as String?;
-      print(this.userData?.toJson());
+      Map data = {
+        "name": this.userData?.name
+      };
 
-      WsResponse rp = await WsAuth.update(
-          data: {"user_id": this.userData?.id, ...?this.userData?.toJson()});
+      if (form["contact"] != null) {
+        data["phone"] = form["contact"];
+      }
+      if (form["address"] != null) {
+        data["address"] = form["address"];
+      }
+
+      WsResponse rp = await WsAuth.update(data: data);
       print(rp.status);
       print(rp.reponse);
     }
@@ -307,7 +327,7 @@ class RoomReservationViewModel extends BaseViewModel {
             start: DateTime.parse(this.sPropParam.sejourStart as String),
             end: DateTime.parse(this.sPropParam.sejourEnd as String)),
         locale: Locale('fr'),
-        lastDate: DateTime(this.initialDate.year, this.initialDate.month + 1,
+        lastDate: DateTime(this.initialDate.year + 1, this.initialDate.month,
             this.initialDate.day),
       );
 
@@ -339,12 +359,11 @@ class RoomReservationViewModel extends BaseViewModel {
           return Theme(
             data: ThemeData.dark().copyWith(
               colorScheme: ColorScheme.dark(
-                primary: LightColor.primary,
-                onPrimary: Colors.white,
-                surface: LightColor.primary,
-                onSurface: Colors.black,
-                brightness: Brightness.light
-              ),
+                  primary: LightColor.primary,
+                  onPrimary: Colors.white,
+                  surface: LightColor.primary,
+                  onSurface: Colors.black,
+                  brightness: Brightness.light),
               dialogBackgroundColor: Colors.white,
             ),
             child: child as Widget,

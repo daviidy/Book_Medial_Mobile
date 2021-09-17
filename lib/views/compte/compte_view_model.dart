@@ -1,10 +1,10 @@
-
 import 'package:book_medial/core/base/base_view_model.dart';
 import 'package:book_medial/core/models/session_models.dart';
 import 'package:book_medial/core/models/user_medels.dart';
 import 'package:book_medial/core/services/database_service.dart';
 import 'package:book_medial/core/services/ws/ws_auth.dart';
 import 'package:book_medial/utils/shared.dart';
+import 'package:book_medial/widgets/photo_full/photo_full_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -98,8 +98,7 @@ class CompteViewModel extends BaseViewModel {
 
   pickFile(source) async {
     final pickedFile = await _picker.pickImage(
-      source: source,
-    );
+        source: source, imageQuality: 70, maxWidth: 200, maxHeight: 200);
     try {
       if (pickedFile != null) {
         this.saveImage(pickedFile);
@@ -132,6 +131,17 @@ class CompteViewModel extends BaseViewModel {
     }
 
     this.loader = false;
+  }
+
+  showPhoto(context, image) async {
+    await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return PhotoFullView(
+            photoUrl: image,
+            photoTag: "profil",
+          );
+        });
   }
 
   onErrorLoadPhoto(object, stark) {

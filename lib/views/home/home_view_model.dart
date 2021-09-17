@@ -33,6 +33,7 @@ class HomeViewModel extends BaseViewModel {
   bool _isLoadPopular = false;
   bool _isLoadLast = false;
   bool _isLoadProxy = false;
+  String? _profilPhoto;
 
   List<PopularProperty> _popularData = [];
   List<PopularProperty> _popularDataAll = [];
@@ -54,6 +55,12 @@ class HomeViewModel extends BaseViewModel {
   List<PopularProperty> get popularData => this._popularData;
   set popularData(List<PopularProperty> value) {
     this._popularData = value;
+    notifyListeners();
+  }
+
+  String? get profilPhoto => this._profilPhoto;
+  set profilPhoto(String? value) {
+    this._profilPhoto = value;
     notifyListeners();
   }
 
@@ -98,6 +105,7 @@ class HomeViewModel extends BaseViewModel {
     if (session != null) {
       this.isLogin = true;
       UserModel userData = UserModel.fromJson(session);
+      this.profilPhoto = userData.image;
       print(userData.name);
       this.loadPopular(context);
       this.loadLast();
@@ -382,7 +390,7 @@ class HomeViewModel extends BaseViewModel {
             end: DateTime.parse(this.sPropParam.sejourEnd as String)),
         locale: Locale('fr'),
         lastDate:
-            DateTime(initialDate.year, initialDate.month + 1, initialDate.day),
+            DateTime(initialDate.year+1, initialDate.month, initialDate.day),
       );
 
       if (picked != null) {
@@ -423,4 +431,11 @@ class HomeViewModel extends BaseViewModel {
       : SharedFunc.toast(
           msg: "Une erreur s'est produite lors de la rédirection",
           toastLength: Toast.LENGTH_LONG);
+
+  onErrorLoadPhoto(object, stark) {
+    this.profilPhoto = null;
+    SharedFunc.toast(
+        msg:
+            "Une erreur s'est produite lors du chargement de la photo de profil");
+  }
 }

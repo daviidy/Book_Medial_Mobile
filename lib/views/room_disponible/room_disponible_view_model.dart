@@ -139,7 +139,7 @@ class RoomDisponibleViewModel extends BaseViewModel {
             end: DateTime.parse(this.sPropParam.sejourEnd as String)),
         locale: Locale('fr'),
         lastDate:
-            DateTime(initialDate.year, initialDate.month + 1, initialDate.day),
+            DateTime(initialDate.year+1, initialDate.month, initialDate.day),
       );
 
       if (picked != null) {

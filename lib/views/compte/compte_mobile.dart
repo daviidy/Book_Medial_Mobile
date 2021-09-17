@@ -97,30 +97,35 @@ class _CompteMobile extends StatelessWidget {
                             flex: 1,
                             child: Column(
                               children: [
-                                Container(
-                                  width: 53,
-                                  height: 53,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(50.0),
-                                    border: Border.all(
-                                        width: 1.0, color: Colors.black),
-                                    //color: LightColor.primary,
-                                    image: (viewModel.profilPhoto != null)
-                                        ? DecorationImage(
-                                            image: NetworkImage(
-                                                "${viewModel.profilPhoto}"),
-                                            fit: BoxFit.cover,
-                                            onError: (object, stark) =>
-                                                viewModel.onErrorLoadPhoto(
-                                                    object, stark))
-                                        : null,
+                                Hero(tag: "profil",
+                                  child: GestureDetector(
+                                    onTap: () => (viewModel.profilPhoto != null) ? viewModel.showPhoto(context, viewModel.profilPhoto) : null,
+                                    child: Container(
+                                      width: 53,
+                                      height: 53,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(50.0),
+                                        border: Border.all(
+                                            width: 1.0, color: Colors.black),
+                                        //color: LightColor.primary,
+                                        image: (viewModel.profilPhoto != null)
+                                            ? DecorationImage(
+                                                image: NetworkImage(
+                                                    "${viewModel.profilPhoto}"),
+                                                fit: BoxFit.cover,
+                                                onError: (object, stark) =>
+                                                    viewModel.onErrorLoadPhoto(
+                                                        object, stark))
+                                            : null,
+                                      ),
+                                      child: (viewModel.profilPhoto != null)
+                                          ? null
+                                          : Center(
+                                              child: Image.asset(
+                                                  "assets/icons/user2.png"),
+                                            ),
+                                    ),
                                   ),
-                                  child: (viewModel.profilPhoto != null)
-                                      ? null
-                                      : Center(
-                                          child: Image.asset(
-                                              "assets/icons/user2.png"),
-                                        ),
                                 ),
                                 Container(
                                   padding: EdgeInsets.only(top: 10),

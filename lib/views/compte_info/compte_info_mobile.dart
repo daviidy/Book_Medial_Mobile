@@ -41,8 +41,8 @@ class _CompteInfoMobile extends StatelessWidget {
             ),
             ShareWidget.input(
               name: "name",
-              labelText: "Nom utilisateur",
-              hintText: "${(viewModel.userData!.display_name != null ) ? viewModel.userData!.display_name : ''}",
+              labelText: "Contact",
+              hintText: "${(viewModel.userData!.phone != null ) ? viewModel.userData!.phone : ''}",
               enabled: false, //viewModel.onUpdate,
               //backgroundColors: Colors.white,
               //borderColor: Color(0xffC4C4C4),

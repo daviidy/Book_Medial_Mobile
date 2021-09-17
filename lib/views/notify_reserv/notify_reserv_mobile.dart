@@ -187,15 +187,27 @@ class _NotifyReservMobile extends StatelessWidget {
                     ],
                   ),
                 ),
-                // Container(
-                //   child: ShareWidget.boxRoom2(
-                //     //padding: EdgeInsets.all(10),
-                //     margin: EdgeInsets.all(20),
-                //     data: null,
-                //     context: context,
-                //     //route: "/room-reservation"
-                //   ),
-                // ),
+                // (viewModel.isLogin)
+                //     ? SkeletonLoader(
+                //         builder: Container(
+                //           child: ShareWidget.boxRoom2(
+                //             //padding: EdgeInsets.all(10),
+                //             margin: EdgeInsets.all(20),
+                //             data: null,
+                //             context: context,
+                //             //route: "/room-reservation"
+                //           ),
+                //         ),
+                //       )
+                //     : Container(
+                //         child: ShareWidget.boxRoom2(
+                //           //padding: EdgeInsets.all(10),
+                //           margin: EdgeInsets.all(20),
+                //           data: null,
+                //           context: context,
+                //           //route: "/room-reservation"
+                //         ),
+                //       ),
                 SizedBox(
                   height: 30,
                 ),
@@ -260,7 +272,6 @@ class _NotifyReservMobile extends StatelessWidget {
                     ],
                   )),
                 ),
-
                 SizedBox(
                   height: 30,
                 ),

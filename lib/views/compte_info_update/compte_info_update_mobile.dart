@@ -69,7 +69,7 @@ class _CompteInfoUpdateMobile extends StatelessWidget {
         isLoading: viewModel.loader,
         child: SingleChildScrollView(
           child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 10),
+            margin: EdgeInsets.symmetric(horizontal: 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
