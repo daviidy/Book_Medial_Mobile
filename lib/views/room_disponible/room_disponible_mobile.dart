@@ -162,7 +162,7 @@ class _RoomDisponibleMobile extends StatelessWidget {
         ? Container(
             margin: EdgeInsets.symmetric(horizontal: 20),
             child: AutoSizeText(
-              "Voici les chambres disponibles pour cette période",
+              "Voici les chambres disponibles pour la période du ${viewModel.sPropParam.sejourValue}",
               maxLines: 2,
               maxFontSize: 18,
               minFontSize: 18,
@@ -174,7 +174,7 @@ class _RoomDisponibleMobile extends StatelessWidget {
         : Container(
             margin: EdgeInsets.symmetric(horizontal: 20),
             child: AutoSizeText(
-              "La propriété est disponible à cette période",
+              "La propriété est disponible pour la période du ${viewModel.sPropParam.sejourValue}",
               maxLines: 2,
               maxFontSize: 18,
               minFontSize: 18,

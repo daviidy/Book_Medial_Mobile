@@ -98,7 +98,7 @@ class CompteViewModel extends BaseViewModel {
 
   pickFile(source) async {
     final pickedFile = await _picker.pickImage(
-        source: source, imageQuality: 70, maxWidth: 200, maxHeight: 200);
+        source: source, imageQuality: 100, maxWidth: 300, maxHeight: 300);
     try {
       if (pickedFile != null) {
         this.saveImage(pickedFile);

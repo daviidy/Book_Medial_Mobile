@@ -1,11 +1,11 @@
 class Constant {
-  static final String env = "DEV"; // DEV - PROD
+  static final String env = "PROD"; // DEV - PROD
 
-  static final String baseUrlProd = "api.bookmedial.com";
-  static final String baseWebUrlProd = "bookmedial.com";
+  static final String baseUrlProd = "api.bookmedial.com"; // API URL PROD
+  static final String baseWebUrlProd = "bookmedial.com";  // WEB URL PROD
 
-  static final String baseUrlPreProd = "api-bookmedial.rikudo.ci";
-  static final String baseWebUrlPreProd = "book-medial.rikudo.ci";
+  static final String baseUrlPreProd = "api-bookmedial.rikudo.ci"; // API URL DEV
+  static final String baseWebUrlPreProd = "book-medial.rikudo.ci"; // WEB URL DEV
 
   static final String defaultImage = "https://${(env == 'PROD') ? baseWebUrlProd : baseWebUrlPreProd}/assets/images/climate.jpg";
   static final String kGoogleApiKey = "AIzaSyAMbjx_FKQ9eKb1KKwXIDA1g_UefF0fArI";

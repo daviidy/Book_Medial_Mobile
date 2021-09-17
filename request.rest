@@ -1,4 +1,5 @@
-@baseUrl = https://api-bookmedial.rikudo.ci/api
+#@baseUrl = https://api-bookmedial.rikudo.ci/api
+@baseUrl = https://api.bookmedial.com/api
 
 @token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjExYmRkMDgzM2U0MWIyOTRmM2ZiNmI4OTk1NWFjMGVhZmY4ZDQyYjE4ZWE5ZWRkMjdjMGUxNDY3ZmM2NzVmY2NlMzBlN2RhNzBlZDg1NzQiLCJpYXQiOjE2Mjk5NzMzMDUuNTA3MzQzLCJuYmYiOjE2Mjk5NzMzMDUuNTA3MzU2LCJleHAiOjE2NjE1MDkzMDUuNDg4NzYsInN1YiI6IjI5Iiwic2NvcGVzIjpbXX0.ei5guo_VL7KO2xtpZTYQSwwqShlcfvkswanw3NJu1iazsjT5vutZ-nV-v8a0Y2Q5G9b_htlzew-cR2KrsgVAHKuYuhWrwFz32q7iFk6Gzwp4frS6dNn2FdrmX1cm1d7x2kNY6U_pR5h0OdPTc6WyYFtV5vejcOAyRt92sIbr6a001sRonf431GQ1nuwDZ6FOsHqWVi77p-mkrK6Vc7C3x6mzhq8yx0PvZyVTOUa_pYuNmdq2z4jwvHRvfnnKbf7RCYo4zic0CE_gpViA7vxa6fIxZaXnvWpf5fom1rwRZuIFrDP9uoizzY8YFwQR_CTDnQovKiLEHbUbW7-7VpwhUWbGbpC21003wbE8R4lDDuXUj9JSqwUhHzzqWHmtlVRN1D4ltUcW-luydYC-cPbgtPupR4aOBfoiiOZHocC6tWw9jQS5b_QOAZd7j20djcRecJeEcFtxs-5QbDhqxciYgydxFHlJuO8s-Sbkivnmw3COj5Gk5WtNLZwPaOp37do2_60tIiIqGnCamluWe8W89wXpJ-mcpKrwyTdMhwUfvxui_0KL9Z18qsXF66i-nG4OFjeUN4AO6W3qXqhXoK5MRC0bduPGqFNvsF9wMKJgtfG84rOR6JPH9mKmfWiM6AoDedfJSqGgh9lllhrHdIbZOX7bBZz2eFapwi5QAchOwpM
 
@@ -19,7 +20,7 @@ Content-Type: application/json
 {
     "title": "Monsieur",
     "name": "Armel Tissi",
-    "email": "tkjarmel@gmail.com",
+    "email": "a.tissi@armeltissi.com",
     "password": "Password",
     "phone": "",
     "birth_date": "",

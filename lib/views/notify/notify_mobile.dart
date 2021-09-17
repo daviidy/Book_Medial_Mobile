@@ -151,14 +151,14 @@ class _NotifyMobile extends StatelessWidget {
     } else {
       return (viewModel.reservList.length > 0)
           ? _reservContent(context)
-          : _box404(context, "Aucun réservation");
+          : _box404(context, "Aucune réservation");
     }
   }
 
   Widget _favoryBox(context) {
     return (viewModel.favoryList.list.length > 0)
         ? _favoryContent(context)
-        : _box404(context, "Aucun réservation");
+        : _box404(context, "Aucun favoris");
   }
 
   Widget _favoryContent(context) {
