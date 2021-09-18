@@ -12,7 +12,7 @@ Content-Type: application/json
 }
 
 ###
-
+BookMedi@l
 POST {{baseUrl}}/register
 Content-Type: application/json
 # Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJUb2tlbiBBdXRoIiwiaWRQZXIiOiIxMTA4NTE0MCIsImNhdGVnIjoiVVNFUkVYVCIsImlzcyI6InZlb3MyIC0gUFJFUFJPRCAtIE9MRUEiLCJsYW5ndWFnZSI6IkYiLCJleHAiOjE2MjkzNzQwNDMsImlhdCI6MTYyOTM2MzI0M30.jNg22_Q63sr2_8vqQRtx8IqBgfo_YluvTawumO6ijKU
