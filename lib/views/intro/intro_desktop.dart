@@ -8,7 +8,7 @@ class _IntroDesktop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('IntroDesktop')),
+      body: Center(child: Text("Cette application n'est pas compatible avec votre appareil",textAlign: TextAlign.center)),
     );
   }
 }

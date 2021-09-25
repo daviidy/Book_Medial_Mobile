@@ -74,7 +74,7 @@ class IntroViewModel extends BaseViewModel {
         this.bottomText = "Book Medial vous garantit les meilleurs tarifs disponibles avec une qualité de service satisfaisante";
         break;
       case 2:
-        this.headerText = "Vos voulez réserver des séjours sans vous casser la tête?";
+        this.headerText = "Vous voulez réserver des séjours sans vous casser la tête?";
         this.bottomText = "Avec Book Medial, chaque réservation se fait instantanément et en quelques clics";
         break;
       default:

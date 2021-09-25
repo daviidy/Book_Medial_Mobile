@@ -8,7 +8,7 @@ class _IntroTablet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('IntroTablet')),
+      body: Center(child: Text("Cette application n'est pas compatible avec votre appareil",textAlign: TextAlign.center)),
     );
   }
 }
