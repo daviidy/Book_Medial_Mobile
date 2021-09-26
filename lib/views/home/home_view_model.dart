@@ -390,7 +390,7 @@ class HomeViewModel extends BaseViewModel {
             end: DateTime.parse(this.sPropParam.sejourEnd as String)),
         locale: Locale('fr'),
         lastDate:
-            DateTime(initialDate.year+1, initialDate.month, initialDate.day),
+            DateTime(initialDate.year + 1, initialDate.month, initialDate.day),
       );
 
       if (picked != null) {
@@ -414,6 +414,11 @@ class HomeViewModel extends BaseViewModel {
   }
 
   onSearch(context) async {
+    if (!this.isLogin) {
+      Navigator.pushNamed(context, "/login");
+      return;
+    }
+
     print("search");
     await this.storage.setItem("searchData", this.sPropParam.toJson());
 
