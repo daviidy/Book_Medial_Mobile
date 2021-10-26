@@ -1,7 +1,7 @@
 #@baseUrl = https://api-bookmedial.rikudo.ci/api
 @baseUrl = https://api.bookmedial.com/api
 
-@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjExYmRkMDgzM2U0MWIyOTRmM2ZiNmI4OTk1NWFjMGVhZmY4ZDQyYjE4ZWE5ZWRkMjdjMGUxNDY3ZmM2NzVmY2NlMzBlN2RhNzBlZDg1NzQiLCJpYXQiOjE2Mjk5NzMzMDUuNTA3MzQzLCJuYmYiOjE2Mjk5NzMzMDUuNTA3MzU2LCJleHAiOjE2NjE1MDkzMDUuNDg4NzYsInN1YiI6IjI5Iiwic2NvcGVzIjpbXX0.ei5guo_VL7KO2xtpZTYQSwwqShlcfvkswanw3NJu1iazsjT5vutZ-nV-v8a0Y2Q5G9b_htlzew-cR2KrsgVAHKuYuhWrwFz32q7iFk6Gzwp4frS6dNn2FdrmX1cm1d7x2kNY6U_pR5h0OdPTc6WyYFtV5vejcOAyRt92sIbr6a001sRonf431GQ1nuwDZ6FOsHqWVi77p-mkrK6Vc7C3x6mzhq8yx0PvZyVTOUa_pYuNmdq2z4jwvHRvfnnKbf7RCYo4zic0CE_gpViA7vxa6fIxZaXnvWpf5fom1rwRZuIFrDP9uoizzY8YFwQR_CTDnQovKiLEHbUbW7-7VpwhUWbGbpC21003wbE8R4lDDuXUj9JSqwUhHzzqWHmtlVRN1D4ltUcW-luydYC-cPbgtPupR4aOBfoiiOZHocC6tWw9jQS5b_QOAZd7j20djcRecJeEcFtxs-5QbDhqxciYgydxFHlJuO8s-Sbkivnmw3COj5Gk5WtNLZwPaOp37do2_60tIiIqGnCamluWe8W89wXpJ-mcpKrwyTdMhwUfvxui_0KL9Z18qsXF66i-nG4OFjeUN4AO6W3qXqhXoK5MRC0bduPGqFNvsF9wMKJgtfG84rOR6JPH9mKmfWiM6AoDedfJSqGgh9lllhrHdIbZOX7bBZz2eFapwi5QAchOwpM
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMTdhNDQxOThjMTQyNjQxNTg5M2ZhNzQ0YTQ2NTA5NmU2NzYyZGY2MWJjNmMyOTVhOWYwNDczNDFmMzhiYTM4OGQxZTk3MDUwYWI5OWQ2OGMiLCJpYXQiOjE2MzQ5ODgyMjcuNzgwMzA1LCJuYmYiOjE2MzQ5ODgyMjcuNzgwMzEsImV4cCI6MTY2NjUyNDIyNy43NzIwNzcsInN1YiI6IjI5NSIsInNjb3BlcyI6W119.W0EXMHG209351Wv7t6xfVbUJ_Mv-OoyEbj-sO0aA-lJ3-MadLrfKzA6MW0L8n-cAUdp5fTBLzO5qcNgvGhzIrdhRAo885kLYYKJj6rT62KFKcxpn9_q2ctG37YwRx9SlUFJIExZ2r3VFHZ_I8SePxBuQ0Ri-VOaV0UIHDaHXWF4U-8SkWjYMPcOvkCabkzFUqb7H0aOTT9ssXScouJIedVyhVPQTnRChFRvQKgT-KPty8qmj3qRpjd7VF8IFfNW8Sy4M0M5d5uEaTohOBHZ2WCgss69FP00YojcMWE6yOEZDZztS34FVAKvFQ2jniRp59wNnSkZWgxcRfUnNniqCxA3PqYfpF7LXpx2c8Z552OProjyhp_p1m0tiVcKeNNgaLhvbqQYVmTHe0SzdZRGj--p089BZKiKO8PkqGirG1qVjlKve0Zl5FpV1dNFAVDfAPsPcVTIPBN6zQI-Xt_I21fyVsaTU7gwgxfeSlM_aJSgR7ZmUXYTenCxpdhQKA5OjeJoXcvAEC5kLVoQgk8wlAFUH6rp32hLvu3SgZJ7-KyW0gC0PZgaXNP0TYV3maxu7sS6bYhqxE0UpGA31tkqf2FM1Hn6qYalzLaTCvfOxNZxGMMlSOuClD4w_e_lUxATyI_TxrSFB_vv4rl77qwCEMzIDNqZjE1pTPPAnle4Mtl8
 
 POST {{baseUrl}}/login
 Content-Type: application/json
@@ -37,12 +37,13 @@ Content-Type: application/json
 {
     "title": "Monsieur",
     "name": "Armel Tissi",
-    "email": "tkjarmel2@gmail.com",
+    "email": null,
     "password": "Armel1234",
     "phone": "",
     "birth_date": "",
     "nationality": "",
-    "gender": ""
+    "gender": "",
+    "social_id": ""
 }
 
 ###
@@ -145,3 +146,21 @@ Authorization: Bearer {{token}}
 GET {{baseUrl}}/user/bookings
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
+###
+
+POST {{baseUrl}}/social/login
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": 1, 
+    "email": 95, 
+    "password": "court", 
+    "totalRooms": 1, 
+    "typePaiement": "deposit", 
+    "startDate": "11/09/2021", 
+    "endDate": "11/09/2021", 
+    "startTime": "02:25", 
+    "endTime": "02:25"
+}

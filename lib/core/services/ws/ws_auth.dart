@@ -216,10 +216,11 @@ class WsAuth {
 
   static Future<WsResponse> loginOrRegister(UserCredential userData) async {
     Map _data = {
-      "name": userData.user!.displayName,
-      "email": userData.user!.email,
-      "password": userData.user!.uid,
-      "phone": userData.user!.phoneNumber,
+      "name": userData.user?.displayName,
+      "email": userData.user?.email,
+      "password": userData.user?.uid,
+      "social_id": userData.user?.uid,
+      "phone": userData.user?.phoneNumber,
     };
 
     return socialLog(data: _data);
