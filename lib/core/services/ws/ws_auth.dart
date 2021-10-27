@@ -218,7 +218,6 @@ class WsAuth {
     Map _data = {
       "name": userData.user?.displayName,
       "email": userData.user?.email,
-      "password": userData.user?.uid,
       "social_id": userData.user?.uid,
       "phone": userData.user?.phoneNumber,
     };

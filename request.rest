@@ -38,12 +38,12 @@ Content-Type: application/json
     "title": "Monsieur",
     "name": "Armel Tissi",
     "email": null,
-    "password": "Armel1234",
+   
     "phone": "",
     "birth_date": "",
     "nationality": "",
     "gender": "",
-    "social_id": ""
+    "social_id": "12345678"
 }
 
 ###
