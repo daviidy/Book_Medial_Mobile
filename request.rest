@@ -1,0 +1,166 @@
+#@baseUrl = https://api-bookmedial.rikudo.ci/api
+@baseUrl = https://api.bookmedial.com/api
+
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMTdhNDQxOThjMTQyNjQxNTg5M2ZhNzQ0YTQ2NTA5NmU2NzYyZGY2MWJjNmMyOTVhOWYwNDczNDFmMzhiYTM4OGQxZTk3MDUwYWI5OWQ2OGMiLCJpYXQiOjE2MzQ5ODgyMjcuNzgwMzA1LCJuYmYiOjE2MzQ5ODgyMjcuNzgwMzEsImV4cCI6MTY2NjUyNDIyNy43NzIwNzcsInN1YiI6IjI5NSIsInNjb3BlcyI6W119.W0EXMHG209351Wv7t6xfVbUJ_Mv-OoyEbj-sO0aA-lJ3-MadLrfKzA6MW0L8n-cAUdp5fTBLzO5qcNgvGhzIrdhRAo885kLYYKJj6rT62KFKcxpn9_q2ctG37YwRx9SlUFJIExZ2r3VFHZ_I8SePxBuQ0Ri-VOaV0UIHDaHXWF4U-8SkWjYMPcOvkCabkzFUqb7H0aOTT9ssXScouJIedVyhVPQTnRChFRvQKgT-KPty8qmj3qRpjd7VF8IFfNW8Sy4M0M5d5uEaTohOBHZ2WCgss69FP00YojcMWE6yOEZDZztS34FVAKvFQ2jniRp59wNnSkZWgxcRfUnNniqCxA3PqYfpF7LXpx2c8Z552OProjyhp_p1m0tiVcKeNNgaLhvbqQYVmTHe0SzdZRGj--p089BZKiKO8PkqGirG1qVjlKve0Zl5FpV1dNFAVDfAPsPcVTIPBN6zQI-Xt_I21fyVsaTU7gwgxfeSlM_aJSgR7ZmUXYTenCxpdhQKA5OjeJoXcvAEC5kLVoQgk8wlAFUH6rp32hLvu3SgZJ7-KyW0gC0PZgaXNP0TYV3maxu7sS6bYhqxE0UpGA31tkqf2FM1Hn6qYalzLaTCvfOxNZxGMMlSOuClD4w_e_lUxATyI_TxrSFB_vv4rl77qwCEMzIDNqZjE1pTPPAnle4Mtl8
+
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "email": "a.tissi@armeltissi.com",
+  "password": "Password"
+}
+
+###
+BookMedi@l
+POST {{baseUrl}}/register
+Content-Type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJUb2tlbiBBdXRoIiwiaWRQZXIiOiIxMTA4NTE0MCIsImNhdGVnIjoiVVNFUkVYVCIsImlzcyI6InZlb3MyIC0gUFJFUFJPRCAtIE9MRUEiLCJsYW5ndWFnZSI6IkYiLCJleHAiOjE2MjkzNzQwNDMsImlhdCI6MTYyOTM2MzI0M30.jNg22_Q63sr2_8vqQRtx8IqBgfo_YluvTawumO6ijKU
+
+{
+    "title": "Monsieur",
+    "name": "Armel Tissi",
+    "email": "a.tissi@armeltissi.com",
+    "password": "Password",
+    "phone": "",
+    "birth_date": "",
+    "nationality": "",
+    "gender": ""
+}
+
+###
+
+POST {{baseUrl}}/social/login
+Content-Type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJUb2tlbiBBdXRoIiwiaWRQZXIiOiIxMTA4NTE0MCIsImNhdGVnIjoiVVNFUkVYVCIsImlzcyI6InZlb3MyIC0gUFJFUFJPRCAtIE9MRUEiLCJsYW5ndWFnZSI6IkYiLCJleHAiOjE2MjkzNzQwNDMsImlhdCI6MTYyOTM2MzI0M30.jNg22_Q63sr2_8vqQRtx8IqBgfo_YluvTawumO6ijKU
+
+{
+    "title": "Monsieur",
+    "name": "Armel Tissi",
+    "email": null,
+   
+    "phone": "",
+    "birth_date": "",
+    "nationality": "",
+    "gender": "",
+    "social_id": "12345678"
+}
+
+###
+
+POST {{baseUrl}}/user/reset-password
+Content-Type: application/json
+
+{
+    "email": "tkjarmel@gmail.com"
+}
+
+###
+
+GET {{baseUrl}}/password/1234
+Content-Type: application/json
+
+###
+
+POST {{baseUrl}}/password/update
+Content-Type: application/json
+
+{
+    "email": "tkjarmel@gmail.com",
+    "password": "Password"
+}
+
+###
+
+GET {{baseUrl}}/properties/popular
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+
+GET {{baseUrl}}/properties
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+###
+
+GET {{baseUrl}}/properties/city/Abidjan
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+
+POST {{baseUrl}}/properties/search?
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "location": "Abidjan", 
+    "sejourStart": "27/08/2021", 
+    "sejourEnd": "28/08/2021", 
+    "totalPersons": 2, 
+    "personsValue": "2 personnes", 
+    "sejourValue": "27 août - 28 août", 
+    "locationValue": "Grand-Bassam, Côte d'Ivoire"
+}
+
+###
+
+
+POST {{baseUrl}}/property/disponibility
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "property": 95, 
+    "guestNumber": 2, 
+    "startDate": "28/08/2021", 
+    "endDate": "28/08/2021"
+}
+
+###
+POST {{baseUrl}}/booking
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "roomType": 1, 
+    "property": 95, 
+    "typeSejour": "court", 
+    "totalRooms": 1, 
+    "typePaiement": "deposit", 
+    "startDate": "11/09/2021", 
+    "endDate": "11/09/2021", 
+    "startTime": "02:25", 
+    "endTime": "02:25"
+}
+
+###
+GET {{baseUrl}}/user/booking/37
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+###
+GET {{baseUrl}}/user/bookings
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+
+POST {{baseUrl}}/social/login
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": 1, 
+    "email": 95, 
+    "password": "court", 
+    "totalRooms": 1, 
+    "typePaiement": "deposit", 
+    "startDate": "11/09/2021", 
+    "endDate": "11/09/2021", 
+    "startTime": "02:25", 
+    "endTime": "02:25"
+}
